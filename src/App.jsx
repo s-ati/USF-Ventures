@@ -5,7 +5,6 @@ import HomePage from './pages/HomePage'
 import TeamPage from './pages/TeamPage'
 import TeamMemberPage from './pages/TeamMemberPage'
 import PartnersPage from './pages/PartnersPage'
-import SuccessStoriesPage from './pages/SuccessStoriesPage'
 import ScrollToTop from './components/ScrollToTop'
 
 function App() {
@@ -18,7 +17,6 @@ function App() {
         <Route path="/team" element={<TeamPage />} />
         <Route path="/team/:slug" element={<TeamMemberPage />} />
         <Route path="/partners" element={<PartnersPage />} />
-        <Route path="/success-stories" element={<SuccessStoriesPage />} />
       </Routes>
     </>
   )
