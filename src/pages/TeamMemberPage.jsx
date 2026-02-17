@@ -60,7 +60,11 @@ export default function TeamMemberPage() {
               </div>
             </div>
             <div className="tm-bio-col">
-              <p className="tm-bio">{member.bio}</p>
+              <div className="tm-bio">
+                {member.bio.split('\n\n').map((paragraph, i) => (
+                  <p key={i}>{paragraph}</p>
+                ))}
+              </div>
 
               <div className="tm-contact">
                 <p className="tm-contact-label">Get in touch</p>

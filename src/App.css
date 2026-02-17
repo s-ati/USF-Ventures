@@ -1124,6 +1124,14 @@
   color: var(--color-text-secondary);
 }
 
+.tm-bio p {
+  margin-bottom: 1.25rem;
+}
+
+.tm-bio p:last-child {
+  margin-bottom: 0;
+}
+
 .tm-contact {
   margin-top: 3rem;
   padding-top: 2rem;
