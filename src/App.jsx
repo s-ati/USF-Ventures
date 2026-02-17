@@ -1,26 +1,21 @@
+import { Routes, Route } from 'react-router-dom'
 import './App.css'
 import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import DualMandate from './components/DualMandate'
-import About from './components/About'
-import InvestmentThesis from './components/InvestmentThesis'
-import Team from './components/Team'
-import Founders from './components/Founders'
-import Contact from './components/Contact'
-import Footer from './components/Footer'
+import HomePage from './pages/HomePage'
+import TeamPage from './pages/TeamPage'
+import TeamMemberPage from './pages/TeamMemberPage'
+import ScrollToTop from './components/ScrollToTop'
 
 function App() {
   return (
     <>
+      <ScrollToTop />
       <Navbar />
-      <Hero />
-      <DualMandate />
-      <About />
-      <InvestmentThesis />
-      <Team />
-      <Founders />
-      <Contact />
-      <Footer />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/team" element={<TeamPage />} />
+        <Route path="/team/:slug" element={<TeamMemberPage />} />
+      </Routes>
     </>
   )
 }
