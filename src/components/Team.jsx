@@ -1,35 +1,7 @@
-const team = [
-  {
-    name: 'Alexander Chen',
-    role: 'General Partner',
-    initials: 'AC',
-  },
-  {
-    name: 'Sarah Mitchell',
-    role: 'General Partner',
-    initials: 'SM',
-  },
-  {
-    name: 'David Park',
-    role: 'Partner',
-    initials: 'DP',
-  },
-  {
-    name: 'Elena Rodriguez',
-    role: 'Principal',
-    initials: 'ER',
-  },
-  {
-    name: 'James Liu',
-    role: 'Principal',
-    initials: 'JL',
-  },
-  {
-    name: 'Maya Patel',
-    role: 'Associate',
-    initials: 'MP',
-  },
-]
+import { Link } from 'react-router-dom'
+import teamData from '../data/team'
+
+const previewMembers = teamData.foundingTeam.slice(0, 6)
 
 export default function Team() {
   return (
@@ -40,15 +12,23 @@ export default function Team() {
           <h2 className="team-heading">The people behind USF Ventures</h2>
         </div>
         <div className="team-grid">
-          {team.map((member, i) => (
-            <div className="team-card" key={i}>
+          {previewMembers.map((member) => (
+            <Link to={`/team/${member.slug}`} className="team-card" key={member.slug}>
               <div className="team-card-image">
-                <div className="team-card-placeholder">{member.initials}</div>
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  className="team-card-img"
+                />
+                <div className="team-card-hover" />
               </div>
               <h3>{member.name}</h3>
               <p>{member.role}</p>
-            </div>
+            </Link>
           ))}
+        </div>
+        <div className="team-cta">
+          <Link to="/team" className="team-cta-link">View full team &rarr;</Link>
         </div>
       </div>
     </section>
