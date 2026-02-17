@@ -18,7 +18,7 @@ export default function Team() {
                 <img
                   src={member.image}
                   alt={member.name}
-                  className="team-card-img"
+                  className={`team-card-img portrait-${member.slug}`}
                 />
                 <div className="team-card-hover" />
               </div>

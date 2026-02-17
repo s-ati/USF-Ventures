@@ -6,7 +6,7 @@ function TeamCard({ member }) {
   return (
     <Link to={`/team/${member.slug}`} className="tp-card">
       <div className="tp-card-image">
-        <img src={member.image} alt={member.name} />
+        <img src={member.image} alt={member.name} className={`portrait-${member.slug}`} />
         <div className="tp-card-overlay" />
       </div>
       <h3 className="tp-card-name">{member.name}</h3>

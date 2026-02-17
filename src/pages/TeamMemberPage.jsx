@@ -56,7 +56,7 @@ export default function TeamMemberPage() {
           <div className="tm-content">
             <div className="tm-image-col">
               <div className="tm-image">
-                <img src={member.image} alt={member.name} />
+                <img src={member.image} alt={member.name} className={`portrait-${member.slug}`} />
               </div>
             </div>
             <div className="tm-bio-col">

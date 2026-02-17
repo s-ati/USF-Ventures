@@ -597,6 +597,19 @@
 }
 
 /* ============================================
+   PORTRAIT CROP ADJUSTMENTS
+   Per-member object-position overrides for
+   consistent face alignment across the grid.
+   ============================================ */
+.portrait-shomit {
+  object-position: 42% center;
+}
+
+.portrait-samuel {
+  object-position: center 30%;
+}
+
+/* ============================================
    FOUNDERS SECTION
    ============================================ */
 .founders-intro {
