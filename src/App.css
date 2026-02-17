@@ -103,23 +103,78 @@
 /* ============================================
    HERO SECTION
    ============================================ */
+
+/* Scroll wrapper: tall container that the hero sticks inside.
+   Height = 250vh gives ~1.5-2 scroll lengths of reveal. */
+.hero-scroll-wrapper {
+  height: 250vh;
+  position: relative;
+}
+
 .hero {
   height: 100vh;
   min-height: 600px;
-  position: relative;
+  position: sticky;
+  top: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-color: #1a2a1f;
-  background-image:
+  background-color: #0a1410;
+  overflow: hidden;
+}
+
+/* Background image layer — brightness/saturation/blur controlled via JS scroll */
+.hero-bg-image {
+  position: absolute;
+  inset: -20px;
+  background-image: url('/usf-church.jpeg');
+  background-size: cover;
+  background-position: center 35%;
+  background-repeat: no-repeat;
+  filter: brightness(0.55) saturate(0.7) contrast(1.15) blur(1.5px);
+  transform: scale(1.08);
+  will-change: transform, filter;
+}
+
+/* Dark gradient overlay — 60-75% opacity, cinematic depth */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
     linear-gradient(
       to bottom,
-      rgba(0, 30, 20, 0.65) 0%,
-      rgba(0, 40, 28, 0.75) 50%,
-      rgba(0, 20, 14, 0.85) 100%
+      rgba(6, 14, 10, 0.72) 0%,
+      rgba(4, 12, 8, 0.60) 35%,
+      rgba(4, 12, 8, 0.62) 65%,
+      rgba(2, 8, 5, 0.78) 100%
     );
-  overflow: hidden;
+  z-index: 0;
+}
+
+/* Vignette overlay — soft darkened edges */
+.hero-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 70% 60% at center,
+    transparent 0%,
+    rgba(0, 0, 0, 0.35) 100%
+  );
+  z-index: 0;
+}
+
+/* Subtle film grain noise texture */
+.hero-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.045;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  mix-blend-mode: overlay;
 }
 
 .hero-content {
@@ -137,6 +192,7 @@
   line-height: 1.1;
   color: var(--color-hero-text);
   margin-bottom: 1.5rem;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
 }
 
 .hero-subtitle {
@@ -146,6 +202,7 @@
   letter-spacing: 0.02em;
   color: rgba(255, 255, 255, 0.8);
   line-height: 1.6;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.3);
 }
 
 .hero-scroll-indicator {
