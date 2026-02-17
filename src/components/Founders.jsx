@@ -137,12 +137,6 @@ export default function Founders() {
       {/* Success Stories Intro */}
       <div className="container">
         <p className="section-label">Founders</p>
-        <h2 className="section-heading">USF Founder Success Stories</h2>
-        <div className="founders-intro">
-          <p className="section-subheading">
-            Highlighting alumni who are building and scaling innovative ventures.
-          </p>
-        </div>
         <p className="ss-raised">
           Between 2023 and 2025, USF founders raised $145M.
         </p>
@@ -197,6 +191,10 @@ export default function Founders() {
       {/* Founder Stories */}
       <div className="ss-founders">
         <div className="container">
+          <h2 className="section-heading">USF Founder Success Stories</h2>
+          <p className="section-subheading" style={{ marginBottom: '2rem' }}>
+            Highlighting alumni who are building and scaling innovative ventures.
+          </p>
           <div className="ss-founders-grid">
             {founders.map((f) => (
               <FounderBlock key={f.name} {...f} />
