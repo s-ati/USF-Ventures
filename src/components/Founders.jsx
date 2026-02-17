@@ -4,6 +4,7 @@ const founders = [
   {
     name: 'Germain Bahri',
     company: 'ZaZu',
+    photo: '/founders/germain-bahri.jpg',
     description:
       'USF 2015 SOM alum. Raised $1M in December 2025 for ZaZu, an innovative tech startup led by Plug and Play. Actively exploring future growth rounds.',
     quote: "I'd love to have USF Ventures on the cap table.",
@@ -11,6 +12,7 @@ const founders = [
   {
     name: 'Pablo Hansen',
     company: 'Proliferate',
+    photo: '/founders/pablo-hansen.jpg',
     description:
       'Founder of Proliferate (YC S25), an autonomous engineering organization where coding agents and operators build together faster. Raised $5.2M seed after YC.',
     quote: "It's great to have a USF-specific venture fund.",
@@ -18,6 +20,7 @@ const founders = [
   {
     name: 'Caroline Early',
     company: 'Pillar',
+    photo: '/founders/caroline-early.jpg',
     description:
       "Founder & Co-CEO of Pillar (YC S21), a white-label healthcare enablement platform. Previously exited a women's health company to P&G (2019). Preparing Pillar for future exit.",
     quote:
@@ -25,11 +28,16 @@ const founders = [
   },
 ]
 
-function FounderBlock({ name, company, description, quote }) {
+function FounderBlock({ name, company, photo, description, quote }) {
+  const initials = name.split(' ').map((n) => n[0]).join('')
   return (
     <div className="ss-founder-block">
       <div className="ss-founder-avatar">
-        <span>{name.split(' ').map((n) => n[0]).join('')}</span>
+        {photo ? (
+          <img src={photo} alt={name} className="ss-founder-avatar-img" />
+        ) : (
+          <span>{initials}</span>
+        )}
       </div>
       <h3 className="ss-founder-name">
         {name} <span className="ss-founder-company">({company})</span>

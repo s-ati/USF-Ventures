@@ -180,13 +180,13 @@
 .hero-content {
   position: relative;
   z-index: 1;
-  max-width: 800px;
+  max-width: 860px;
   padding: 0 var(--container-padding);
 }
 
 .hero-title {
   font-family: var(--font-heading);
-  font-size: clamp(2.75rem, 6vw, 5rem);
+  font-size: clamp(3.25rem, 7vw, 6rem);
   font-weight: 400;
   letter-spacing: -0.01em;
   line-height: 1.1;
@@ -197,7 +197,7 @@
 
 .hero-subtitle {
   font-family: var(--font-body);
-  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  font-size: clamp(1.125rem, 1.8vw, 1.5rem);
   font-weight: 400;
   letter-spacing: 0.02em;
   color: rgba(255, 255, 255, 0.8);
@@ -267,9 +267,9 @@
 }
 
 .mandate-label {
-  font-size: 0.6875rem;
+  font-size: 0.875rem;
   font-weight: 600;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--color-accent);
   margin-bottom: 2rem;
@@ -310,9 +310,9 @@
 }
 
 .section-label {
-  font-size: 0.6875rem;
+  font-size: 0.875rem;
   font-weight: 600;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--color-accent);
   margin-bottom: 2rem;
@@ -345,9 +345,9 @@
 }
 
 .about-block-label {
-  font-size: 0.6875rem;
+  font-size: 0.875rem;
   font-weight: 600;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--color-accent);
   margin-bottom: 1rem;
@@ -414,11 +414,11 @@
 }
 
 .thesis-block-number {
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--color-accent);
   margin-bottom: 1rem;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
 }
 
 .thesis-block-heading {
@@ -490,9 +490,9 @@
 }
 
 .team-label {
-  font-size: 0.6875rem;
+  font-size: 0.875rem;
   font-weight: 600;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--color-accent);
   margin-bottom: 2rem;
@@ -605,9 +605,9 @@
 }
 
 .team-group-label {
-  font-size: 0.6875rem;
+  font-size: 0.875rem;
   font-weight: 600;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--color-accent);
   margin-bottom: 2.5rem;
@@ -661,9 +661,9 @@
 }
 
 .founders-card-label {
-  font-size: 0.6875rem;
+  font-size: 0.875rem;
   font-weight: 600;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--color-accent);
   margin-bottom: 1.5rem;
@@ -798,9 +798,9 @@
 }
 
 .contact-detail-label {
-  font-size: 0.6875rem;
+  font-size: 0.875rem;
   font-weight: 600;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--color-accent);
   margin-bottom: 0.25rem;
@@ -1023,9 +1023,9 @@
 }
 
 .tp-section-label {
-  font-size: 0.6875rem;
+  font-size: 0.875rem;
   font-weight: 600;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--color-accent);
   margin-bottom: 2.5rem;
@@ -1302,13 +1302,15 @@ section.partners-page {
 .marquee-track {
   width: 100%;
   overflow: hidden;
+  position: relative;
 }
 
 .marquee-content {
   display: flex;
   gap: 4rem;
   width: max-content;
-  animation: marqueeScroll 28s linear infinite;
+  animation: marqueeScroll 36s linear infinite;
+  will-change: transform;
 }
 
 .marquee-section:hover .marquee-content {
@@ -1338,7 +1340,7 @@ section.partners-page {
 }
 
 .marquee-logo-img {
-  height: 48px;
+  height: 72px;
   width: auto;
   object-fit: contain;
   pointer-events: none;
@@ -1474,7 +1476,7 @@ section.partners-page {
   width: 100%;
   height: 1px;
   background-color: var(--color-border);
-  margin: var(--section-padding) 0;
+  margin: 3rem 0;
 }
 
 /* --- Founder Blocks --- */
@@ -1497,14 +1499,21 @@ section.partners-page {
 }
 
 .ss-founder-avatar {
-  width: 72px;
-  height: 72px;
+  width: 96px;
+  height: 96px;
   border-radius: 50%;
   background: var(--color-accent-light);
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 1.25rem;
+  overflow: hidden;
+}
+
+.ss-founder-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .ss-founder-avatar span {
@@ -1549,7 +1558,7 @@ section.partners-page {
 
 /* --- CTA --- */
 .ss-cta {
-  padding: var(--section-padding) 0;
+  padding: 3rem 0;
   text-align: center;
   border-top: 1px solid var(--color-border);
 }
