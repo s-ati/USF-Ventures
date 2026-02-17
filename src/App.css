@@ -105,9 +105,9 @@
    ============================================ */
 
 /* Scroll wrapper: tall container that the hero sticks inside.
-   Height = 400vh gives ~3-4 scroll lengths of reveal. */
+   Height = 250vh gives ~1.5-2 scroll lengths of reveal. */
 .hero-scroll-wrapper {
-  height: 400vh;
+  height: 250vh;
   position: relative;
 }
 
