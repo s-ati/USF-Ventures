@@ -51,8 +51,8 @@ export default function PartnersPage() {
         <div className="container">
           <div className="partners-statement">
             <p>
-              We partner with leading venture firms and ecosystem institutions to support
-              USF founders at every stage of growth.
+              We partner with leading venture firms and ecosystem institutions for
+              co-investment opportunities and to support USF founders at every stage of growth.
             </p>
           </div>
         </div>
