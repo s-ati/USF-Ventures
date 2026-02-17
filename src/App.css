@@ -103,10 +103,19 @@
 /* ============================================
    HERO SECTION
    ============================================ */
+
+/* Scroll wrapper: tall container that the hero sticks inside.
+   Height = 400vh gives ~3-4 scroll lengths of reveal. */
+.hero-scroll-wrapper {
+  height: 400vh;
+  position: relative;
+}
+
 .hero {
   height: 100vh;
   min-height: 600px;
-  position: relative;
+  position: sticky;
+  top: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -115,7 +124,7 @@
   overflow: hidden;
 }
 
-/* Background image layer — slow zoom, reduced brightness/saturation, subtle blur */
+/* Background image layer — brightness/saturation/blur controlled via JS scroll */
 .hero-bg-image {
   position: absolute;
   inset: -20px;
@@ -124,18 +133,8 @@
   background-position: center 35%;
   background-repeat: no-repeat;
   filter: brightness(0.55) saturate(0.7) contrast(1.15) blur(1.5px);
-  animation: heroZoom 25s ease-in-out infinite alternate;
   transform: scale(1.08);
-  will-change: transform;
-}
-
-@keyframes heroZoom {
-  0% {
-    transform: scale(1.08);
-  }
-  100% {
-    transform: scale(1.15);
-  }
+  will-change: transform, filter;
 }
 
 /* Dark gradient overlay — 60-75% opacity, cinematic depth */
