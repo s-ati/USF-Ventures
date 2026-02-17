@@ -45,6 +45,8 @@ export default function Navbar() {
           </>
         )}
         <Link to="/team" onClick={() => setMenuOpen(false)}>Team</Link>
+        <Link to="/partners" onClick={() => setMenuOpen(false)}>Partners</Link>
+        <Link to="/success-stories" onClick={() => setMenuOpen(false)}>Stories</Link>
         {isHome ? (
           <>
             <a href="#founders" onClick={() => handleAnchorClick('#founders')}>Founders</a>
