@@ -1,12 +1,5 @@
 import { Link } from 'react-router-dom'
 
-const fundingData = [
-  { label: 'Pre-Seed', value: 25 },
-  { label: 'Seed', value: 40 },
-  { label: 'Series A', value: 55 },
-  { label: 'Series B+', value: 30 },
-]
-
 const founders = [
   {
     name: 'Germain Bahri',
@@ -31,90 +24,6 @@ const founders = [
       "I'd love to have USF Ventures on a term sheet in a future company.",
   },
 ]
-
-function BarChart() {
-  const maxVal = Math.max(...fundingData.map((d) => d.value))
-
-  return (
-    <div className="ss-chart-card">
-      <h3 className="ss-chart-title">Funding by Type</h3>
-      <div className="ss-bar-chart">
-        {fundingData.map((d) => (
-          <div className="ss-bar-group" key={d.label}>
-            <div className="ss-bar-track">
-              <div
-                className="ss-bar-fill"
-                style={{ height: `${(d.value / maxVal) * 100}%` }}
-              />
-            </div>
-            <span className="ss-bar-label">{d.label}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-function DonutChart() {
-  const acquisition = 92
-  const ipo = 8
-  const radius = 54
-  const circumference = 2 * Math.PI * radius
-  const acqLen = (acquisition / 100) * circumference
-  const ipoLen = (ipo / 100) * circumference
-
-  return (
-    <div className="ss-chart-card">
-      <h3 className="ss-chart-title">Exit Split</h3>
-      <div className="ss-donut-wrapper">
-        <svg className="ss-donut" viewBox="0 0 128 128" aria-label="Exit split: 92% acquisition, 8% IPO">
-          <circle
-            cx="64"
-            cy="64"
-            r={radius}
-            fill="none"
-            stroke="var(--color-border-light)"
-            strokeWidth="16"
-          />
-          <circle
-            cx="64"
-            cy="64"
-            r={radius}
-            fill="none"
-            stroke="var(--color-accent)"
-            strokeWidth="16"
-            strokeDasharray={`${acqLen} ${circumference}`}
-            strokeDashoffset="0"
-            transform="rotate(-90 64 64)"
-            strokeLinecap="butt"
-          />
-          <circle
-            cx="64"
-            cy="64"
-            r={radius}
-            fill="none"
-            stroke="#3a7d5c"
-            strokeWidth="16"
-            strokeDasharray={`${ipoLen} ${circumference}`}
-            strokeDashoffset={`-${acqLen}`}
-            transform="rotate(-90 64 64)"
-            strokeLinecap="butt"
-          />
-        </svg>
-        <div className="ss-donut-legend">
-          <div className="ss-legend-item">
-            <span className="ss-legend-dot ss-legend-dot--acq" />
-            <span>Acquisition (92%)</span>
-          </div>
-          <div className="ss-legend-item">
-            <span className="ss-legend-dot ss-legend-dot--ipo" />
-            <span>IPO (8%)</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
 
 function FounderBlock({ name, company, description, quote }) {
   return (
@@ -175,16 +84,6 @@ export default function Founders() {
             </div>
           </div>
           <div className="ss-accent-line" />
-        </div>
-      </div>
-
-      {/* Charts */}
-      <div className="ss-charts">
-        <div className="container">
-          <div className="ss-charts-grid">
-            <BarChart />
-            <DonutChart />
-          </div>
         </div>
       </div>
 
