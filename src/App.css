@@ -1265,6 +1265,12 @@
   min-height: 100vh;
 }
 
+section.partners-page {
+  padding-top: 3rem;
+  padding-bottom: 2rem;
+  min-height: auto;
+}
+
 .partners-header {
   margin-bottom: 4rem;
 }
