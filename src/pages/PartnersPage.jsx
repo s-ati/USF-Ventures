@@ -39,11 +39,19 @@ export default function PartnersPage() {
         <div className="marquee-section">
           <div className="marquee-track">
             <div className="marquee-content">
+              {/* Set A — original */}
               {partners.map((p, i) => (
-                <PartnerLogo key={i} name={p.name} logo={p.logo} />
+                <PartnerLogo key={`a-${i}`} name={p.name} logo={p.logo} />
               ))}
               {partners.map((p, i) => (
-                <PartnerLogo key={`dup-${i}`} name={p.name} logo={p.logo} />
+                <PartnerLogo key={`b-${i}`} name={p.name} logo={p.logo} />
+              ))}
+              {/* Set B — duplicate for seamless wrap */}
+              {partners.map((p, i) => (
+                <PartnerLogo key={`c-${i}`} name={p.name} logo={p.logo} />
+              ))}
+              {partners.map((p, i) => (
+                <PartnerLogo key={`d-${i}`} name={p.name} logo={p.logo} />
               ))}
             </div>
           </div>
