@@ -1255,3 +1255,352 @@
     max-width: 400px;
   }
 }
+
+/* ============================================
+   PARTNERS PAGE (/partners)
+   ============================================ */
+.partners-page {
+  padding-top: 7rem;
+  padding-bottom: var(--section-padding);
+  min-height: 100vh;
+}
+
+section.partners-page {
+  padding-top: 3rem;
+  padding-bottom: 2rem;
+  min-height: auto;
+}
+
+.partners-header {
+  margin-bottom: 4rem;
+}
+
+.partners-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 400;
+  color: var(--color-text);
+  line-height: 1.1;
+  margin-bottom: 1.25rem;
+}
+
+.partners-subtitle {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  max-width: 560px;
+}
+
+/* --- Marquee --- */
+.marquee-section {
+  overflow: hidden;
+  padding: 3rem 0;
+  border-top: 1px solid var(--color-border-light);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.marquee-track {
+  width: 100%;
+  overflow: hidden;
+}
+
+.marquee-content {
+  display: flex;
+  gap: 4rem;
+  width: max-content;
+  animation: marqueeScroll 28s linear infinite;
+}
+
+.marquee-section:hover .marquee-content {
+  animation-play-state: paused;
+}
+
+@keyframes marqueeScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-logo {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  filter: grayscale(100%);
+  opacity: 0.55;
+  transition: filter 0.4s ease, opacity 0.4s ease;
+  cursor: default;
+}
+
+.marquee-logo:hover {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+.marquee-logo-img {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+
+.partners-statement {
+  margin-top: 4rem;
+  max-width: 640px;
+}
+
+.partners-statement p {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+}
+
+/* ============================================
+   PARTNERS PAGE RESPONSIVE — TABLET
+   ============================================ */
+@media (max-width: 1024px) {
+  .marquee-content {
+    gap: 3rem;
+  }
+}
+
+/* ============================================
+   PARTNERS PAGE RESPONSIVE — MOBILE
+   ============================================ */
+@media (max-width: 768px) {
+  .partners-page {
+    padding-top: 5.5rem;
+  }
+
+  .marquee-content {
+    gap: 2.5rem;
+  }
+
+  .marquee-logo {
+    height: 44px;
+  }
+
+  .marquee-logo-initials {
+    font-size: 1.25rem;
+  }
+}
+
+/* ============================================
+   FOUNDERS — SUCCESS STORIES (integrated)
+   ============================================ */
+.ss-raised {
+  font-family: var(--font-heading);
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  font-weight: 400;
+  color: var(--color-text);
+  line-height: 1.3;
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.ss-initiative {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  max-width: 640px;
+}
+
+/* --- Metrics Strip (2-over-3) --- */
+.ss-metrics {
+  padding: 4rem 0;
+  margin-top: 4rem;
+  background-color: var(--color-bg-alt);
+  border-top: 1px solid var(--color-border-light);
+}
+
+.ss-metrics-row-primary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  text-align: center;
+}
+
+.ss-metrics-row-secondary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  text-align: center;
+}
+
+.ss-metrics-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--color-accent), transparent);
+  margin: 2.5rem 0;
+  opacity: 0.3;
+}
+
+.ss-metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ss-metric--large .ss-metric-value {
+  font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+}
+
+.ss-metric-value {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 400;
+  color: var(--color-text);
+  line-height: 1;
+}
+
+.ss-metric-label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-muted);
+  letter-spacing: 0.02em;
+}
+
+.ss-accent-line {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, var(--color-accent), transparent);
+  margin-top: 3rem;
+  opacity: 0.4;
+}
+
+.founders-forms-divider {
+  width: 100%;
+  height: 1px;
+  background-color: var(--color-border);
+  margin: var(--section-padding) 0;
+}
+
+/* --- Founder Blocks --- */
+.ss-founders {
+  padding: var(--section-padding) 0;
+}
+
+.ss-founders-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+}
+
+.ss-founder-block {
+  transition: opacity 0.2s ease;
+}
+
+.ss-founder-block:hover {
+  opacity: 0.85;
+}
+
+.ss-founder-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--color-accent-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.ss-founder-avatar span {
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  letter-spacing: 0.02em;
+}
+
+.ss-founder-name {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 0.75rem;
+}
+
+.ss-founder-company {
+  font-weight: 400;
+  color: var(--color-muted);
+}
+
+.ss-founder-desc {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  margin-bottom: 1.25rem;
+}
+
+.ss-founder-quote {
+  font-family: var(--font-heading);
+  font-size: 1.0625rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--color-text);
+  line-height: 1.5;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* --- CTA --- */
+.ss-cta {
+  padding: var(--section-padding) 0;
+  text-align: center;
+  border-top: 1px solid var(--color-border);
+}
+
+.ss-cta-button {
+  display: inline-block;
+  padding: 0.875rem 2.5rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--color-accent);
+  color: var(--color-hero-text);
+  transition: background-color 0.2s ease;
+}
+
+.ss-cta-button:hover {
+  background: #003d2b;
+}
+
+.ss-cta-text {
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+  color: var(--color-muted);
+  line-height: 1.6;
+}
+
+/* ============================================
+   FOUNDERS SUCCESS STORIES RESPONSIVE — TABLET
+   ============================================ */
+@media (max-width: 1024px) {
+  .ss-founders-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ============================================
+   FOUNDERS SUCCESS STORIES RESPONSIVE — MOBILE
+   ============================================ */
+@media (max-width: 768px) {
+  .ss-metrics-row-primary {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .ss-metrics-row-secondary {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .ss-founders-grid {
+    grid-template-columns: 1fr;
+  }
+}
