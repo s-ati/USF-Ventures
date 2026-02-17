@@ -180,13 +180,13 @@
 .hero-content {
   position: relative;
   z-index: 1;
-  max-width: 860px;
+  max-width: 960px;
   padding: 0 var(--container-padding);
 }
 
 .hero-title {
   font-family: var(--font-heading);
-  font-size: clamp(3.25rem, 7vw, 6rem);
+  font-size: clamp(3.75rem, 8vw, 7rem);
   font-weight: 400;
   letter-spacing: -0.01em;
   line-height: 1.1;
@@ -197,7 +197,7 @@
 
 .hero-subtitle {
   font-family: var(--font-body);
-  font-size: clamp(1.125rem, 1.8vw, 1.5rem);
+  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
   font-weight: 400;
   letter-spacing: 0.02em;
   color: rgba(255, 255, 255, 0.8);
@@ -267,9 +267,9 @@
 }
 
 .mandate-label {
-  font-size: 0.875rem;
+  font-size: 1.1rem;
   font-weight: 600;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--color-accent);
   margin-bottom: 2rem;
@@ -310,9 +310,9 @@
 }
 
 .section-label {
-  font-size: 0.875rem;
+  font-size: 1.1rem;
   font-weight: 600;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--color-accent);
   margin-bottom: 2rem;
@@ -345,9 +345,9 @@
 }
 
 .about-block-label {
-  font-size: 0.875rem;
+  font-size: 1.1rem;
   font-weight: 600;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--color-accent);
   margin-bottom: 1rem;
@@ -414,11 +414,11 @@
 }
 
 .thesis-block-number {
-  font-size: 0.875rem;
+  font-size: 1.1rem;
   font-weight: 600;
   color: var(--color-accent);
   margin-bottom: 1rem;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
 }
 
 .thesis-block-heading {
@@ -490,9 +490,9 @@
 }
 
 .team-label {
-  font-size: 0.875rem;
+  font-size: 1.1rem;
   font-weight: 600;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--color-accent);
   margin-bottom: 2rem;
@@ -605,9 +605,9 @@
 }
 
 .team-group-label {
-  font-size: 0.875rem;
+  font-size: 1.1rem;
   font-weight: 600;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--color-accent);
   margin-bottom: 2.5rem;
@@ -661,9 +661,9 @@
 }
 
 .founders-card-label {
-  font-size: 0.875rem;
+  font-size: 1.1rem;
   font-weight: 600;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--color-accent);
   margin-bottom: 1.5rem;
@@ -798,9 +798,9 @@
 }
 
 .contact-detail-label {
-  font-size: 0.875rem;
+  font-size: 1.1rem;
   font-weight: 600;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--color-accent);
   margin-bottom: 0.25rem;
@@ -1023,9 +1023,9 @@
 }
 
 .tp-section-label {
-  font-size: 0.875rem;
+  font-size: 1.1rem;
   font-weight: 600;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--color-accent);
   margin-bottom: 2.5rem;
