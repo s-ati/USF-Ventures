@@ -1,13 +1,13 @@
 import Footer from '../components/Footer'
 
 const partners = [
-  { name: 'Plug and Play', logo: '/partners/plug-and-play.svg' },
-  { name: 'Y Combinator', logo: '/partners/y-combinator.svg' },
-  { name: 'Sequoia Capital', logo: '/partners/sequoia.svg' },
-  { name: 'Andreessen Horowitz', logo: '/partners/a16z.svg' },
-  { name: 'Kleiner Perkins', logo: '/partners/kleiner-perkins.svg' },
-  { name: 'Accel Partners', logo: '/partners/accel.svg' },
-  { name: 'Greylock Partners', logo: '/partners/greylock.svg' },
+  { name: 'Plug and Play', logo: '/partners/plug-and-play.jpg' },
+  { name: 'Y Combinator', logo: '/partners/y-combinator.jpg' },
+  { name: 'Sequoia Capital', logo: '/partners/sequoia.jpg' },
+  { name: 'Andreessen Horowitz', logo: '/partners/a16z.jpg' },
+  { name: 'Kleiner Perkins', logo: '/partners/kleiner-perkins.jpg' },
+  { name: 'Accel Partners', logo: '/partners/accel.jpg' },
+  { name: 'Greylock Partners', logo: '/partners/greylock.jpg' },
 ]
 
 function PartnerLogo({ name, logo }) {
