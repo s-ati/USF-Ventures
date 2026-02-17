@@ -37,7 +37,7 @@ export default function Team() {
       <div className="container">
         <div className="team-header">
           <p className="team-label">Team</p>
-          <h2 className="team-heading">The people behind Type 1</h2>
+          <h2 className="team-heading">The people behind USF Ventures</h2>
         </div>
         <div className="team-grid">
           {team.map((member, i) => (

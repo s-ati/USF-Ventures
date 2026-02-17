@@ -1,25 +1,56 @@
 export default function About() {
   return (
-    <section id="about" className="section-about">
+    <section id="about" className="section section--alt">
       <div className="container">
-        <div className="grid-12">
-          <div className="about-content">
-            <p className="about-label">About</p>
-            <h2 className="about-heading">
-              We partner with exceptional founders building transformative companies at the frontier of computing.
-            </h2>
-            <div className="about-description">
-              <p>
-                Type 1 Ventures is an early-stage venture fund investing in founders who are
-                pushing the boundaries of what's possible. We focus on deep technology companies
-                that have the potential to reshape industries and create lasting impact.
-              </p>
-              <p>
-                Our team brings decades of experience in building and scaling technology companies.
-                We work closely with our founders from the earliest stages, providing not just capital
-                but strategic guidance, technical expertise, and access to our extensive network.
-              </p>
-            </div>
+        <p className="section-label">About</p>
+        <h2 className="section-heading">
+          A venture fund rooted in the University of San Francisco.
+        </h2>
+        <p className="section-subheading">
+          USF Ventures operates at the intersection of institutional capital and
+          academic innovation, backed by the University of San Francisco and its
+          Entrepreneurship &amp; Innovation Initiative.
+        </p>
+
+        <div className="about-grid">
+          <div>
+            <p className="about-block-label">Who We Are</p>
+            <h3 className="about-block-heading">
+              University-backed. Founder-focused.
+            </h3>
+            <p className="about-block-text">
+              USF Ventures is an early-stage venture fund managed by students, faculty,
+              and alumni of the University of San Francisco. We bring institutional
+              credibility and academic rigor to the venture capital process, while
+              maintaining the agility and conviction that early-stage investing demands.
+            </p>
+          </div>
+          <div>
+            <p className="about-block-label">Why San Francisco</p>
+            <h3 className="about-block-heading">
+              At the center of global innovation.
+            </h3>
+            <p className="about-block-text">
+              San Francisco remains the world&apos;s most concentrated ecosystem for
+              technology startups, venture capital, and breakthrough research. USF
+              sits at the heart of this ecosystem, giving our fund direct access to
+              founders, investors, and industry leaders shaping the future.
+            </p>
+          </div>
+        </div>
+
+        <div className="about-stats">
+          <div>
+            <p className="about-stat-value">San Francisco</p>
+            <p className="about-stat-label">Headquartered at USF</p>
+          </div>
+          <div>
+            <p className="about-stat-value">Seed &amp; Series A</p>
+            <p className="about-stat-label">Investment stage focus</p>
+          </div>
+          <div>
+            <p className="about-stat-value">Dual Mandate</p>
+            <p className="about-stat-label">Returns &amp; Innovation</p>
           </div>
         </div>
       </div>

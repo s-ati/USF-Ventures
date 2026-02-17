@@ -1,10 +1,11 @@
 import './App.css'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
+import DualMandate from './components/DualMandate'
 import About from './components/About'
-import FocusAreas from './components/FocusAreas'
-import Portfolio from './components/Portfolio'
+import InvestmentThesis from './components/InvestmentThesis'
 import Team from './components/Team'
+import Founders from './components/Founders'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 
@@ -13,10 +14,11 @@ function App() {
     <>
       <Navbar />
       <Hero />
+      <DualMandate />
       <About />
-      <FocusAreas />
-      <Portfolio />
+      <InvestmentThesis />
       <Team />
+      <Founders />
       <Contact />
       <Footer />
     </>

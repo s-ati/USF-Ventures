@@ -1,16 +1,22 @@
-/* PPMori font - using closest available system fonts as fallback */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap');
 
 :root {
-  --color-bg: #010614;
-  --color-text: #e6e9f2;
-  --color-hero-text: #fcfcfc;
-  --color-muted: #8a8f9f;
-  --color-accent: #4a6cf7;
-  --color-border: rgba(230, 233, 242, 0.1);
-  --font-primary: 'Inter', 'PPMori', helvetica, arial, roboto, sans-serif;
-  --container-padding: 3.125vw;
-  --grid-gap: 2.0833333333vw;
+  --color-bg: #ffffff;
+  --color-bg-alt: #f7f7f5;
+  --color-text: #1a1a1a;
+  --color-text-secondary: #4a4a4a;
+  --color-muted: #6b6b6b;
+  --color-accent: #00543C;
+  --color-accent-light: #e8f0ec;
+  --color-border: #e0e0e0;
+  --color-border-light: #f0f0f0;
+  --color-hero-bg: #1a1a1a;
+  --color-hero-text: #ffffff;
+  --font-heading: 'Source Serif 4', 'Georgia', 'Times New Roman', serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --container-max: 1200px;
+  --container-padding: 2rem;
+  --section-padding: 8rem;
 }
 
 *, *::after, *::before {
@@ -28,7 +34,7 @@ html {
 }
 
 body {
-  font-family: var(--font-primary);
+  font-family: var(--font-body);
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -59,6 +65,11 @@ button {
   border: none;
   background: none;
   color: inherit;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
 }
 
 #root {

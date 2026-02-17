@@ -15,12 +15,13 @@ export default function Navbar() {
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <a href="#" className="navbar-logo">
-        Type 1
+        USF Ventures
       </a>
       <div className={`navbar-links ${menuOpen ? 'open' : ''}`}>
         <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
-        <a href="#portfolio" onClick={() => setMenuOpen(false)}>Portfolio</a>
+        <a href="#thesis" onClick={() => setMenuOpen(false)}>Thesis</a>
         <a href="#team" onClick={() => setMenuOpen(false)}>Team</a>
+        <a href="#founders" onClick={() => setMenuOpen(false)}>Founders</a>
         <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
       </div>
       <div className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)}>
