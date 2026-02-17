@@ -30,7 +30,8 @@ export default function PartnersPage() {
           <div className="partners-header">
             <h1 className="partners-title">Partners</h1>
             <p className="partners-subtitle">
-              Collaborating with leading venture firms, institutions, and ecosystem partners.
+              We partner with leading venture firms and ecosystem institutions for
+              co-investment opportunities and to support USF founders at every stage of growth.
             </p>
           </div>
         </div>
@@ -45,15 +46,6 @@ export default function PartnersPage() {
                 <PartnerLogo key={`dup-${i}`} name={p.name} logo={p.logo} />
               ))}
             </div>
-          </div>
-        </div>
-
-        <div className="container">
-          <div className="partners-statement">
-            <p>
-              We partner with leading venture firms and ecosystem institutions for
-              co-investment opportunities and to support USF founders at every stage of growth.
-            </p>
           </div>
         </div>
       </div>
