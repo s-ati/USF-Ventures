@@ -1,23 +1,25 @@
-import { Link } from 'react-router-dom'
 import Footer from '../components/Footer'
 
 const partners = [
-  { name: 'Plug and Play', initials: 'P&P' },
-  { name: 'Y Combinator', initials: 'YC' },
-  { name: 'Sequoia Capital', initials: 'SQ' },
-  { name: 'Andreessen Horowitz', initials: 'a16z' },
-  { name: 'Kleiner Perkins', initials: 'KP' },
-  { name: 'Accel Partners', initials: 'ACCEL' },
-  { name: 'Greylock Partners', initials: 'GL' },
+  { name: 'Plug and Play', logo: '/partners/plug-and-play.svg' },
+  { name: 'Y Combinator', logo: '/partners/y-combinator.svg' },
+  { name: 'Sequoia Capital', logo: '/partners/sequoia.svg' },
+  { name: 'Andreessen Horowitz', logo: '/partners/a16z.svg' },
+  { name: 'Kleiner Perkins', logo: '/partners/kleiner-perkins.svg' },
+  { name: 'Accel Partners', logo: '/partners/accel.svg' },
+  { name: 'Greylock Partners', logo: '/partners/greylock.svg' },
 ]
 
-function PartnerLogo({ name, initials }) {
+function PartnerLogo({ name, logo }) {
   return (
     <div className="marquee-logo" aria-label={name}>
-      <div className="marquee-logo-inner">
-        <span className="marquee-logo-initials">{initials}</span>
-        <span className="marquee-logo-name">{name}</span>
-      </div>
+      <img
+        src={logo}
+        alt={name}
+        className="marquee-logo-img"
+        loading="lazy"
+        draggable="false"
+      />
     </div>
   )
 }
@@ -39,10 +41,10 @@ export default function PartnersPage() {
           <div className="marquee-track">
             <div className="marquee-content">
               {partners.map((p, i) => (
-                <PartnerLogo key={i} name={p.name} initials={p.initials} />
+                <PartnerLogo key={i} name={p.name} logo={p.logo} />
               ))}
               {partners.map((p, i) => (
-                <PartnerLogo key={`dup-${i}`} name={p.name} initials={p.initials} />
+                <PartnerLogo key={`dup-${i}`} name={p.name} logo={p.logo} />
               ))}
             </div>
           </div>
