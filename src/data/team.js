@@ -143,7 +143,7 @@ const teamData = {
       specialty: 'Digital Assets',
       image: '/team/tom-rose.jpg',
       linkedin: '#',
-      bioTitle: 'Senior Director, Capital Formation, Pantera Capital',
+      bioTitle: 'Senior Director of Capital Formation at Pantera Capital',
       bio: 'Tom Rose is a blockchain and digital assets specialist who joined Pantera Capital in 2025 as Senior Director of the Capital Formation team. Tom served as a Strategic Advisor at Rock Lake Advisors, a boutique private placement and capital advisory platform. He previously held leadership roles including Head of Capital Markets at Vesttoo, Ltd. and Co-Head of Distribution at 3iQ Digital Assets. Earlier in his career, Tom worked at BlackRock and Neuberger Berman, where he focused on alternatives and led initiatives to drive asset growth, primarily across the Western U.S. market.',
     },
   ],
