@@ -125,7 +125,32 @@ const teamData = {
       bio: 'Managing Partner at Format One and advises major entities like Nike, drawing on his prior experience as a Partner at 500 Startups and an "In Residence" member at Expa Ventures.',
     },
   ],
-  experts: [],
+  experts: [
+    {
+      name: 'Expert 1',
+      slug: 'expert-1',
+      role: 'Expert',
+      image: null,
+      linkedin: '#',
+      bio: 'Bio coming soon.',
+    },
+    {
+      name: 'Expert 2',
+      slug: 'expert-2',
+      role: 'Expert',
+      image: null,
+      linkedin: '#',
+      bio: 'Bio coming soon.',
+    },
+    {
+      name: 'Expert 3',
+      slug: 'expert-3',
+      role: 'Expert',
+      image: null,
+      linkedin: '#',
+      bio: 'Bio coming soon.',
+    },
+  ],
 }
 
 /**

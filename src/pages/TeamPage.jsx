@@ -8,13 +8,11 @@ function TeamCard({ member }) {
     <Link to={`/team/${member.slug}`} className="tp-card">
       <div className="tp-card-image">
         {member.image ? (
-          <>
-            <img src={member.image} alt={member.name} className={`portrait-${member.slug}`} />
-            <div className="tp-card-overlay" />
-          </>
+          <img src={member.image} alt={member.name} className={`portrait-${member.slug}`} />
         ) : (
           <div className="team-card-placeholder">{initials}</div>
         )}
+        <div className="tp-card-overlay" />
       </div>
       <h3 className="tp-card-name">{member.name}</h3>
       <p className="tp-card-role">{member.role}</p>
