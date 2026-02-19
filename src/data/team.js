@@ -109,7 +109,7 @@ const teamData = {
       bio: 'Founder and General Partner at SSC Ventures - Boston College Fund Leading the proven blueprint for university-affiliated venture funds.',
     },
     {
-      name: 'Dean Otgo Erhemjamts',
+      name: 'Otgo Erhemjamts',
       slug: 'otgo-erhemjamts',
       role: 'Advisor',
       image: null,
