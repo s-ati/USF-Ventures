@@ -131,7 +131,7 @@ const teamData = {
       slug: 'sooman-wolffs',
       role: 'Expert',
       specialty: 'Finance',
-      image: '/team/sooman-wolffs.jpg',
+      image: '/team/sooman.jpg',
       linkedin: '#',
       bio: 'General Partner, Manhattan Venture Partners. SooMan Wolffs is a financial expert and joined Manhattan Venture Partners in July 2019. Based in San Francisco, he focuses on investment due diligence, deal structuring, executing investments for the firm\'s All-Star fund family, and supporting the Secondary as a Service business line. Prior to joining the firm, SooMan was an early member of the valuations team at Carta (formerly eShares), where he helped scale the company\'s valuation practice into the largest private market valuation provider.',
     },
