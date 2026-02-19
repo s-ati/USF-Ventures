@@ -26,10 +26,13 @@ export default function PartnersPage() {
   return (
     <>
       <div className="partners-page">
-        <div className="container">
-          <div className="partners-header">
-            <h1 className="partners-title">Partners</h1>
-            <p className="partners-subtitle">
+        {/* Hero Banner */}
+        <div className="pp-banner">
+          <div className="pp-banner-overlay" />
+          <div className="pp-banner-content">
+            <p className="pp-banner-tag">Our Network</p>
+            <h1 className="pp-banner-title">Partners</h1>
+            <p className="pp-banner-subtitle">
               We partner with leading venture firms and ecosystem institutions for
               co-investment opportunities and to support USF founders at every stage of growth.
             </p>
