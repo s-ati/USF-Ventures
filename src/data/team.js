@@ -80,7 +80,7 @@ const teamData = {
       name: 'Alexi Stravastopoulos',
       slug: 'alexi-stravastopoulos',
       role: 'Advisor',
-      image: null,
+      image: '/team/alexi-stravastopoulos.jpg',
       linkedin: '#',
       bio: 'Bronco Venture Fund at Santa Clara, sharing best practices from peer institutions.',
     },
