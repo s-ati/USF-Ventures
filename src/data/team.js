@@ -67,10 +67,85 @@ const teamData = {
       bio: `Bob Ackerman is the founder of Allegis Capital, a venture firm that developed a focused cybersecurity investment strategy through Allegis Cyber. He later founded DataTribe, a cybersecurity incubator dedicated to building next-generation security companies. A USF alumnus, Bob has been an early and sustained investor in the cybersecurity sector and has played a key role in shaping the industry's venture ecosystem.`,
     },
   ],
+  advisors: [
+    {
+      name: 'Professor Mark Cannice',
+      slug: 'mark-cannice',
+      role: 'Advisor',
+      image: null,
+      linkedin: '#',
+      bio: 'Entrepreneurship Professor providing academic insights and student engagement strategies.',
+    },
+    {
+      name: 'Alexi Stravastopoulos - Santa Clara',
+      slug: 'alexi-stravastopoulos',
+      role: 'Advisor',
+      image: null,
+      linkedin: '#',
+      bio: 'Bronco Venture Fund at Santa Clara, sharing best practices from peer institutions.',
+    },
+    {
+      name: 'Sriram Sundararajan - Santa Clara',
+      slug: 'sriram-sundararajan',
+      role: 'Advisor',
+      image: null,
+      linkedin: '#',
+      bio: 'Bronco Venture Fund at Santa Clara, sharing best practices from peer institutions.',
+    },
+    {
+      name: 'Professor Johnathan Cromwell',
+      slug: 'johnathan-cromwell',
+      role: 'Advisor',
+      image: null,
+      linkedin: '#',
+      bio: 'E&I Initiative at USF, guiding integration with existing entrepreneurship programs.',
+    },
+    {
+      name: 'Tom Coburn - Boston College',
+      slug: 'tom-coburn',
+      role: 'Advisor',
+      image: null,
+      linkedin: '#',
+      bio: 'Founder and General Partner at SSC Ventures - Boston College Fund Leading the proven blueprint for university-affiliated venture funds.',
+    },
+    {
+      name: 'Dean Otgo Erhemjamts',
+      slug: 'otgo-erhemjamts',
+      role: 'Advisor',
+      image: null,
+      linkedin: '#',
+      bio: 'Dean of School of Management, ensuring alignment with institutional priorities.',
+    },
+    {
+      name: 'Arjun Arora',
+      slug: 'arjun-arora',
+      role: 'Advisor',
+      image: null,
+      linkedin: '#',
+      bio: 'Managing Partner at Format One and advises major entities like Nike, drawing on his prior experience as a Partner at 500 Startups and an "In Residence" member at Expa Ventures.',
+    },
+  ],
+  experts: [],
 }
 
+/**
+ * Category config for rendering team sections.
+ * Add new categories here to extend the team page without layout changes.
+ */
+export const teamCategories = [
+  { key: 'foundingTeam', label: 'Founding Team' },
+  { key: 'investmentCommittee', label: 'Investment Committee' },
+  { key: 'advisors', label: 'Advisors' },
+  { key: 'experts', label: 'Experts' },
+]
+
 export function getAllMembers() {
-  return [...teamData.foundingTeam, ...teamData.investmentCommittee]
+  return [
+    ...teamData.foundingTeam,
+    ...teamData.investmentCommittee,
+    ...teamData.advisors,
+    ...teamData.experts,
+  ]
 }
 
 export function getMemberBySlug(slug) {

@@ -1,17 +1,7 @@
-import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import teamData from '../data/team'
 
 export default function Team() {
-  const [activeTab, setActiveTab] = useState('founding')
-  const foundingRef = useRef(null)
-  const investmentRef = useRef(null)
-
-  const scrollTo = (key, ref) => {
-    setActiveTab(key)
-    ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }
-
   return (
     <section id="team" className="section-team">
       <div className="container">
@@ -20,22 +10,7 @@ export default function Team() {
           <h2 className="team-heading">The people behind USF Ventures</h2>
         </div>
 
-        <nav className="team-tabs">
-          <button
-            className={`team-tab${activeTab === 'founding' ? ' active' : ''}`}
-            onClick={() => scrollTo('founding', foundingRef)}
-          >
-            Founding Team
-          </button>
-          <button
-            className={`team-tab${activeTab === 'investment' ? ' active' : ''}`}
-            onClick={() => scrollTo('investment', investmentRef)}
-          >
-            Investment Team
-          </button>
-        </nav>
-
-        <div ref={foundingRef} className="team-group">
+        <div className="team-group">
           <p className="team-group-label">Founding Team</p>
           <div className="team-grid">
             {teamData.foundingTeam.map((member) => (
@@ -55,7 +30,7 @@ export default function Team() {
           </div>
         </div>
 
-        <div ref={investmentRef} className="team-group">
+        <div className="team-group">
           <p className="team-group-label">Investment Committee</p>
           <div className="team-grid">
             {teamData.investmentCommittee.map((member) => (
@@ -73,6 +48,12 @@ export default function Team() {
               </Link>
             ))}
           </div>
+        </div>
+
+        <div className="team-view-all">
+          <Link to="/team" className="team-view-all-link">
+            View Full Team
+          </Link>
         </div>
       </div>
     </section>

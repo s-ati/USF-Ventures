@@ -7,7 +7,6 @@ const founders = [
     photo: '/founders/germain-bahri.jpg',
     description:
       'USF 2015 SOM alum. Raised $1M in December 2025 for ZaZu, an innovative tech startup led by Plug and Play. Actively exploring future growth rounds.',
-    quote: "I'd love to have USF Ventures on the cap table.",
   },
   {
     name: 'Pablo Hansen',
@@ -15,7 +14,6 @@ const founders = [
     photo: '/founders/pablo-hansen.jpg',
     description:
       'Founder of Proliferate (YC S25), an autonomous engineering organization where coding agents and operators build together faster. Raised $5.2M seed after YC.',
-    quote: "It's great to have a USF-specific venture fund.",
   },
   {
     name: 'Caroline Early',
@@ -23,12 +21,10 @@ const founders = [
     photo: '/founders/caroline-early.jpg',
     description:
       "Founder & Co-CEO of Pillar (YC S21), a white-label healthcare enablement platform. Previously exited a women's health company to P&G (2019). Preparing Pillar for future exit.",
-    quote:
-      "I'd love to have USF Ventures on a term sheet in a future company.",
   },
 ]
 
-function FounderBlock({ name, company, photo, description, quote }) {
+function FounderBlock({ name, company, photo, description }) {
   const initials = name.split(' ').map((n) => n[0]).join('')
   return (
     <div className="ss-founder-block">
@@ -43,7 +39,6 @@ function FounderBlock({ name, company, photo, description, quote }) {
         {name} <span className="ss-founder-company">({company})</span>
       </h3>
       <p className="ss-founder-desc">{description}</p>
-      <blockquote className="ss-founder-quote">&ldquo;{quote}&rdquo;</blockquote>
     </div>
   )
 }
