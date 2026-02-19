@@ -61,6 +61,9 @@ export default function TeamMemberPage() {
             </div>
             <div className="tm-bio-col">
               <div className="tm-bio">
+                {member.bioTitle && (
+                  <p className="tm-bio-title"><strong>{member.bioTitle}</strong></p>
+                )}
                 {member.bio.split('\n\n').map((paragraph, i) => (
                   <p key={i}>{paragraph}</p>
                 ))}

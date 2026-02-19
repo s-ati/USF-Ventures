@@ -543,6 +543,22 @@
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 16px;
+}
+
+.team-card-specialty {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 6px 14px;
+  border-radius: 2px;
 }
 
 .team-card:hover .team-card-hover {
@@ -625,6 +641,28 @@
   font-size: 0.875rem;
   color: var(--color-muted);
   font-weight: 400;
+}
+
+.team-view-all {
+  text-align: center;
+  margin-top: 4rem;
+  padding-top: 3rem;
+}
+
+.team-view-all-link {
+  display: inline-block;
+  padding: 0.75rem 2.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.team-view-all-link:hover {
+  color: #003d2b;
+  border-color: #003d2b;
 }
 
 /* ============================================
@@ -1068,6 +1106,22 @@
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 16px;
+}
+
+.tp-card-specialty {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 6px 14px;
+  border-radius: 2px;
 }
 
 .tp-card:hover .tp-card-overlay {
@@ -1174,6 +1228,12 @@
 
 .tm-bio p:last-child {
   margin-bottom: 0;
+}
+
+.tm-bio-title {
+  color: var(--color-text);
+  font-size: 1.05rem;
+  margin-bottom: 1.5rem;
 }
 
 .tm-contact {
@@ -1491,6 +1551,7 @@ section.partners-page {
 }
 
 .ss-founder-block {
+  text-align: center;
   transition: opacity 0.2s ease;
 }
 
@@ -1506,7 +1567,7 @@ section.partners-page {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1.25rem;
+  margin: 0 auto 1.25rem;
   overflow: hidden;
 }
 

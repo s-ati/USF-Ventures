@@ -43,7 +43,7 @@ const teamData = {
     {
       name: 'Samuel Atiye',
       slug: 'samuel',
-      role: 'Associate',
+      role: 'Senior Venture Associate',
       image: '/team/samuel.jpeg',
       linkedin: '#',
       bio: 'Bio coming soon.',
@@ -67,10 +67,106 @@ const teamData = {
       bio: `Bob Ackerman is the founder of Allegis Capital, a venture firm that developed a focused cybersecurity investment strategy through Allegis Cyber. He later founded DataTribe, a cybersecurity incubator dedicated to building next-generation security companies. A USF alumnus, Bob has been an early and sustained investor in the cybersecurity sector and has played a key role in shaping the industry's venture ecosystem.`,
     },
   ],
+  advisors: [
+    {
+      name: 'Mark Cannice',
+      slug: 'mark-cannice',
+      role: 'Advisor',
+      image: '/team/mark-cannice.jpg',
+      linkedin: '#',
+      bio: 'Entrepreneurship Professor providing academic insights and student engagement strategies.',
+    },
+    {
+      name: 'Johnathan Cromwell',
+      slug: 'johnathan-cromwell',
+      role: 'Advisor',
+      image: '/team/jonathan-cromwell.jpg',
+      linkedin: '#',
+      bio: 'E&I Initiative at USF, guiding integration with existing entrepreneurship programs.',
+    },
+    {
+      name: 'Otgo Erhemjamts',
+      slug: 'otgo-erhemjamts',
+      role: 'Advisor',
+      image: '/team/otgo-erhemjamts.jpg',
+      linkedin: '#',
+      bio: 'Dean of School of Management, ensuring alignment with institutional priorities.',
+    },
+    {
+      name: 'Alexi Sevastopoulos',
+      slug: 'alexi-sevastopoulos',
+      role: 'Advisor',
+      image: '/team/alexi-sevastopoulos.jpg',
+      linkedin: '#',
+      bio: 'Bronco Venture Fund at Santa Clara, sharing best practices from peer institutions.',
+    },
+    {
+      name: 'Tom Coburn',
+      slug: 'tom-coburn',
+      role: 'Advisor',
+      image: '/team/tom-coburn.jpg',
+      linkedin: '#',
+      bio: 'Founder and General Partner at SSC Ventures - Boston College Fund Leading the proven blueprint for university-affiliated venture funds.',
+    },
+    {
+      name: 'Sriram Sundararajan',
+      slug: 'sriram-sundararajan',
+      role: 'Advisor',
+      image: '/team/sriram-sundararajan.jpg',
+      linkedin: '#',
+      bio: 'Bronco Venture Fund at Santa Clara, sharing best practices from peer institutions.',
+    },
+    {
+      name: 'Arjun Arora',
+      slug: 'arjun-arora',
+      role: 'Advisor',
+      image: '/team/arjun-arora.jpg',
+      linkedin: '#',
+      bio: 'Managing Partner at Format One and advises major entities like Nike, drawing on his prior experience as a Partner at 500 Startups and an "In Residence" member at Expa Ventures.',
+    },
+  ],
+  experts: [
+    {
+      name: 'SooMan Wolffs',
+      slug: 'sooman-wolffs',
+      role: 'Expert',
+      specialty: 'Finance',
+      image: '/team/sooman.jpg',
+      linkedin: '#',
+      bioTitle: 'General Partner at Manhattan Venture Partners',
+      bio: 'SooMan Wolffs is a financial expert and joined Manhattan Venture Partners in July 2019. Based in San Francisco, he focuses on investment due diligence, deal structuring, executing investments for the firm\'s All-Star fund family, and supporting the Secondary as a Service business line. Prior to joining the firm, SooMan was an early member of the valuations team at Carta (formerly eShares), where he helped scale the company\'s valuation practice into the largest private market valuation provider.',
+    },
+    {
+      name: 'Tom Rose',
+      slug: 'tom-rose',
+      role: 'Expert',
+      specialty: 'Digital Assets',
+      image: '/team/tom-rose.jpg',
+      linkedin: '#',
+      bioTitle: 'Senior Director of Capital Formation at Pantera Capital',
+      bio: 'Tom Rose is a blockchain and digital assets specialist who joined Pantera Capital in 2025 as Senior Director of the Capital Formation team. Tom served as a Strategic Advisor at Rock Lake Advisors, a boutique private placement and capital advisory platform. He previously held leadership roles including Head of Capital Markets at Vesttoo, Ltd. and Co-Head of Distribution at 3iQ Digital Assets. Earlier in his career, Tom worked at BlackRock and Neuberger Berman, where he focused on alternatives and led initiatives to drive asset growth, primarily across the Western U.S. market.',
+    },
+  ],
 }
 
+/**
+ * Category config for rendering team sections.
+ * Add new categories here to extend the team page without layout changes.
+ */
+export const teamCategories = [
+  { key: 'foundingTeam', label: 'Founding Team' },
+  { key: 'investmentCommittee', label: 'Investment Committee' },
+  { key: 'advisors', label: 'Advisors' },
+  { key: 'experts', label: 'Experts' },
+]
+
 export function getAllMembers() {
-  return [...teamData.foundingTeam, ...teamData.investmentCommittee]
+  return [
+    ...teamData.foundingTeam,
+    ...teamData.investmentCommittee,
+    ...teamData.advisors,
+    ...teamData.experts,
+  ]
 }
 
 export function getMemberBySlug(slug) {
