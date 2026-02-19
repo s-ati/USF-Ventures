@@ -77,10 +77,10 @@ const teamData = {
       bio: 'Entrepreneurship Professor providing academic insights and student engagement strategies.',
     },
     {
-      name: 'Alexi Stravastopoulos',
-      slug: 'alexi-stravastopoulos',
+      name: 'Alexi Sevastopoulos',
+      slug: 'alexi-sevastopoulos',
       role: 'Advisor',
-      image: '/team/alexi-stravastopoulos.jpg',
+      image: '/team/alexi-sevastopoulos.jpg',
       linkedin: '#',
       bio: 'Bronco Venture Fund at Santa Clara, sharing best practices from peer institutions.',
     },
