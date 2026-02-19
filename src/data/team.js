@@ -133,7 +133,8 @@ const teamData = {
       specialty: 'Finance',
       image: '/team/sooman.jpg',
       linkedin: '#',
-      bio: 'General Partner, Manhattan Venture Partners. SooMan Wolffs is a financial expert and joined Manhattan Venture Partners in July 2019. Based in San Francisco, he focuses on investment due diligence, deal structuring, executing investments for the firm\'s All-Star fund family, and supporting the Secondary as a Service business line. Prior to joining the firm, SooMan was an early member of the valuations team at Carta (formerly eShares), where he helped scale the company\'s valuation practice into the largest private market valuation provider.',
+      bioTitle: 'General Partner at Manhattan Venture Partners',
+      bio: 'SooMan Wolffs is a financial expert and joined Manhattan Venture Partners in July 2019. Based in San Francisco, he focuses on investment due diligence, deal structuring, executing investments for the firm\'s All-Star fund family, and supporting the Secondary as a Service business line. Prior to joining the firm, SooMan was an early member of the valuations team at Carta (formerly eShares), where he helped scale the company\'s valuation practice into the largest private market valuation provider.',
     },
     {
       name: 'Tom Rose',
@@ -142,7 +143,8 @@ const teamData = {
       specialty: 'Digital Assets',
       image: '/team/tom-rose.jpg',
       linkedin: '#',
-      bio: 'Senior Director, Capital Formation, Pantera Capital. Tom Rose is a blockchain and digital assets specialist who joined Pantera Capital in 2025 as Senior Director of the Capital Formation team. Tom served as a Strategic Advisor at Rock Lake Advisors, a boutique private placement and capital advisory platform. He previously held leadership roles including Head of Capital Markets at Vesttoo, Ltd. and Co-Head of Distribution at 3iQ Digital Assets. Earlier in his career, Tom worked at BlackRock and Neuberger Berman, where he focused on alternatives and led initiatives to drive asset growth, primarily across the Western U.S. market.',
+      bioTitle: 'Senior Director, Capital Formation, Pantera Capital',
+      bio: 'Tom Rose is a blockchain and digital assets specialist who joined Pantera Capital in 2025 as Senior Director of the Capital Formation team. Tom served as a Strategic Advisor at Rock Lake Advisors, a boutique private placement and capital advisory platform. He previously held leadership roles including Head of Capital Markets at Vesttoo, Ltd. and Co-Head of Distribution at 3iQ Digital Assets. Earlier in his career, Tom worked at BlackRock and Neuberger Berman, where he focused on alternatives and led initiatives to drive asset growth, primarily across the Western U.S. market.',
     },
   ],
 }
