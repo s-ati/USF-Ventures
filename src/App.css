@@ -1035,21 +1035,136 @@
    TEAM PAGE (/team)
    ============================================ */
 .tp-page {
-  padding-top: 7rem;
+  padding-top: 0;
   padding-bottom: var(--section-padding);
   min-height: 100vh;
 }
 
-.tp-title-section {
-  margin-bottom: 2.5rem;
+/* --- Hero Banner --- */
+.tp-banner {
+  position: relative;
+  width: 100%;
+  height: 340px;
+  background: var(--color-accent);
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
 }
 
-.tp-title {
+.tp-banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 60, 40, 0.95) 0%,
+    rgba(0, 84, 60, 0.88) 40%,
+    rgba(0, 70, 50, 0.92) 100%
+  );
+}
+
+.tp-banner-content {
+  position: relative;
+  z-index: 2;
+  max-width: var(--container-max);
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 var(--container-padding) 3.5rem;
+}
+
+.tp-banner-tag {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 0.75rem;
+}
+
+.tp-banner-title {
   font-family: var(--font-heading);
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-size: clamp(2.75rem, 5vw, 4.5rem);
   font-weight: 400;
-  color: var(--color-text);
+  color: #ffffff;
   line-height: 1.1;
+  margin-bottom: 0.75rem;
+}
+
+.tp-banner-subtitle {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+  max-width: 440px;
+}
+
+/* --- Sticky Tab Navigation --- */
+.tp-tab-wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  background: #ffffff;
+  border-bottom: 1px solid var(--color-border);
+  transition: box-shadow 0.2s ease;
+}
+
+.tp-tab-wrapper:hover {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+.tp-tab-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.tp-tab-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.tp-tab {
+  position: relative;
+  background: none;
+  border: none;
+  padding: 1.15rem 1.5rem;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--color-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.25s ease;
+}
+
+.tp-tab:hover {
+  color: var(--color-text);
+}
+
+.tp-tab.active {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.tp-tab-indicator {
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  background: var(--color-accent);
+  transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 2px 2px 0 0;
+}
+
+/* --- Team Content --- */
+.tp-content {
+  padding-top: 4rem;
 }
 
 .tp-section {
@@ -1061,12 +1176,14 @@
 }
 
 .tp-section-label {
-  font-size: 1.1rem;
+  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--color-accent);
   margin-bottom: 2.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .tp-grid {
@@ -1096,7 +1213,7 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: filter 0.3s ease;
+  transition: filter 0.3s ease, transform 0.4s ease;
 }
 
 .tp-card-overlay {
@@ -1130,6 +1247,7 @@
 
 .tp-card:hover .tp-card-image img {
   filter: brightness(0.8);
+  transform: scale(1.03);
 }
 
 .tp-card-name {
@@ -1272,6 +1390,19 @@
    TEAM PAGE RESPONSIVE — TABLET
    ============================================ */
 @media (max-width: 1024px) {
+  .tp-banner {
+    height: 280px;
+  }
+
+  .tp-banner-content {
+    padding-bottom: 2.5rem;
+  }
+
+  .tp-tab {
+    padding: 1rem 1.25rem;
+    font-size: 0.78rem;
+  }
+
   .tp-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1287,11 +1418,32 @@
    ============================================ */
 @media (max-width: 768px) {
   .tp-page {
-    padding-top: 5.5rem;
+    padding-top: 0;
   }
 
-  .tp-title-section {
-    margin-bottom: 3.5rem;
+  .tp-banner {
+    height: 240px;
+  }
+
+  .tp-banner-content {
+    padding-bottom: 2rem;
+  }
+
+  .tp-banner-title {
+    font-size: 2.25rem;
+  }
+
+  .tp-banner-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .tp-tab {
+    padding: 0.9rem 1rem;
+    font-size: 0.75rem;
+  }
+
+  .tp-content {
+    padding-top: 2.5rem;
   }
 
   .tp-section {
