@@ -12,7 +12,11 @@ function TeamCard({ member }) {
         ) : (
           <div className="team-card-placeholder">{initials}</div>
         )}
-        <div className="tp-card-overlay" />
+        <div className="tp-card-overlay">
+          {member.specialty && (
+            <span className="tp-card-specialty">{member.specialty}</span>
+          )}
+        </div>
       </div>
       <h3 className="tp-card-name">{member.name}</h3>
       <p className="tp-card-role">{member.role}</p>

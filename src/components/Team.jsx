@@ -21,7 +21,11 @@ export default function Team() {
                     alt={member.name}
                     className={`team-card-img portrait-${member.slug}`}
                   />
-                  <div className="team-card-hover" />
+                  <div className="team-card-hover">
+                    {member.specialty && (
+                      <span className="team-card-specialty">{member.specialty}</span>
+                    )}
+                  </div>
                 </div>
                 <h3>{member.name}</h3>
                 <p>{member.role}</p>
@@ -41,7 +45,11 @@ export default function Team() {
                     alt={member.name}
                     className={`team-card-img portrait-${member.slug}`}
                   />
-                  <div className="team-card-hover" />
+                  <div className="team-card-hover">
+                    {member.specialty && (
+                      <span className="team-card-specialty">{member.specialty}</span>
+                    )}
+                  </div>
                 </div>
                 <h3>{member.name}</h3>
                 <p>{member.role}</p>
