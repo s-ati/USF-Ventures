@@ -77,7 +77,7 @@ const teamData = {
       bio: 'Entrepreneurship Professor providing academic insights and student engagement strategies.',
     },
     {
-      name: 'Alexi Stravastopoulos - Santa Clara',
+      name: 'Alexi Stravastopoulos',
       slug: 'alexi-stravastopoulos',
       role: 'Advisor',
       image: null,
@@ -85,7 +85,7 @@ const teamData = {
       bio: 'Bronco Venture Fund at Santa Clara, sharing best practices from peer institutions.',
     },
     {
-      name: 'Sriram Sundararajan - Santa Clara',
+      name: 'Sriram Sundararajan',
       slug: 'sriram-sundararajan',
       role: 'Advisor',
       image: null,
@@ -101,7 +101,7 @@ const teamData = {
       bio: 'E&I Initiative at USF, guiding integration with existing entrepreneurship programs.',
     },
     {
-      name: 'Tom Coburn - Boston College',
+      name: 'Tom Coburn',
       slug: 'tom-coburn',
       role: 'Advisor',
       image: null,
