@@ -43,7 +43,7 @@ const teamData = {
     {
       name: 'Samuel Atiye',
       slug: 'samuel',
-      role: 'Associate',
+      role: 'Senior Venture Associate',
       image: '/team/samuel.jpeg',
       linkedin: '#',
       bio: 'Bio coming soon.',
