@@ -43,7 +43,7 @@ export default function About() {
         <div className="about-stats">
           <div>
             <p className="about-stat-value">San Francisco</p>
-            <p className="about-stat-label">Headquartered in San Francisco</p>
+            <p className="about-stat-label">Headquartered in</p>
           </div>
           <div>
             <p className="about-stat-value">Seed &amp; Series A</p>
