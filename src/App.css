@@ -389,12 +389,13 @@
 
 .about-tagline {
   text-align: center;
-  font-family: var(--font-heading);
-  font-size: 1.5rem;
-  font-weight: 400;
-  color: var(--color-text);
-  margin-top: 3rem;
-  letter-spacing: 0.01em;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-top: 4rem;
+  margin-bottom: 1rem;
 }
 
 .about-stats {

@@ -38,7 +38,7 @@ export default function About() {
           </div>
         </div>
 
-        <p className="about-tagline">Change the world from here.</p>
+        <p className="about-tagline">CHANGE THE WORLD FROM HERE.</p>
 
         <div className="about-stats">
           <div>
