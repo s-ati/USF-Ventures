@@ -386,6 +386,16 @@
   margin: 4rem 0;
 }
 
+.about-tagline {
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--color-text);
+  margin-top: 3rem;
+  letter-spacing: 0.01em;
+}
+
 .about-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

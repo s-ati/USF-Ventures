@@ -27,7 +27,7 @@ export default function About() {
           <div>
             <p className="about-block-label">Why San Francisco</p>
             <h3 className="about-block-heading">
-              At the center of global innovation. Change the world from here.
+              At the center of global innovation.
             </h3>
             <p className="about-block-text">
               San Francisco remains the world&apos;s most concentrated ecosystem for
@@ -37,6 +37,8 @@ export default function About() {
             </p>
           </div>
         </div>
+
+        <p className="about-tagline">Change the world from here.</p>
 
         <div className="about-stats">
           <div>
