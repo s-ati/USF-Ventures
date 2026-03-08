@@ -9,14 +9,6 @@ const teamData = {
       bio: `Brett Bonthron is a General Partner at USF Ventures. He has served as Adjunct Faculty at the University of San Francisco School of Management for over 23 years, teaching entrepreneurship and venture strategy. Brett was a Partner at Capgemini, Deloitte Consulting and The Chasm Group alongside Geoffrey Moore.\n\nBrett also worked at Microsoft and Salesforce, where he founded VIIZR, a partnership between Salesforce and Ford funded by Salesforce Ventures. Throughout his academic and advisory work, Brett has guided eight student-led startups to four exits. He is based in San Francisco.`,
     },
     {
-      name: 'John Gardner',
-      slug: 'john',
-      role: 'Investment Committee',
-      image: '/team/john.jpeg',
-      linkedin: '#',
-      bio: `John Gardner is a founder and General Partner of the 1809 Fund at Miami University of Ohio and serves on the board of the Jesuit Retreat Center. He brings 27 years of venture capital experience, having previously been a GP at Nokia Growth Partners and Blue Run Ventures. Over the course of his career, he has invested across multiple technology cycles and supported companies from early growth through exit. Based in San Francisco, John provides deep institutional venture expertise and long-term GP experience.`,
-    },
-    {
       name: 'Shomit Ghose',
       slug: 'shomit',
       role: 'Advisor',
@@ -52,7 +44,7 @@ const teamData = {
   investmentCommittee: [
     {
       name: 'John Gardner',
-      slug: 'john-ic',
+      slug: 'john',
       role: 'Investment Committee',
       image: '/team/john.jpeg',
       linkedin: '#',

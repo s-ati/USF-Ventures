@@ -1590,7 +1590,7 @@ section.partners-page {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 56px;
+  height: 90px;
   filter: grayscale(100%);
   opacity: 0.55;
   transition: filter 0.4s ease, opacity 0.4s ease;
@@ -1603,7 +1603,7 @@ section.partners-page {
 }
 
 .marquee-logo-img {
-  height: 72px;
+  height: 100px;
   width: auto;
   object-fit: contain;
   pointer-events: none;
@@ -1667,7 +1667,7 @@ section.partners-page {
   }
 
   .marquee-logo {
-    height: 44px;
+    height: 60px;
   }
 
   .marquee-logo-initials {

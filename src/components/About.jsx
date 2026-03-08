@@ -41,7 +41,7 @@ export default function About() {
         <div className="about-stats">
           <div>
             <p className="about-stat-value">San Francisco</p>
-            <p className="about-stat-label">Headquartered at USF</p>
+            <p className="about-stat-label">Headquartered in San Francisco</p>
           </div>
           <div>
             <p className="about-stat-value">Seed &amp; Series A</p>
