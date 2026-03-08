@@ -27,13 +27,13 @@ export default function About() {
           <div>
             <p className="about-block-label">Why San Francisco</p>
             <h3 className="about-block-heading">
-              At the center of global innovation.
+              At the center of global innovation. Change the world from here.
             </h3>
             <p className="about-block-text">
-              At the center of global innovation. Change the World from here. San
-              Francisco remains the world&apos;s most concentrated ecosystem for
+              San Francisco remains the world&apos;s most concentrated ecosystem for
               technology startups, venture capital, and most recently, Artificial
-              Intelligence.
+              Intelligence. USF sits at the heart of this ecosystem, giving our fund
+              direct access to founders, investors, and industry leaders shaping the future.
             </p>
           </div>
         </div>
