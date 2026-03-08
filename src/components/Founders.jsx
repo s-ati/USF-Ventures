@@ -212,15 +212,6 @@ export default function Founders() {
                   <label className="form-label">Company Name</label>
                   <input type="text" className="form-input" placeholder="Company name" />
                 </div>
-                <div className="form-group">
-                  <label className="form-label">Stage</label>
-                  <select className="form-select">
-                    <option value="">Select stage</option>
-                    <option value="pre-seed">Pre-Seed</option>
-                    <option value="seed">Seed</option>
-                    <option value="series-a">Series A</option>
-                  </select>
-                </div>
                 <DeckUpload />
                 <div className="form-group">
                   <label className="form-label">Brief Description</label>

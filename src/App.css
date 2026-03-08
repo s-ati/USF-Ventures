@@ -712,7 +712,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
-  align-items: start;
+  align-items: stretch;
 }
 
 .founders-card {
@@ -822,18 +822,20 @@
 }
 
 .form-submit {
-  display: inline-block;
+  display: block;
+  width: 100%;
   padding: 0.875rem 2.5rem;
   font-size: 0.8125rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  text-align: center;
   background: var(--color-accent);
   color: var(--color-hero-text);
   border: none;
   cursor: pointer;
   transition: background-color 0.2s ease;
-  margin-top: 0.5rem;
+  margin-top: auto;
 }
 
 .form-submit:hover {
