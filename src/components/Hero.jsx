@@ -100,7 +100,13 @@ export default function Hero() {
         <div className="hero-content" ref={contentRef}>
           <h1 className="hero-title">USF Ventures</h1>
           <p className="hero-subtitle">
-            Disrupting Venture Capital with a Dual Mandate.
+            A venture fund rooted in San Francisco.
+          </p>
+          <p className="hero-subtitle">
+            Disrupting Venture Capital with a Dual Mandate
+          </p>
+          <p className="hero-subtitle">
+            Mentoring in the Jesuit Tradition
           </p>
         </div>
         <div className="hero-scroll-indicator" ref={scrollIndicatorRef}>
