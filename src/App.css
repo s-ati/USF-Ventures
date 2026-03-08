@@ -1960,7 +1960,8 @@ section.partners-page {
 
 .ss-cta-text {
   margin-top: 1.5rem;
-  font-size: 0.875rem;
+  margin-bottom: 2.5rem;
+  font-size: 1.25rem;
   color: var(--color-muted);
   line-height: 1.6;
 }
