@@ -4,7 +4,7 @@ const partners = [
   { name: 'Manhattan Venture Partners', logo: '/partners/manhattan-venture-partners.jpg' },
   { name: 'Untapped Ventures', logo: '/partners/untapped-ventures.jpg' },
   { name: 'Hustle Fund', logo: '/partners/hustle-fund.jpg' },
-  { name: 'SIC Venture Studio', logo: '/partners/sic-venture-studio.svg' },
+  { name: 'SIC Venture Studio', logo: '/partners/sic.venture.studios.jpg' },
 ]
 
 function PartnerLogo({ name, logo }) {
