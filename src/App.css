@@ -1573,8 +1573,8 @@
 }
 
 section.partners-page {
-  padding-top: 3rem;
-  padding-bottom: 2rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
   min-height: auto;
 }
 
@@ -1641,7 +1641,7 @@ section.partners-page {
 /* --- Marquee --- */
 .marquee-section {
   overflow: hidden;
-  padding: 3rem 0;
+  padding: 2rem 0;
   border-top: 1px solid var(--color-border-light);
   border-bottom: 1px solid var(--color-border-light);
 }
@@ -1687,7 +1687,7 @@ section.partners-page {
 }
 
 .marquee-logo-img {
-  height: 100px;
+  height: 72px;
   width: auto;
   object-fit: contain;
   pointer-events: none;
