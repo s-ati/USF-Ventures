@@ -679,14 +679,14 @@
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--color-hero-text);
-  background: var(--color-accent);
-  border: none;
-  transition: background-color 0.2s ease;
+  color: var(--color-accent);
+  background: transparent;
+  border: 2px solid var(--color-accent);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .team-view-all-link:hover {
-  background: #003d2b;
+  background: var(--color-accent);
   color: var(--color-hero-text);
 }
 
