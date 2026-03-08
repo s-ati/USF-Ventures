@@ -4,12 +4,11 @@ export default function About() {
       <div className="container">
         <p className="section-label">About</p>
         <h2 className="section-heading">
-          A venture fund rooted in the University of San Francisco.
+          A venture fund rooted in San Francisco.
         </h2>
         <p className="section-subheading">
           USF Ventures operates at the intersection of institutional capital and
-          academic innovation, backed by the University of San Francisco and its
-          Entrepreneurship &amp; Innovation Initiative.
+          academic innovation, and the Entrepreneurship for All initiative.
         </p>
 
         <div className="about-grid">
@@ -32,17 +31,19 @@ export default function About() {
             </h3>
             <p className="about-block-text">
               San Francisco remains the world&apos;s most concentrated ecosystem for
-              technology startups, venture capital, and breakthrough research. USF
-              sits at the heart of this ecosystem, giving our fund direct access to
-              founders, investors, and industry leaders shaping the future.
+              technology startups, venture capital, and most recently, Artificial
+              Intelligence. USF sits at the heart of this ecosystem, giving our fund
+              direct access to founders, investors, and industry leaders shaping the future.
             </p>
           </div>
         </div>
 
+        <p className="about-tagline">CHANGE THE WORLD FROM HERE</p>
+
         <div className="about-stats">
           <div>
             <p className="about-stat-value">San Francisco</p>
-            <p className="about-stat-label">Headquartered at USF</p>
+            <p className="about-stat-label">Headquartered in</p>
           </div>
           <div>
             <p className="about-stat-value">Seed &amp; Series A</p>

@@ -25,9 +25,9 @@ export default function InvestmentThesis() {
             <p className="thesis-block-number">02</p>
             <h3 className="thesis-block-heading">Co-Investment Model</h3>
             <p className="thesis-block-text">
-              We co-invest alongside established venture firms and angel investors,
-              bringing USF&apos;s network and institutional perspective to every
-              deal we participate in.
+              We co-invest, never lead, alongside established venture firms and
+              angel investors, bringing USF&apos;s network and institutional
+              perspective to every deal we participate in.
             </p>
           </div>
           <div className="thesis-block">
@@ -44,8 +44,7 @@ export default function InvestmentThesis() {
             <h3 className="thesis-block-heading">Founder Alignment</h3>
             <p className="thesis-block-text">
               We back founders who demonstrate deep domain expertise, intellectual
-              honesty, and the capacity to build enduring companies. USF affiliation
-              is valued but not required.
+              honesty, Jesuit values, and the capacity to build enduring companies.
             </p>
           </div>
         </div>

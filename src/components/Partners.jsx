@@ -4,6 +4,7 @@ const partners = [
   { name: 'Manhattan Venture Partners', logo: '/partners/manhattan-venture-partners.jpg' },
   { name: 'Untapped Ventures', logo: '/partners/untapped-ventures.jpg' },
   { name: 'Hustle Fund', logo: '/partners/hustle-fund.jpg' },
+  { name: 'SIC Venture Studio', logo: '/partners/sic-venture-studio.jpg' },
 ]
 
 function PartnerLogo({ name, logo }) {
@@ -25,8 +26,11 @@ export default function Partners() {
     <section id="partners" className="partners-page">
       <div className="container">
         <div className="partners-header">
-          <h2 className="partners-title">Partners</h2>
-          <p className="partners-subtitle">
+          <p className="section-label">Partners</p>
+          <h2 className="section-heading">
+            Backed by a strong network.
+          </h2>
+          <p className="section-subheading">
             We partner with leading venture firms and ecosystem institutions for
             co-investment opportunities and to support USF founders at every stage of growth.
           </p>

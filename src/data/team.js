@@ -6,15 +6,7 @@ const teamData = {
       role: 'General Partner / Operating Partner',
       image: '/team/brett.jpeg',
       linkedin: '#',
-      bio: `Brett Bonthron is a General Partner and Operating Partner at USF Ventures. He has served as Adjunct Faculty at the University of San Francisco School of Management for over 23 years, teaching entrepreneurship and venture strategy. Brett is a Partner at The Chasm Group alongside Geoffrey Moore and previously led technology industry practices at Deloitte and Capgemini.\n\nHe founded Salesforce Ventures' corporate venture function and later co-founded VIIZR, a strategic partnership between Salesforce and Ford. Throughout his academic and advisory work, Brett has guided eight student-led startups to four exits and one IPO (2027). He is based in San Francisco.`,
-    },
-    {
-      name: 'John Gardner',
-      slug: 'john',
-      role: 'Investment Committee',
-      image: '/team/john.jpeg',
-      linkedin: '#',
-      bio: `John Gardner is a founder and General Partner of the 1809 Fund at Miami University of Ohio and serves on the board of the Jesuit Retreat Center. He brings 27 years of venture capital experience, having previously been a GP at Nokia Growth Partners and Blue Run Ventures. Over the course of his career, he has invested across multiple technology cycles and supported companies from early growth through exit. Based in San Francisco, John provides deep institutional venture expertise and long-term GP experience.`,
+      bio: `Brett Bonthron is a General Partner at USF Ventures. He has served as Adjunct Faculty at the University of San Francisco School of Management for over 23 years, teaching entrepreneurship and venture strategy. Brett was a Partner at Capgemini, Deloitte Consulting and The Chasm Group alongside Geoffrey Moore.\n\nBrett also worked at Microsoft and Salesforce, where he founded VIIZR, a partnership between Salesforce and Ford funded by Salesforce Ventures. Throughout his academic and advisory work, Brett has guided eight student-led startups to four exits. He is based in San Francisco.`,
     },
     {
       name: 'Shomit Ghose',
@@ -30,7 +22,7 @@ const teamData = {
       role: 'Advisor',
       image: '/team/dave.jpeg',
       linkedin: '#',
-      bio: `David Epstein is Executive Director of Ethics at the Susilo Institute for Ethics at Boston University and serves as Adjunct Faculty at both USF School of Management and Hult International Business School. He is a General Partner at Crosslink Capital and has held multiple roles as founder, CEO, and board member across venture-backed companies. His career spans venture investing, executive leadership, and governance across technology and innovation sectors.`,
+      bio: `David Epstein is Executive Director of Ethics at the Susilo Institute for Ethics at Boston University and has served as Adjunct Professor at both USF School of Management and Hult International Business School. He was a General Partner at Crosslink Capital and has held multiple roles as founder, CEO, and board member across venture-backed companies. His career spans venture investing, executive leadership, and governance across technology.`,
     },
     {
       name: 'Robert "Tre" Sayle',
@@ -46,17 +38,25 @@ const teamData = {
       role: 'Senior Venture Associate',
       image: '/team/samuel.jpeg',
       linkedin: '#',
-      bio: 'Bio coming soon.',
+      bio: `Samuel is a venture and startup ecosystem professional focused on international market entry, venture capital, and early-stage company development. Originally from Germany, he competed in NCAA Division I soccer while earning degrees and certificates in Sociology and International Finance at the University of California, Irvine.\n\nHe later continued competing in Division I athletics at the University of San Francisco, where he is completing a Master of Science in Entrepreneurship and Innovation. Samuel has worked with a startup accelerator in Germany and currently supports German companies expanding into the U.S. market through the German American Chamber of Commerce, San Francisco, helping companies navigate U.S. market entry and connect with the Silicon Valley venture ecosystem.`,
     },
   ],
   investmentCommittee: [
     {
-      name: 'Tom Lonibos',
+      name: 'John Gardner',
+      slug: 'john',
+      role: 'Investment Committee',
+      image: '/team/john.jpeg',
+      linkedin: '#',
+      bio: `John Gardner is a founder and General Partner of the 1809 Fund at Miami University of Ohio and serves on the board of the Jesuit Retreat Center. He brings 27 years of venture capital experience, having previously been a GP at Nokia Growth Partners and Blue Run Ventures. Over the course of his career, he has invested across multiple technology cycles and supported companies from early growth through exit. Based in San Francisco, John provides deep institutional venture expertise and long-term GP experience.`,
+    },
+    {
+      name: 'Tom Lounibos',
       slug: 'tom',
       role: 'Investment Committee',
       image: '/team/tom.jpeg',
       linkedin: '#',
-      bio: `Tom Lonibos is a USF alumnus and member of the USF Athletic Hall of Fame. He has led five Silicon Valley exits, including two IPOs. Tom previously led Accenture Ventures and has extensive experience building and scaling venture-backed technology companies. His background spans venture investing, corporate innovation, and executive leadership within high-growth environments.`,
+      bio: `Tom Lounibos is a USF alumnus and member of the USF Athletic Hall of Fame. He has led five Silicon Valley exits, including two IPOs. Tom previously led Accenture Ventures and has extensive experience building and scaling venture-backed technology companies. His background spans venture investing, corporate innovation, and executive leadership within high-growth environments.`,
     },
     {
       name: 'Bob Ackerman',
@@ -157,7 +157,7 @@ export const teamCategories = [
   { key: 'foundingTeam', label: 'Founding Team' },
   { key: 'investmentCommittee', label: 'Investment Committee' },
   { key: 'advisors', label: 'Advisors' },
-  { key: 'experts', label: 'Experts' },
+  // { key: 'experts', label: 'Experts' }, // Hidden until roster is expanded
 ]
 
 export function getAllMembers() {

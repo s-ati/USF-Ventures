@@ -244,6 +244,18 @@
   padding: 0;
 }
 
+.mandate-section-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 400;
+  color: var(--color-text);
+  text-align: center;
+  padding: 5rem var(--container-padding) 2rem;
+  margin: 0 auto;
+  max-width: var(--container-max);
+  letter-spacing: -0.02em;
+}
+
 .mandate-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -375,6 +387,17 @@
   margin: 4rem 0;
 }
 
+.about-tagline {
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-top: 4rem;
+  margin-bottom: 1rem;
+}
+
 .about-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -382,6 +405,7 @@
   margin-top: 4rem;
   padding-top: 4rem;
   border-top: 1px solid var(--color-border);
+  text-align: center;
 }
 
 .about-stat-value {
@@ -444,36 +468,37 @@
 
 .thesis-criteria-heading {
   font-family: var(--font-heading);
-  font-size: 1.375rem;
+  font-size: 1.75rem;
   font-weight: 400;
   color: var(--color-text);
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 .thesis-criteria-list {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem 4rem;
+  gap: 0.5rem 6rem;
 }
 
 .thesis-criteria-item {
   display: flex;
   align-items: baseline;
-  gap: 0.75rem;
-  padding: 0.75rem 0;
+  gap: 1rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .thesis-criteria-bullet {
-  width: 6px;
-  height: 6px;
-  min-width: 6px;
+  width: 8px;
+  height: 8px;
+  min-width: 8px;
   background-color: var(--color-accent);
   border-radius: 50%;
-  margin-top: 0.4rem;
+  margin-top: 0.35rem;
 }
 
 .thesis-criteria-text {
-  font-size: 0.9375rem;
+  font-size: 1.0625rem;
   line-height: 1.6;
   color: var(--color-text-secondary);
 }
@@ -651,18 +676,20 @@
 
 .team-view-all-link {
   display: inline-block;
-  padding: 0.75rem 2.25rem;
-  font-size: 0.875rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
+  padding: 0.875rem 2.5rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--color-accent);
-  border: 1px solid var(--color-accent);
-  transition: color 0.25s ease, border-color 0.25s ease;
+  background: transparent;
+  border: 2px solid var(--color-accent);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .team-view-all-link:hover {
-  color: #003d2b;
-  border-color: #003d2b;
+  background: var(--color-accent);
+  color: var(--color-hero-text);
 }
 
 /* ============================================
@@ -690,12 +717,29 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
+  align-items: stretch;
 }
 
 .founders-card {
   padding: 3rem;
   border: 1px solid var(--color-border);
   background: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+}
+
+.founders-card-top {
+  flex-shrink: 0;
+}
+
+.founders-form {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.founders-form-fields {
+  flex: 1;
 }
 
 .founders-card-label {
@@ -783,22 +827,80 @@
 }
 
 .form-submit {
-  display: inline-block;
+  display: block;
+  width: 100%;
   padding: 0.875rem 2.5rem;
   font-size: 0.8125rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  text-align: center;
   background: var(--color-accent);
   color: var(--color-hero-text);
   border: none;
   cursor: pointer;
   transition: background-color 0.2s ease;
-  margin-top: 0.5rem;
+  margin-top: auto;
 }
 
 .form-submit:hover {
   background: #003d2b;
+}
+
+/* Deck PDF dropzone */
+.deck-dropzone {
+  border: 1.5px dashed var(--color-border);
+  padding: 1.25rem 1rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+  text-align: center;
+}
+
+.deck-dropzone:hover,
+.deck-dropzone--active {
+  border-color: var(--color-accent);
+  background: rgba(0, 79, 55, 0.03);
+}
+
+.deck-dropzone--has-file {
+  border-style: solid;
+  border-color: var(--color-accent);
+}
+
+.deck-dropzone-prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-muted);
+  font-size: 0.875rem;
+}
+
+.deck-dropzone-prompt svg {
+  opacity: 0.4;
+}
+
+.deck-dropzone-file {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--color-accent);
+}
+
+.deck-dropzone-remove {
+  background: none;
+  border: none;
+  color: var(--color-muted);
+  font-size: 0.75rem;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.deck-dropzone-remove:hover {
+  color: var(--color-text);
 }
 
 /* ============================================
@@ -1478,9 +1580,31 @@
 }
 
 section.partners-page {
-  padding-top: 3rem;
-  padding-bottom: 2rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
   min-height: auto;
+}
+
+/* --- Partners Header (homepage component) --- */
+.partners-header {
+  max-width: 640px;
+  margin-bottom: 3rem;
+}
+
+.partners-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  font-weight: 400;
+  color: var(--color-text);
+  line-height: 1.25;
+  margin-bottom: 1rem;
+}
+
+.partners-subtitle {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  max-width: 640px;
 }
 
 /* --- Partners Banner --- */
@@ -1546,7 +1670,7 @@ section.partners-page {
 /* --- Marquee --- */
 .marquee-section {
   overflow: hidden;
-  padding: 3rem 0;
+  padding: 2rem 0;
   border-top: 1px solid var(--color-border-light);
   border-bottom: 1px solid var(--color-border-light);
 }
@@ -1579,7 +1703,7 @@ section.partners-page {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 56px;
+  height: 90px;
   filter: grayscale(100%);
   opacity: 0.55;
   transition: filter 0.4s ease, opacity 0.4s ease;
@@ -1656,7 +1780,7 @@ section.partners-page {
   }
 
   .marquee-logo {
-    height: 44px;
+    height: 60px;
   }
 
   .marquee-logo-initials {
@@ -1838,6 +1962,8 @@ section.partners-page {
   padding: 3rem 0;
   text-align: center;
   border-top: 1px solid var(--color-border);
+  display: flex;
+  justify-content: center;
 }
 
 .ss-cta-button {
@@ -1858,7 +1984,8 @@ section.partners-page {
 
 .ss-cta-text {
   margin-top: 1.5rem;
-  font-size: 0.875rem;
+  margin-bottom: 2.5rem;
+  font-size: 1.25rem;
   color: var(--color-muted);
   line-height: 1.6;
 }
