@@ -1195,11 +1195,11 @@
 
 .tp-banner-subtitle {
   font-family: var(--font-body);
-  font-size: 1.05rem;
+  font-size: 1.2rem;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.7);
   line-height: 1.5;
-  max-width: 440px;
+  max-width: 600px;
 }
 
 /* --- Sticky Tab Navigation --- */
