@@ -18,7 +18,8 @@ export default function Navbar() {
 
   const forceScrolled = !isHome || scrolled
 
-  const handleAnchorClick = (hash) => {
+  const handleAnchorClick = (e, hash) => {
+    e.preventDefault()
     setMenuOpen(false)
     if (!isHome) return
     const el = document.querySelector(hash)
@@ -35,8 +36,8 @@ export default function Navbar() {
       <div className={`navbar-links ${menuOpen ? 'open' : ''}`}>
         {isHome ? (
           <>
-            <a href="#about" onClick={() => handleAnchorClick('#about')}>About</a>
-            <a href="#thesis" onClick={() => handleAnchorClick('#thesis')}>Thesis</a>
+            <a href="#about" onClick={(e) => handleAnchorClick(e, '#about')}>About</a>
+            <a href="#thesis" onClick={(e) => handleAnchorClick(e, '#thesis')}>Thesis</a>
           </>
         ) : (
           <>
@@ -48,8 +49,8 @@ export default function Navbar() {
         <Link to="/partners" onClick={() => setMenuOpen(false)}>Partners</Link>
         {isHome ? (
           <>
-            <a href="#founders" onClick={() => handleAnchorClick('#founders')}>Founders</a>
-            <a href="#contact" onClick={() => handleAnchorClick('#contact')}>Contact</a>
+            <a href="#founders" onClick={(e) => handleAnchorClick(e, '#founders')}>Founders</a>
+            <a href="#contact" onClick={(e) => handleAnchorClick(e, '#contact')}>Contact</a>
           </>
         ) : (
           <>
