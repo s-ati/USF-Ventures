@@ -438,7 +438,7 @@
 }
 
 .thesis-block-number {
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   font-weight: 600;
   color: var(--color-accent);
   margin-bottom: 1rem;
@@ -447,7 +447,7 @@
 
 .thesis-block-heading {
   font-family: var(--font-heading);
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 400;
   color: var(--color-text);
   margin-bottom: 1rem;
@@ -455,7 +455,7 @@
 }
 
 .thesis-block-text {
-  font-size: 0.9375rem;
+  font-size: 1.1rem;
   line-height: 1.7;
   color: var(--color-text-secondary);
 }
