@@ -6,9 +6,9 @@ export default function Contact() {
           <p className="section-label">Contact</p>
           <h2 className="contact-heading">Get in touch</h2>
           <p className="contact-text">
-            USF Ventures is based at the University of San Francisco.
-            For inquiries regarding investment, partnerships, or general
-            information, reach out to our team directly.
+            USF Ventures is based in San Francisco. For inquiries regarding
+            investment, partnerships, or general information, reach out to
+            our team directly.
           </p>
           <div className="contact-details">
             <div>
