@@ -5,7 +5,7 @@ const teamData = {
       slug: 'brett',
       role: 'General Partner',
       image: '/team/brett.jpeg',
-      linkedin: '#',
+      linkedin: 'https://www.linkedin.com/in/brett-bonthron/',
       bio: `Brett Bonthron is a General Partner at USF Ventures. He has served as Adjunct Faculty at the University of San Francisco School of Management for over 23 years, teaching entrepreneurship and venture strategy. Brett was a Partner at Capgemini, Deloitte Consulting and The Chasm Group alongside Geoffrey Moore.\n\nBrett also worked at Microsoft and Salesforce, where he founded VIIZR, a partnership between Salesforce and Ford funded by Salesforce Ventures. Throughout his academic and advisory work, Brett has guided eight student-led startups to four exits. He is based in San Francisco.`,
     },
     {
@@ -37,7 +37,7 @@ const teamData = {
       slug: 'samuel',
       role: 'Senior Venture Associate',
       image: '/team/samuel.jpeg',
-      linkedin: '#',
+      linkedin: 'https://www.linkedin.com/in/samuel-atiye/',
       bio: `Samuel is a venture and startup ecosystem professional focused on international market entry, venture capital, and early-stage company development. Originally from Germany, he competed in NCAA Division I soccer while earning degrees and certificates in Sociology and International Finance at the University of California, Irvine.\n\nHe later continued competing in Division I athletics at the University of San Francisco, where he is completing a Master of Science in Entrepreneurship and Innovation. Samuel has worked with a startup accelerator in Germany and currently supports German companies expanding into the U.S. market through the German American Chamber of Commerce, San Francisco, helping companies navigate U.S. market entry and connect with the Silicon Valley venture ecosystem.`,
     },
   ],
