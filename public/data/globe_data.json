@@ -1,134 +1,24 @@
 [
-  {
-    "country": "United States",
-    "companies": 137,
-    "lat": 39.8283,
-    "lng": -98.5795
-  },
-  {
-    "country": "Turkey",
-    "companies": 5,
-    "lat": 38.9637,
-    "lng": 35.2433
-  },
-  {
-    "country": "United Kingdom",
-    "companies": 4,
-    "lat": 55.3781,
-    "lng": -3.436
-  },
-  {
-    "country": "Indonesia",
-    "companies": 3,
-    "lat": -0.7893,
-    "lng": 113.9213
-  },
-  {
-    "country": "Hong Kong",
-    "companies": 3,
-    "lat": 22.3193,
-    "lng": 114.1694
-  },
-  {
-    "country": "Taiwan",
-    "companies": 3,
-    "lat": 23.6978,
-    "lng": 120.9605
-  },
-  {
-    "country": "The Netherlands",
-    "companies": 2,
-    "lat": 52.1326,
-    "lng": 5.2913
-  },
-  {
-    "country": "Singapore",
-    "companies": 2,
-    "lat": 1.3521,
-    "lng": 103.8198
-  },
-  {
-    "country": "France",
-    "companies": 2,
-    "lat": 46.2276,
-    "lng": 2.2137
-  },
-  {
-    "country": "United Arab Emirates",
-    "companies": 1,
-    "lat": 23.4241,
-    "lng": 53.8478
-  },
-  {
-    "country": "South Africa",
-    "companies": 1,
-    "lat": -30.5595,
-    "lng": 22.9375
-  },
-  {
-    "country": "Egypt",
-    "companies": 1,
-    "lat": 26.8206,
-    "lng": 30.8025
-  },
-  {
-    "country": "Ghana",
-    "companies": 1,
-    "lat": 7.9465,
-    "lng": -1.0232
-  },
-  {
-    "country": "Brazil",
-    "companies": 1,
-    "lat": -14.235,
-    "lng": -51.9253
-  },
-  {
-    "country": "China",
-    "companies": 1,
-    "lat": 35.8617,
-    "lng": 104.1954
-  },
-  {
-    "country": "Luxembourg",
-    "companies": 1,
-    "lat": 49.8153,
-    "lng": 6.1296
-  },
-  {
-    "country": "India",
-    "companies": 1,
-    "lat": 20.5937,
-    "lng": 78.9629
-  },
-  {
-    "country": "Poland",
-    "companies": 1,
-    "lat": 51.9194,
-    "lng": 19.1451
-  },
-  {
-    "country": "Sweden",
-    "companies": 1,
-    "lat": 60.1282,
-    "lng": 18.6435
-  },
-  {
-    "country": "Australia",
-    "companies": 1,
-    "lat": -25.2744,
-    "lng": 133.7751
-  },
-  {
-    "country": "Canada",
-    "companies": 1,
-    "lat": 56.1304,
-    "lng": -106.3468
-  },
-  {
-    "country": "Mali",
-    "companies": 1,
-    "lat": 17.5707,
-    "lng": -3.9962
-  }
+  {"country":"United States","companies":137,"lat":39.8283,"lng":-98.5795},
+  {"country":"Turkey","companies":5,"lat":38.9637,"lng":35.2433},
+  {"country":"United Kingdom","companies":4,"lat":55.3781,"lng":-3.436},
+  {"country":"Indonesia","companies":3,"lat":-0.7893,"lng":113.9213},
+  {"country":"Taiwan","companies":3,"lat":23.6978,"lng":120.9605},
+  {"country":"Hong Kong","companies":3,"lat":22.3193,"lng":114.1694},
+  {"country":"The Netherlands","companies":2,"lat":52.1326,"lng":5.2913},
+  {"country":"Singapore","companies":2,"lat":1.3521,"lng":103.8198},
+  {"country":"France","companies":2,"lat":46.2276,"lng":2.2137},
+  {"country":"India","companies":1,"lat":20.5937,"lng":78.9629},
+  {"country":"Australia","companies":1,"lat":-25.2744,"lng":133.7751},
+  {"country":"Luxembourg","companies":1,"lat":49.8153,"lng":6.1296},
+  {"country":"Brazil","companies":1,"lat":-14.235,"lng":-51.9253},
+  {"country":"Ghana","companies":1,"lat":7.9465,"lng":-1.0232},
+  {"country":"United Arab Emirates","companies":1,"lat":23.4241,"lng":53.8478},
+  {"country":"Egypt","companies":1,"lat":26.8206,"lng":30.8025},
+  {"country":"South Africa","companies":1,"lat":-30.5595,"lng":22.9375},
+  {"country":"China","companies":1,"lat":35.8617,"lng":104.1954},
+  {"country":"Poland","companies":1,"lat":51.9194,"lng":19.1451},
+  {"country":"Sweden","companies":1,"lat":60.1282,"lng":18.6435},
+  {"country":"Canada","companies":1,"lat":56.1304,"lng":-106.3468},
+  {"country":"Mali","companies":1,"lat":17.5707,"lng":-3.9962}
 ]
