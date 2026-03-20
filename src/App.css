@@ -2017,3 +2017,504 @@ section.partners-page {
     grid-template-columns: 1fr;
   }
 }
+
+/* ============================================
+   3D WORLD MAP
+   ============================================ */
+.world-map-section {
+  padding: var(--section-padding) 0 0;
+  background: var(--color-bg);
+}
+
+.world-map-container {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  margin: 3rem auto 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #0a0f1a;
+}
+
+.world-map-container canvas {
+  display: block;
+  margin: 0 auto;
+}
+
+/* Tooltip */
+.world-map-tooltip {
+  position: absolute;
+  top: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  padding: 0.625rem 1.25rem;
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  pointer-events: none;
+  z-index: 10;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.world-map-tooltip strong {
+  font-weight: 600;
+}
+
+.world-map-tooltip span {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Detail panel */
+.world-map-detail {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: rgba(0, 0, 0, 0.9);
+  color: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  width: 260px;
+  font-family: var(--font-body);
+  z-index: 10;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: fadeSlideIn 0.3s ease;
+}
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.world-map-detail-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.world-map-detail-close:hover {
+  color: #fff;
+}
+
+.world-map-detail-country {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.world-map-detail-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.world-map-detail-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2ea87a;
+}
+
+.world-map-detail-label {
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.world-map-detail-industries-title {
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.5);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.world-map-detail-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+.world-map-tag {
+  background: rgba(0, 84, 60, 0.4);
+  color: #2ea87a;
+  padding: 0.25rem 0.625rem;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border: 1px solid rgba(46, 168, 122, 0.3);
+}
+
+/* Stats bar */
+.world-map-stats {
+  background: var(--color-bg-alt);
+  padding: 2.5rem 0;
+  margin-top: 0;
+}
+
+.world-map-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  text-align: center;
+}
+
+.world-map-stat-value {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.world-map-stat-label {
+  display: block;
+  font-size: 0.8125rem;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 0.25rem;
+}
+
+/* ============================================
+   3D WORLD MAP RESPONSIVE — TABLET
+   ============================================ */
+@media (max-width: 1024px) {
+  .world-map-detail {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 100%;
+    border-radius: 0;
+    margin-top: -1px;
+  }
+}
+
+/* ============================================
+   3D WORLD MAP RESPONSIVE — MOBILE
+   ============================================ */
+@media (max-width: 768px) {
+  .world-map-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .world-map-stat-value {
+    font-size: 1.75rem;
+  }
+}
+
+/* ============================================
+   TOMBSTONE DISPLAY
+   ============================================ */
+.tombstone-section {
+  padding: var(--section-padding) 0 0;
+  background: var(--color-bg);
+}
+
+.tombstone-display {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  margin: 3rem auto 0;
+  min-height: 520px;
+  background: linear-gradient(180deg, #0a0f1a 0%, #111827 100%);
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 2rem;
+}
+
+/* Nav dots */
+.tombstone-nav {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 5;
+}
+
+.tombstone-nav-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.tombstone-nav-dot--active {
+  background: #2ea87a;
+  transform: scale(1.3);
+}
+
+.tombstone-nav-dot:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Section title */
+.tombstone-title {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.tombstone-title--visible {
+  opacity: 1;
+}
+
+.tombstone-title-text {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.tombstone-title-sub {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Cards container */
+.tombstone-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  min-height: 400px;
+  align-content: flex-start;
+  padding-top: 0.5rem;
+}
+
+.tombstone-cards--visible {
+  opacity: 1;
+}
+
+.tombstone-cards--fadeout {
+  opacity: 0;
+}
+
+.tombstone-cards--static .tombstone-card {
+  animation: none !important;
+  opacity: 1;
+  transform: none;
+}
+
+/* Tombstone card */
+.tombstone-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 1rem;
+  width: 180px;
+  font-family: var(--font-body);
+  color: #fff;
+  animation: tombstoneFallIn 0.6s ease forwards;
+  opacity: 0;
+  transform: translateY(-30px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  position: relative;
+  backdrop-filter: blur(8px);
+}
+
+.tombstone-card:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 8px 32px rgba(0, 84, 60, 0.25);
+  border-color: rgba(46, 168, 122, 0.4);
+  z-index: 2;
+}
+
+.tombstone-card--paused {
+  animation-play-state: paused !important;
+}
+
+@keyframes tombstoneFallIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Card top: avatar + name */
+.tombstone-card-top {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.tombstone-card-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: rgba(0, 84, 60, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid rgba(46, 168, 122, 0.3);
+}
+
+.tombstone-card-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tombstone-card-initials {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #2ea87a;
+}
+
+.tombstone-card-name {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* Card middle: company + industry */
+.tombstone-card-middle {
+  margin-bottom: 0.625rem;
+  padding-bottom: 0.625rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tombstone-card-company {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #2ea87a;
+  margin-bottom: 0.125rem;
+}
+
+.tombstone-card-industry {
+  display: block;
+  font-size: 0.6875rem;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* Card bottom: funding + location */
+.tombstone-card-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.5rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.tombstone-card-funding {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.tombstone-card-location {
+  font-size: 0.6875rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.tombstone-card-year {
+  font-size: 0.6875rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Card links */
+.tombstone-card-links {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.tombstone-card-links a {
+  color: rgba(255, 255, 255, 0.4);
+  transition: color 0.2s;
+}
+
+.tombstone-card-links a:hover {
+  color: #2ea87a;
+}
+
+/* Paused indicator */
+.tombstone-paused-indicator {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  background: rgba(0, 0, 0, 0.7);
+  color: rgba(255, 255, 255, 0.6);
+  padding: 0.375rem 0.75rem;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-family: var(--font-body);
+  backdrop-filter: blur(8px);
+}
+
+/* ============================================
+   TOMBSTONE DISPLAY RESPONSIVE — TABLET
+   ============================================ */
+@media (max-width: 1024px) {
+  .tombstone-card {
+    width: 160px;
+  }
+
+  .tombstone-title-text {
+    font-size: 2rem;
+  }
+}
+
+/* ============================================
+   TOMBSTONE DISPLAY RESPONSIVE — MOBILE
+   ============================================ */
+@media (max-width: 768px) {
+  .tombstone-display {
+    padding: 1.25rem;
+    min-height: 420px;
+  }
+
+  .tombstone-card {
+    width: calc(50% - 0.5rem);
+  }
+
+  .tombstone-title-text {
+    font-size: 1.5rem;
+  }
+
+  .tombstone-title-sub {
+    font-size: 0.875rem;
+  }
+}
