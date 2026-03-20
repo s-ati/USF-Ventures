@@ -3,14 +3,66 @@ import Globe from 'react-globe.gl'
 import globalReachData from '../data/globalReach'
 
 const ACCENT = '#00543C'
-const ACCENT_LIGHT = '#2ea87a'
-const GLOBE_BG = '#0a0f1a'
+const BG_COLOR = '#f0f0ee'
+const GEO_JSON_URL =
+  'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json'
+
+// Map country names to ISO numeric codes used by world-atlas topojson
+const COUNTRY_ISO_NUM = {
+  'United States': '840',
+  Turkey: '792',
+  'United Kingdom': '826',
+  Indonesia: '360',
+  Taiwan: '158',
+  'Hong Kong': '344',
+  'The Netherlands': '528',
+  Singapore: '702',
+  France: '250',
+  India: '356',
+  Australia: '036',
+  Luxembourg: '442',
+  Brazil: '076',
+  Ghana: '288',
+  'United Arab Emirates': '784',
+  Egypt: '818',
+  'South Africa': '710',
+  China: '156',
+  Poland: '616',
+  Sweden: '752',
+  Canada: '124',
+  Mali: '466',
+}
+
+// Build lookup from numeric ISO to company count
+function buildCountryLookup() {
+  const map = {}
+  globalReachData.forEach((d) => {
+    const id = COUNTRY_ISO_NUM[d.country]
+    if (id) map[id] = d.companies
+  })
+  return map
+}
+
+const countryLookup = buildCountryLookup()
+const maxCompanies = Math.max(...globalReachData.map((d) => d.companies))
+
+// Green heatmap: lighter for fewer, darker for more
+function getCountryColor(companies) {
+  if (!companies) return 'rgba(220, 220, 218, 0.6)' // light grey for non-highlighted
+  const ratio = Math.log(companies + 1) / Math.log(maxCompanies + 1)
+  // From light green #b8e6c8 to dark green #00543C
+  const r = Math.round(184 - ratio * 184)
+  const g = Math.round(230 - ratio * (230 - 84))
+  const b = Math.round(200 - ratio * (200 - 60))
+  return `rgb(${r}, ${g}, ${b})`
+}
 
 export default function WorldMap() {
   const globeRef = useRef()
   const containerRef = useRef()
   const [dimensions, setDimensions] = useState({ width: 800, height: 600 })
-  const [activePin, setActivePin] = useState(null)
+  const [countries, setCountries] = useState([])
+  const [hoverD, setHoverD] = useState(null)
   const [tooltip, setTooltip] = useState(null)
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
 
@@ -38,12 +90,30 @@ export default function WorldMap() {
     return () => window.removeEventListener('resize', updateSize)
   }, [])
 
+  // Load GeoJSON for country polygons
+  useEffect(() => {
+    fetch('https://unpkg.com/world-atlas@2.0.2/countries-50m.json')
+      .then((r) => r.json())
+      .then((data) => {
+        // Convert topojson to geojson features
+        import('https://cdn.jsdelivr.net/npm/topojson-client@3/+esm').then(
+          (topojson) => {
+            const features = topojson.feature(
+              data,
+              data.objects.countries
+            ).features
+            setCountries(features)
+          }
+        )
+      })
+  }, [])
+
   // Auto-rotate
   useEffect(() => {
     if (globeRef.current && !prefersReducedMotion) {
       const controls = globeRef.current.controls()
       controls.autoRotate = true
-      controls.autoRotateSpeed = 0.5
+      controls.autoRotateSpeed = 0.4
       controls.enableZoom = true
       controls.minDistance = 200
       controls.maxDistance = 500
@@ -53,57 +123,65 @@ export default function WorldMap() {
   // Initial point of view
   useEffect(() => {
     if (globeRef.current) {
-      globeRef.current.pointOfView({ lat: 20, lng: -40, altitude: 2.5 }, 0)
+      globeRef.current.pointOfView({ lat: 20, lng: -40, altitude: 2.2 }, 0)
     }
   }, [])
 
-  // Compute max for scaling
-  const maxCompanies = useMemo(
-    () => Math.max(...globalReachData.map((d) => d.companies)),
-    []
-  )
-
-  const pointAltitude = useCallback(
-    (d) => 0.01 + (d.companies / maxCompanies) * 0.15,
-    [maxCompanies]
-  )
-
-  const pointRadius = useCallback(
-    (d) => 0.3 + (d.companies / maxCompanies) * 0.7,
-    [maxCompanies]
-  )
-
-  const pointColor = useCallback(
-    (d) => (activePin && activePin.country === d.country ? '#ffffff' : ACCENT_LIGHT),
-    [activePin]
-  )
-
-  const handlePointClick = useCallback((point) => {
-    setActivePin((prev) => (prev?.country === point.country ? null : point))
-    if (globeRef.current) {
-      globeRef.current.pointOfView(
-        { lat: point.lat, lng: point.lng, altitude: 1.8 },
-        800
-      )
-    }
+  const polygonColor = useCallback((feat) => {
+    const id = feat.id || feat.properties?.id
+    const companies = countryLookup[id] || 0
+    return getCountryColor(companies)
   }, [])
 
-  const handlePointHover = useCallback((point) => {
-    setTooltip(point || null)
+  const polygonStroke = useCallback(() => '#c8c8c6', [])
+
+  const polygonSideColor = useCallback(() => 'rgba(0, 0, 0, 0.04)', [])
+
+  const polygonAltitude = useCallback((feat) => {
+    const id = feat.id || feat.properties?.id
+    const companies = countryLookup[id] || 0
+    return companies ? 0.006 + (companies / maxCompanies) * 0.03 : 0.003
+  }, [])
+
+  const handlePolygonHover = useCallback((feat) => {
+    setHoverD(feat)
+    if (feat) {
+      const id = feat.id || feat.properties?.id
+      const companies = countryLookup[id] || 0
+      if (companies) {
+        const entry = globalReachData.find(
+          (d) => COUNTRY_ISO_NUM[d.country] === id
+        )
+        if (entry) {
+          setTooltip({
+            name: entry.country,
+            companies: entry.companies,
+          })
+        }
+      } else {
+        setTooltip(null)
+      }
+    } else {
+      setTooltip(null)
+    }
     if (containerRef.current) {
-      containerRef.current.style.cursor = point ? 'pointer' : 'default'
+      const id = feat?.id || feat?.properties?.id
+      const companies = feat ? countryLookup[id] || 0 : 0
+      containerRef.current.style.cursor = companies ? 'pointer' : 'default'
     }
   }, [])
-
-  // Ring effect for active pin
-  const ringsData = useMemo(
-    () => (activePin ? [{ lat: activePin.lat, lng: activePin.lng }] : []),
-    [activePin]
-  )
 
   // Total companies
   const totalCompanies = useMemo(
     () => globalReachData.reduce((sum, d) => sum + d.companies, 0),
+    []
+  )
+
+  const internationalCompanies = useMemo(
+    () =>
+      globalReachData
+        .filter((d) => d.country !== 'United States')
+        .reduce((sum, d) => sum + d.companies, 0),
     []
   )
 
@@ -115,8 +193,11 @@ export default function WorldMap() {
         <p className="section-label">Global Reach</p>
         <h2 className="section-heading">Our Founders Across the World</h2>
         <p className="section-subheading">
-          USF founders and portfolio companies span {totalCountries} countries
-          with {totalCompanies}+ ventures worldwide.
+          USF Ventures has a truly global footprint, with portfolio companies
+          spanning {totalCountries} countries worldwide. With 137 companies in
+          the United States and {internationalCompanies} companies
+          internationally, our USF founders represent a diverse range of
+          industries across North America, Europe, Asia, and beyond.
         </p>
       </div>
 
@@ -125,67 +206,43 @@ export default function WorldMap() {
           ref={globeRef}
           width={dimensions.width}
           height={dimensions.height}
-          backgroundColor={GLOBE_BG}
-          globeImageUrl="//unpkg.com/three-globe/example/img/earth-dark.jpg"
-          atmosphereColor={ACCENT}
-          atmosphereAltitude={0.2}
-          pointsData={globalReachData}
-          pointLat="lat"
-          pointLng="lng"
-          pointAltitude={pointAltitude}
-          pointRadius={pointRadius}
-          pointColor={pointColor}
-          pointsMerge={false}
-          onPointClick={handlePointClick}
-          onPointHover={handlePointHover}
-          ringsData={ringsData}
-          ringLat="lat"
-          ringLng="lng"
-          ringColor={() => ACCENT_LIGHT}
-          ringMaxRadius={3}
-          ringPropagationSpeed={2}
-          ringRepeatPeriod={1000}
+          backgroundColor={BG_COLOR}
+          showGlobe={true}
+          globeImageUrl=""
+          showAtmosphere={true}
+          atmosphereColor="rgba(200, 200, 200, 0.3)"
+          atmosphereAltitude={0.15}
+          polygonsData={countries}
+          polygonCapColor={polygonColor}
+          polygonSideColor={polygonSideColor}
+          polygonStrokeColor={polygonStroke}
+          polygonAltitude={polygonAltitude}
+          polygonLabel={null}
+          onPolygonHover={handlePolygonHover}
+          showGraticules={true}
           animateIn={!prefersReducedMotion}
         />
 
         {/* Hover tooltip */}
-        {tooltip && !activePin && (
+        {tooltip && (
           <div className="world-map-tooltip">
-            <strong>{tooltip.country}</strong>
-            <span>{tooltip.companies} {tooltip.companies === 1 ? 'company' : 'companies'}</span>
+            <strong>{tooltip.name}</strong>
+            <span>
+              {tooltip.companies}{' '}
+              {tooltip.companies === 1 ? 'company' : 'companies'}
+            </span>
           </div>
         )}
 
-        {/* Click detail panel */}
-        {activePin && (
-          <div className="world-map-detail">
-            <button
-              className="world-map-detail-close"
-              onClick={() => setActivePin(null)}
-              aria-label="Close details"
-            >
-              &times;
-            </button>
-            <h3 className="world-map-detail-country">{activePin.country}</h3>
-            <div className="world-map-detail-stat">
-              <span className="world-map-detail-value">{activePin.companies}</span>
-              <span className="world-map-detail-label">
-                {activePin.companies === 1 ? 'Company' : 'Companies'}
-              </span>
-            </div>
-            <div className="world-map-detail-industries">
-              <span className="world-map-detail-industries-title">Industries</span>
-              <div className="world-map-detail-tags">
-                {activePin.industries.map((ind) => (
-                  <span key={ind} className="world-map-tag">{ind}</span>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
+        {/* Heatmap legend */}
+        <div className="world-map-legend">
+          <span className="world-map-legend-label">Fewer</span>
+          <div className="world-map-legend-bar" />
+          <span className="world-map-legend-label">More</span>
+        </div>
       </div>
 
-      {/* Stats bar */}
+      {/* Key Stats */}
       <div className="world-map-stats">
         <div className="container">
           <div className="world-map-stats-grid">
@@ -201,7 +258,60 @@ export default function WorldMap() {
               <span className="world-map-stat-value">6</span>
               <span className="world-map-stat-label">Continents</span>
             </div>
+            <div className="world-map-stat-item">
+              <span className="world-map-stat-value">$3,966M</span>
+              <span className="world-map-stat-label">
+                Total Capital Invested
+              </span>
+            </div>
+            <div className="world-map-stat-item">
+              <span className="world-map-stat-value">$585M</span>
+              <span className="world-map-stat-label">Largest Investment</span>
+            </div>
+            <div className="world-map-stat-item">
+              <span className="world-map-stat-value">3</span>
+              <span className="world-map-stat-label">IPO Companies</span>
+            </div>
           </div>
+        </div>
+      </div>
+
+      {/* IPO Highlights */}
+      <div className="world-map-ipos">
+        <div className="container">
+          <h3 className="world-map-ipos-heading">IPO Highlights</h3>
+          <div className="world-map-ipos-grid">
+            <div className="world-map-ipo-card">
+              <span className="world-map-ipo-name">Grocery Outlet</span>
+              <span className="world-map-ipo-detail">
+                IPO 2019 &middot; $439M raised
+              </span>
+              <span className="world-map-ipo-ticker">NASDAQ: GO</span>
+            </div>
+            <div className="world-map-ipo-card">
+              <span className="world-map-ipo-name">Five9</span>
+              <span className="world-map-ipo-detail">
+                IPO 2014 &middot; $861.6M raised
+              </span>
+              <span className="world-map-ipo-ticker">NASDAQ: FIVN</span>
+            </div>
+            <div className="world-map-ipo-card">
+              <span className="world-map-ipo-name">Prenetics</span>
+              <span className="world-map-ipo-detail">
+                SPAC IPO 2022 &middot; $235.65M raised
+              </span>
+              <span className="world-map-ipo-ticker">NASDAQ: PRE</span>
+            </div>
+          </div>
+          <p className="world-map-closing">
+            This broad geographic distribution and strong financial backing
+            highlight the international success and global impact of our
+            founders truly following the motto to{' '}
+            <span className="world-map-closing-highlight">
+              change the world from here
+            </span>
+            .
+          </p>
         </div>
       </div>
     </section>

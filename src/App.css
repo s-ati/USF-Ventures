@@ -2033,7 +2033,7 @@ section.partners-page {
   margin: 3rem auto 0;
   border-radius: 12px;
   overflow: hidden;
-  background: #0a0f1a;
+  background: #f0f0ee;
 }
 
 .world-map-container canvas {
@@ -2047,8 +2047,8 @@ section.partners-page {
   top: 1.5rem;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.85);
-  color: #fff;
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--color-text);
   padding: 0.625rem 1.25rem;
   border-radius: 8px;
   font-family: var(--font-body);
@@ -2059,117 +2059,56 @@ section.partners-page {
   pointer-events: none;
   z-index: 10;
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 }
 
 .world-map-tooltip strong {
   font-weight: 600;
+  color: var(--color-text);
 }
 
 .world-map-tooltip span {
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-muted);
 }
 
-/* Detail panel */
-.world-map-detail {
+/* Heatmap legend */
+.world-map-legend {
   position: absolute;
-  top: 1.5rem;
+  bottom: 1.25rem;
   right: 1.5rem;
-  background: rgba(0, 0, 0, 0.9);
-  color: #fff;
-  padding: 1.5rem;
-  border-radius: 12px;
-  width: 260px;
-  font-family: var(--font-body);
-  z-index: 10;
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  animation: fadeSlideIn 0.3s ease;
-}
-
-@keyframes fadeSlideIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.world-map-detail-close {
-  position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 1.25rem;
-  line-height: 1;
-  cursor: pointer;
-  transition: color 0.2s;
-}
-
-.world-map-detail-close:hover {
-  color: #fff;
-}
-
-.world-map-detail-country {
-  font-family: var(--font-heading);
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-}
-
-.world-map-detail-stat {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 0.5rem;
-  margin-bottom: 1rem;
+  z-index: 5;
 }
 
-.world-map-detail-value {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #2ea87a;
-}
-
-.world-map-detail-label {
-  font-size: 0.8125rem;
-  color: rgba(255, 255, 255, 0.6);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.world-map-detail-industries-title {
+.world-map-legend-label {
   font-size: 0.6875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.5);
-  display: block;
-  margin-bottom: 0.5rem;
-}
-
-.world-map-detail-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.375rem;
-}
-
-.world-map-tag {
-  background: rgba(0, 84, 60, 0.4);
-  color: #2ea87a;
-  padding: 0.25rem 0.625rem;
-  border-radius: 100px;
-  font-size: 0.75rem;
   font-weight: 500;
-  border: 1px solid rgba(46, 168, 122, 0.3);
+  color: var(--color-muted);
+  letter-spacing: 0.02em;
+}
+
+.world-map-legend-bar {
+  width: 100px;
+  height: 8px;
+  border-radius: 4px;
+  background: linear-gradient(to right, #b8e6c8, #3a9a6e, #00543C);
 }
 
 /* Stats bar */
 .world-map-stats {
   background: var(--color-bg-alt);
-  padding: 2.5rem 0;
+  padding: 3rem 0;
   margin-top: 0;
+  border-top: 1px solid var(--color-border-light);
 }
 
 .world-map-stats-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
+  gap: 2.5rem 2rem;
   text-align: center;
 }
 
@@ -2190,17 +2129,82 @@ section.partners-page {
   margin-top: 0.25rem;
 }
 
+/* IPO Highlights */
+.world-map-ipos {
+  padding: 3rem 0 4rem;
+  background: var(--color-bg);
+  border-top: 1px solid var(--color-border-light);
+}
+
+.world-map-ipos-heading {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--color-text);
+  margin-bottom: 2rem;
+}
+
+.world-map-ipos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.world-map-ipo-card {
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-alt);
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  transition: border-color 0.2s ease;
+}
+
+.world-map-ipo-card:hover {
+  border-color: var(--color-accent);
+}
+
+.world-map-ipo-name {
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.world-map-ipo-detail {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.world-map-ipo-ticker {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--color-accent);
+  margin-top: 0.25rem;
+}
+
+/* Closing statement */
+.world-map-closing {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  max-width: 720px;
+}
+
+.world-map-closing-highlight {
+  color: var(--color-accent);
+  font-weight: 600;
+  font-style: italic;
+}
+
 /* ============================================
    3D WORLD MAP RESPONSIVE — TABLET
    ============================================ */
 @media (max-width: 1024px) {
-  .world-map-detail {
-    position: relative;
-    top: auto;
-    right: auto;
-    width: 100%;
-    border-radius: 0;
-    margin-top: -1px;
+  .world-map-ipos-grid {
+    grid-template-columns: 1fr 1fr;
   }
 }
 
@@ -2209,12 +2213,25 @@ section.partners-page {
    ============================================ */
 @media (max-width: 768px) {
   .world-map-stats-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
   }
 
   .world-map-stat-value {
     font-size: 1.75rem;
+  }
+
+  .world-map-ipos-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .world-map-legend {
+    bottom: 0.75rem;
+    right: 1rem;
+  }
+
+  .world-map-legend-bar {
+    width: 70px;
   }
 }
 
