@@ -1,11 +1,9 @@
 import { useRef, useState, useEffect, useCallback, useMemo } from 'react'
 import Globe from 'react-globe.gl'
+import { feature } from 'topojson-client'
 import globalReachData from '../data/globalReach'
 
-const ACCENT = '#00543C'
 const BG_COLOR = '#f0f0ee'
-const GEO_JSON_URL =
-  'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json'
 
 // Map country names to ISO numeric codes used by world-atlas topojson
 const COUNTRY_ISO_NUM = {
@@ -95,16 +93,8 @@ export default function WorldMap() {
     fetch('https://unpkg.com/world-atlas@2.0.2/countries-50m.json')
       .then((r) => r.json())
       .then((data) => {
-        // Convert topojson to geojson features
-        import('https://cdn.jsdelivr.net/npm/topojson-client@3/+esm').then(
-          (topojson) => {
-            const features = topojson.feature(
-              data,
-              data.objects.countries
-            ).features
-            setCountries(features)
-          }
-        )
+        const features = feature(data, data.objects.countries).features
+        setCountries(features)
       })
   }, [])
 
