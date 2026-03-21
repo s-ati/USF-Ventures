@@ -36,7 +36,7 @@ function toEntry(company) {
     photo: null,
     funding: formatFunding(company.totalFunding),
     location: company.location || '',
-    year: extractYear(company.foundedDate),
+    year: extractYear(company.lastFundingDate),
     industry: primaryIndustry(company.industries),
     linkedIn: company.linkedin || '#',
     website: company.website || '#',
