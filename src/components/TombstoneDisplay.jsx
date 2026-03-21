@@ -77,8 +77,8 @@ export default function TombstoneDisplay() {
     []
   )
 
-  /* Slightly different speeds per column for visual interest (seconds) */
-  const speeds = [28, 34, 26, 32]
+  /* Each column scrolls at a distinct speed for variety (seconds) */
+  const speeds = [22, 35, 18, 30]
 
   return (
     <section className="tombstone-section">
