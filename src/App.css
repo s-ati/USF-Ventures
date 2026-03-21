@@ -2284,7 +2284,7 @@ section.partners-page {
 
 /* Visible window with fade-out at top & bottom */
 .tombstone-column-track-wrapper {
-  height: 240px;
+  height: 520px;
   overflow: hidden;
   position: relative;
   mask-image: linear-gradient(
