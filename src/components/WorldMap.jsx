@@ -1,9 +1,17 @@
 import { useRef, useState, useEffect, useCallback, useMemo } from 'react'
 import Globe from 'react-globe.gl'
 import { feature } from 'topojson-client'
+import * as THREE from 'three'
 import globalReachData from '../data/globalReach'
 
 const BG_COLOR = '#f0f0ee'
+
+// White globe material
+const GLOBE_MATERIAL = new THREE.MeshPhongMaterial({
+  color: new THREE.Color('#ffffff'),
+  transparent: true,
+  opacity: 0.95,
+})
 
 // Map country names to ISO numeric codes used by world-atlas topojson
 const COUNTRY_ISO_NUM = {
@@ -46,7 +54,7 @@ const maxCompanies = Math.max(...globalReachData.map((d) => d.companies))
 
 // Green heatmap: lighter for fewer, darker for more
 function getCountryColor(companies) {
-  if (!companies) return 'rgba(220, 220, 218, 0.6)' // light grey for non-highlighted
+  if (!companies) return 'rgba(235, 235, 232, 0.7)' // very light grey for non-highlighted
   const ratio = Math.log(companies + 1) / Math.log(maxCompanies + 1)
   // From light green #b8e6c8 to dark green #00543C
   const r = Math.round(184 - ratio * 184)
@@ -123,7 +131,7 @@ export default function WorldMap() {
     return getCountryColor(companies)
   }, [])
 
-  const polygonStroke = useCallback(() => '#c8c8c6', [])
+  const polygonStroke = useCallback(() => '#e0e0de', [])
 
   const polygonSideColor = useCallback(() => 'rgba(0, 0, 0, 0.04)', [])
 
@@ -199,8 +207,9 @@ export default function WorldMap() {
           backgroundColor={BG_COLOR}
           showGlobe={true}
           globeImageUrl=""
+          globeMaterial={GLOBE_MATERIAL}
           showAtmosphere={true}
-          atmosphereColor="rgba(200, 200, 200, 0.3)"
+          atmosphereColor="rgba(46, 168, 122, 0.15)"
           atmosphereAltitude={0.15}
           polygonsData={countries}
           polygonCapColor={polygonColor}
