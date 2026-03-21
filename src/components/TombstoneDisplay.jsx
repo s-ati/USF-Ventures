@@ -102,7 +102,7 @@ export default function TombstoneDisplay() {
             <div className="tombstone-column-track-wrapper">
               <div
                 className="tombstone-column-track"
-                style={{ animationDuration: `${speeds[colIdx]}s` }}
+                style={{ '--scroll-speed': `${speeds[colIdx]}s` }}
               >
                 {/* duplicate for seamless infinite loop */}
                 {[...col.entries, ...col.entries].map((entry, i) => (

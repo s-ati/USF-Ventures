@@ -2308,7 +2308,10 @@ section.partners-page {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  animation: matrixScrollDown linear infinite;
+  animation-name: matrixScrollDown;
+  animation-duration: var(--scroll-speed, 30s);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 }
 
 @keyframes matrixScrollDown {
