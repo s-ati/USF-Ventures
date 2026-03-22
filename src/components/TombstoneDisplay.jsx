@@ -73,8 +73,6 @@ function RainLine({ left, speed, delay, brightness, height }) {
 /* ---------- main component ---------- */
 export default function TombstoneDisplay() {
   const [activeCards, setActiveCards] = useState([])
-  const poolRef = useRef([])
-  const indexRef = useRef(0)
   const idCounter = useRef(0)
   const timersRef = useRef([])
   const occupiedRef = useRef(new Set())
@@ -114,11 +112,10 @@ export default function TombstoneDisplay() {
   const spawnCard = useCallback(() => {
     if (allEntries.length === 0) return
 
-    /* Try up to 8 entries to find one with a free slot */
+    /* Pick a truly random entry with a free slot (try up to 12 times) */
     let entry, slot
-    for (let attempts = 0; attempts < 8; attempts++) {
-      entry = allEntries[indexRef.current % allEntries.length]
-      indexRef.current++
+    for (let attempts = 0; attempts < 12; attempts++) {
+      entry = allEntries[Math.floor(Math.random() * allEntries.length)]
       slot = pickSlot(entry.laneBase)
       if (slot) break
     }
@@ -158,15 +155,14 @@ export default function TombstoneDisplay() {
     /* Stagger initial cards */
     const inits = [
       setTimeout(() => spawnCard(), 300),
-      setTimeout(() => spawnCard(), 1000),
-      setTimeout(() => spawnCard(), 1800),
-      setTimeout(() => spawnCard(), 2600),
+      setTimeout(() => spawnCard(), 1200),
+      setTimeout(() => spawnCard(), 2400),
     ]
 
-    /* Keep spawning */
+    /* Keep spawning every ~2.6s */
     const interval = setInterval(() => {
       spawnCard()
-    }, 1600)
+    }, 2600)
 
     return () => {
       inits.forEach(clearTimeout)
