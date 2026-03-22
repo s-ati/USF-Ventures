@@ -202,7 +202,6 @@ export default function WorldMap() {
           height={dimensions.height}
           backgroundColor={BG_COLOR}
           showGlobe={true}
-          globeImageUrl=""
           globeMaterial={GLOBE_MATERIAL}
           showAtmosphere={true}
           atmosphereColor="rgba(46, 168, 122, 0.15)"
