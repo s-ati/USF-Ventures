@@ -88,7 +88,7 @@ export default function WorldMap() {
       if (containerRef.current) {
         const rect = containerRef.current.getBoundingClientRect()
         const w = rect.width
-        const h = Math.min(w * 0.75, 700)
+        const h = Math.min(w * 0.75, 620)
         setDimensions({ width: w, height: h })
       }
     }

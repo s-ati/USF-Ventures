@@ -2031,6 +2031,7 @@ section.partners-page {
   width: 100%;
   max-width: 1400px;
   margin: 3rem auto 0;
+  height: 620px;
   border-radius: 12px;
   overflow: hidden;
   background: #f0f0ee;
@@ -2203,6 +2204,10 @@ section.partners-page {
    3D WORLD MAP RESPONSIVE — TABLET
    ============================================ */
 @media (max-width: 1024px) {
+  .world-map-container {
+    height: 520px;
+  }
+
   .world-map-ipos-grid {
     grid-template-columns: 1fr 1fr;
   }
@@ -2212,6 +2217,10 @@ section.partners-page {
    3D WORLD MAP RESPONSIVE — MOBILE
    ============================================ */
 @media (max-width: 768px) {
+  .world-map-container {
+    height: 400px;
+  }
+
   .world-map-stats-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
