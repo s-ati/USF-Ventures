@@ -252,7 +252,7 @@ export default function WorldMap() {
               <span className="world-map-stat-label">Continents</span>
             </div>
             <div className="world-map-stat-item">
-              <span className="world-map-stat-value">$3,966M</span>
+              <span className="world-map-stat-value">$3.97B</span>
               <span className="world-map-stat-label">
                 Total Capital Invested
               </span>
