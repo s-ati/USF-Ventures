@@ -184,13 +184,13 @@ export default function WorldMap() {
     <section className="world-map-section">
       <div className="container">
         <p className="section-label">Global Reach</p>
-        <h2 className="section-heading">Our Founders Across the World</h2>
+        <h2 className="section-heading">USF Founders Across the World</h2>
         <p className="section-subheading">
-          USF Ventures has a truly global footprint, with portfolio companies
-          spanning {totalCountries} countries worldwide. With 137 companies in
-          the United States and {internationalCompanies} companies
-          internationally, our USF founders represent a diverse range of
-          industries across North America, Europe, Asia, and beyond.
+          USF has a truly global footprint, with alumni companies spanning{' '}
+          {totalCountries} countries worldwide. With more than 137 companies in
+          the United States and around {internationalCompanies} companies
+          internationally, USF founders represent a diverse range of industries
+          across North America, Europe, Asia, and beyond.
         </p>
       </div>
 
