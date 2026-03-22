@@ -135,11 +135,7 @@ export default function WorldMap() {
 
   const polygonSideColor = useCallback(() => 'rgba(0, 0, 0, 0.04)', [])
 
-  const polygonAltitude = useCallback((feat) => {
-    const id = feat.id || feat.properties?.id
-    const companies = countryLookup[id] || 0
-    return companies ? 0.006 + (companies / maxCompanies) * 0.03 : 0.003
-  }, [])
+  const polygonAltitude = useCallback(() => 0.003, [])
 
   const handlePolygonHover = useCallback((feat) => {
     setHoverD(feat)
