@@ -213,7 +213,7 @@ export default function WorldMap() {
           polygonAltitude={polygonAltitude}
           polygonLabel={null}
           onPolygonHover={handlePolygonHover}
-          showGraticules={true}
+          showGraticules={false}
           animateIn={!prefersReducedMotion}
         />
 
