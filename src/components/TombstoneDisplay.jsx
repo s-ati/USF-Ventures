@@ -102,6 +102,14 @@ export default function TombstoneDisplay() {
     return false
   }, [])
 
+  /* Check if a lane (column) is already used by any card on screen */
+  const isLaneOccupied = useCallback((lane) => {
+    for (const key of occupiedRef.current) {
+      if (key.startsWith(`${lane}-`)) return true
+    }
+    return false
+  }, [])
+
   /* Check if any adjacent lane (left or right neighbor) is occupied */
   const hasAdjacentOccupied = useCallback((lane) => {
     for (let r = 0; r < 4; r++) {
@@ -111,7 +119,7 @@ export default function TombstoneDisplay() {
     return false
   }, [])
 
-  /* Pick a slot: not occupied, not adjacent, and never the same row as another visible card */
+  /* Pick a slot: unique row, unique column, not adjacent to another card */
   const pickSlot = useCallback(
     (laneBase) => {
       const options = []
@@ -121,6 +129,7 @@ export default function TombstoneDisplay() {
           const key = `${lane}-${r}`
           if (
             !occupiedRef.current.has(key) &&
+            !isLaneOccupied(lane) &&
             !hasAdjacentOccupied(lane) &&
             !isRowOccupied(r)
           ) {
@@ -131,7 +140,7 @@ export default function TombstoneDisplay() {
       if (options.length === 0) return null
       return options[Math.floor(Math.random() * options.length)]
     },
-    [hasAdjacentOccupied, isRowOccupied]
+    [hasAdjacentOccupied, isLaneOccupied, isRowOccupied]
   )
 
   const spawnCard = useCallback(() => {
