@@ -262,8 +262,8 @@ export default function WorldMap() {
               <span className="world-map-stat-label">Largest Investment</span>
             </div>
             <div className="world-map-stat-item">
-              <span className="world-map-stat-value">3</span>
-              <span className="world-map-stat-label">IPO Companies</span>
+              <span className="world-map-stat-value">50</span>
+              <span className="world-map-stat-label">Exits</span>
             </div>
           </div>
         </div>
