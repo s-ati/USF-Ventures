@@ -113,9 +113,7 @@ export default function WorldMap() {
       const controls = globeRef.current.controls()
       controls.autoRotate = true
       controls.autoRotateSpeed = 0.4
-      controls.enableZoom = true
-      controls.minDistance = 200
-      controls.maxDistance = 500
+      controls.enableZoom = false
     }
   }, [prefersReducedMotion])
 
