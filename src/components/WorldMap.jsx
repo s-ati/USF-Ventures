@@ -297,11 +297,12 @@ export default function WorldMap() {
             </div>
           </div>
           <p className="world-map-closing">
-            Our founders' global reach and impact embody the motto to{' '}
+            Through their work around the world, our founders bring our
+            motto,{' '}
             <span className="world-map-closing-highlight">
               CHANGE THE WORLD FROM HERE
             </span>
-            .
+            , to life.
           </p>
         </div>
       </div>
