@@ -194,7 +194,7 @@ export default function TombstoneDisplay() {
     /* Spawn frequently; the 4-card cap keeps the screen from overcrowding */
     const interval = setInterval(() => {
       spawnCard()
-    }, 1400)
+    }, 2200)
 
     return () => {
       inits.forEach(clearTimeout)
