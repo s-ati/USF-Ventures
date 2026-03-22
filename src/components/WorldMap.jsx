@@ -263,7 +263,7 @@ export default function WorldMap() {
             </div>
             <div className="world-map-stat-item">
               <span className="world-map-stat-value">50</span>
-              <span className="world-map-stat-label">Exits</span>
+              <span className="world-map-stat-label">Acquisitions</span>
             </div>
           </div>
         </div>
