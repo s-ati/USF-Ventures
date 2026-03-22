@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback, useRef } from 'react'
+import { useState, useEffect, useMemo, useRef } from 'react'
 import tombstoneData, { sectionOrder } from '../data/tombstones'
 
 /* Shuffle helper */
@@ -21,9 +21,6 @@ function TombstoneCard({ entry, style, className }) {
 
   return (
     <div className={`tombstone-card ${className || ''}`} style={style}>
-      {entry.section && (
-        <div className="tombstone-card-section-label">{entry.section}</div>
-      )}
       <div className="tombstone-card-top">
         <div className="tombstone-card-avatar">
           {entry.photo ? (
@@ -57,94 +54,91 @@ function TombstoneCard({ entry, style, className }) {
   )
 }
 
+/* ---------- Matrix rain characters column ---------- */
+function RainColumn({ left, speed, delay }) {
+  /* Generate random katakana-like chars */
+  const chars = useMemo(() => {
+    const pool = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789'
+    return Array.from({ length: 25 }, () =>
+      pool[Math.floor(Math.random() * pool.length)]
+    ).join('\n')
+  }, [])
+
+  return (
+    <div
+      className="matrix-rain-col"
+      style={{
+        left: `${left}%`,
+        animationDuration: `${speed}s`,
+        animationDelay: `${delay}s`,
+      }}
+    >
+      {chars}
+    </div>
+  )
+}
+
+/* ---------- single lane (sub-column) ---------- */
+function RainLane({ entries, speed }) {
+  const doubled = useMemo(() => [...entries, ...entries], [entries])
+
+  return (
+    <div className="tombstone-lane">
+      <div
+        className="tombstone-lane-track"
+        style={{ '--lane-speed': `${speed}s` }}
+      >
+        {doubled.map((entry, i) => (
+          <TombstoneCard key={`${entry.founder}-${i}`} entry={entry} />
+        ))}
+      </div>
+    </div>
+  )
+}
+
 /* ---------- main component ---------- */
 export default function TombstoneDisplay() {
-  const [activeCards, setActiveCards] = useState([])
-  const poolRef = useRef([])
-  const indexRef = useRef(0)
-  const idCounter = useRef(0)
-  const timersRef = useRef([])
-
-  /* Build a shuffled pool of all entries with section labels */
-  const allEntries = useMemo(() => {
-    const entries = []
-    sectionOrder.forEach((section) => {
-      const sectionEntries = tombstoneData[section].entries
-      if (sectionEntries.length > 0) {
-        sectionEntries.forEach((e) => {
-          entries.push({ ...e, section })
-        })
-      }
-    })
-    return shuffle(entries)
-  }, [])
-
-  /* Grid positions — 4 columns x 3 rows = 12 slots, pick randomly */
-  const getRandomSlot = useCallback(() => {
-    const col = Math.floor(Math.random() * 4)
-    const row = Math.floor(Math.random() * 3)
-    return { col, row }
-  }, [])
-
-  /* Spawn a card: pick next entry, assign random grid slot, fade in then out */
-  const spawnCard = useCallback(() => {
-    if (allEntries.length === 0) return
-
-    const entry = allEntries[indexRef.current % allEntries.length]
-    indexRef.current++
-
-    const { col, row } = getRandomSlot()
-    const id = idCounter.current++
-
-    const card = { id, entry, col, row, phase: 'entering' }
-
-    setActiveCards((prev) => {
-      /* limit to 4 cards max on screen */
-      const limited = prev.length >= 4 ? prev.slice(1) : prev
-      return [...limited, card]
-    })
-
-    /* After fade-in completes, mark as visible */
-    const t1 = setTimeout(() => {
-      setActiveCards((prev) =>
-        prev.map((c) => (c.id === id ? { ...c, phase: 'visible' } : c))
-      )
-    }, 800)
-
-    /* Start fade-out after display time */
-    const t2 = setTimeout(() => {
-      setActiveCards((prev) =>
-        prev.map((c) => (c.id === id ? { ...c, phase: 'exiting' } : c))
-      )
-    }, 3500)
-
-    /* Remove after fade-out */
-    const t3 = setTimeout(() => {
-      setActiveCards((prev) => prev.filter((c) => c.id !== id))
-    }, 4800)
-
-    timersRef.current.push(t1, t2, t3)
-  }, [allEntries, getRandomSlot])
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+  const [isPaused, setIsPaused] = useState(false)
 
   useEffect(() => {
-    /* Spawn first few cards staggered */
-    const initialTimers = [
-      setTimeout(() => spawnCard(), 200),
-      setTimeout(() => spawnCard(), 1200),
-      setTimeout(() => spawnCard(), 2400),
-    ]
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
+    setPrefersReducedMotion(mq.matches)
+    const handler = (e) => setPrefersReducedMotion(e.matches)
+    mq.addEventListener('change', handler)
+    return () => mq.removeEventListener('change', handler)
+  }, [])
 
-    /* Then keep spawning at interval */
-    const interval = setInterval(() => {
-      spawnCard()
-    }, 1800)
+  /* Build 8 lanes: 2 per section, each with shuffled entries */
+  const lanes = useMemo(() => {
+    const result = []
+    sectionOrder.forEach((section) => {
+      const entries = tombstoneData[section].entries
+      if (entries.length === 0) {
+        /* Empty section: 2 empty lanes */
+        result.push({ section, entries: [] })
+        result.push({ section, entries: [] })
+        return
+      }
+      const shuffled = shuffle(entries)
+      const mid = Math.ceil(shuffled.length / 2)
+      result.push({ section, entries: shuffled.slice(0, mid) })
+      result.push({ section, entries: shuffled.slice(mid) })
+    })
+    return result
+  }, [])
 
-    return () => {
-      initialTimers.forEach(clearTimeout)
-      clearInterval(interval)
-      timersRef.current.forEach(clearTimeout)
-    }
-  }, [spawnCard])
+  /* Varying speeds for each of the 8 lanes */
+  const speeds = [26, 32, 22, 28, 24, 30, 20, 34]
+
+  /* Matrix rain background columns */
+  const rainCols = useMemo(() => {
+    return Array.from({ length: 20 }, (_, i) => ({
+      left: 3 + (i / 20) * 94 + (Math.random() - 0.5) * 3,
+      speed: 4 + Math.random() * 6,
+      delay: Math.random() * 8,
+    }))
+  }, [])
 
   return (
     <section className="tombstone-section">
@@ -157,34 +151,52 @@ export default function TombstoneDisplay() {
         </p>
       </div>
 
-      <div className="tombstone-rain">
-        {/* Matrix rain background lines */}
-        <div className="tombstone-rain-bg">
-          {Array.from({ length: 12 }).map((_, i) => (
-            <div
-              key={i}
-              className="tombstone-rain-line"
-              style={{
-                left: `${8 + (i % 4) * 24 + Math.random() * 8}%`,
-                animationDelay: `${Math.random() * 4}s`,
-                animationDuration: `${3 + Math.random() * 4}s`,
-              }}
+      <div
+        className={`tombstone-rain${isPaused ? ' tombstone-rain--paused' : ''}${prefersReducedMotion ? ' tombstone-rain--static' : ''}`}
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+      >
+        {/* Matrix green rain background */}
+        <div className="matrix-rain-bg">
+          {rainCols.map((col, i) => (
+            <RainColumn key={i} {...col} />
+          ))}
+        </div>
+
+        {/* Section headers spanning 2 lanes each */}
+        <div className="tombstone-headers">
+          {sectionOrder.map((section) => (
+            <div key={section} className="tombstone-header">
+              {section}
+            </div>
+          ))}
+        </div>
+
+        {/* 8 rain lanes */}
+        <div className="tombstone-lanes">
+          {lanes.map((lane, i) => (
+            <RainLane
+              key={`lane-${i}`}
+              entries={lane.entries}
+              speed={speeds[i]}
             />
           ))}
         </div>
 
-        {/* Floating tombstone cards */}
-        {activeCards.map((card) => (
-          <TombstoneCard
-            key={card.id}
-            entry={card.entry}
-            className={`tombstone-rain-card tombstone-rain-card--${card.phase}`}
-            style={{
-              '--rain-col': card.col,
-              '--rain-row': card.row,
-            }}
-          />
-        ))}
+        {isPaused && (
+          <div className="tombstone-paused-indicator">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <rect x="6" y="4" width="4" height="16" rx="1" />
+              <rect x="14" y="4" width="4" height="16" rx="1" />
+            </svg>
+            <span>Paused</span>
+          </div>
+        )}
       </div>
     </section>
   )

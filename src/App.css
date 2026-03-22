@@ -2249,20 +2249,16 @@ section.partners-page {
   width: 100%;
   max-width: 1400px;
   margin: 3rem auto 0;
-  height: 520px;
-  background: linear-gradient(180deg, #0a0f1a 0%, #070b12 100%);
+  height: 600px;
+  background: linear-gradient(180deg, #050a0f 0%, #0a0f1a 50%, #050a0f 100%);
   border-radius: 12px;
   overflow: hidden;
-  /* 4-col x 3-row grid for card placement */
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  gap: 1rem;
-  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
 }
 
-/* ---------- Matrix rain background lines ---------- */
-.tombstone-rain-bg {
+/* ---------- Matrix green rain characters ---------- */
+.matrix-rain-bg {
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -2270,123 +2266,153 @@ section.partners-page {
   z-index: 0;
 }
 
-.tombstone-rain-line {
+.matrix-rain-col {
   position: absolute;
-  top: -40%;
-  width: 1px;
-  height: 30%;
-  background: linear-gradient(
+  top: -100%;
+  font-family: 'MS Gothic', 'Hiragino Kaku Gothic Pro', monospace;
+  font-size: 14px;
+  line-height: 1.4;
+  color: rgba(46, 168, 122, 0.25);
+  white-space: pre;
+  text-shadow: 0 0 6px rgba(46, 168, 122, 0.15);
+  animation: matrixCharFall linear infinite;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+}
+
+@keyframes matrixCharFall {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(200%);
+  }
+}
+
+/* ---------- Section headers row ---------- */
+.tombstone-headers {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  flex-shrink: 0;
+  z-index: 2;
+  position: relative;
+  padding: 1rem 1.5rem 0;
+}
+
+.tombstone-header {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #2ea87a;
+  text-align: center;
+  padding: 0.5rem 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-bottom: 1px solid rgba(46, 168, 122, 0.25);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---------- 8-lane grid ---------- */
+.tombstone-lanes {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 0.5rem;
+  flex: 1;
+  overflow: hidden;
+  padding: 0 1.5rem;
+  z-index: 1;
+  position: relative;
+  /* Fade at top and bottom */
+  mask-image: linear-gradient(
     to bottom,
     transparent 0%,
-    rgba(46, 168, 122, 0.15) 30%,
-    rgba(46, 168, 122, 0.35) 60%,
-    rgba(46, 168, 122, 0.08) 100%
+    black 5%,
+    black 90%,
+    transparent 100%
   );
-  animation: rainFall linear infinite;
-  opacity: 0.6;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 5%,
+    black 90%,
+    transparent 100%
+  );
 }
 
-@keyframes rainFall {
+/* ---------- single lane ---------- */
+.tombstone-lane {
+  overflow: hidden;
+  position: relative;
+}
+
+.tombstone-lane-track {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  padding-top: 0.5rem;
+  animation: laneScroll var(--lane-speed, 30s) linear infinite;
+}
+
+@keyframes laneScroll {
   from {
-    transform: translateY(0);
+    transform: translateY(-50%);
   }
   to {
-    transform: translateY(450%);
-  }
-}
-
-/* ---------- tombstone card (rain version) ---------- */
-.tombstone-rain-card {
-  z-index: 1;
-  grid-column: calc(var(--rain-col) + 1);
-  grid-row: calc(var(--rain-row) + 1);
-  align-self: center;
-  justify-self: center;
-  width: 100%;
-  max-width: 280px;
-}
-
-/* Fade phases */
-.tombstone-rain-card--entering {
-  animation: rainCardEnter 0.8s ease-out forwards;
-}
-
-.tombstone-rain-card--visible {
-  opacity: 1;
-}
-
-.tombstone-rain-card--exiting {
-  animation: rainCardExit 1.3s ease-in forwards;
-}
-
-@keyframes rainCardEnter {
-  from {
-    opacity: 0;
-    transform: translateY(-12px);
-    filter: blur(4px);
-  }
-  to {
-    opacity: 1;
     transform: translateY(0);
-    filter: blur(0);
   }
 }
 
-@keyframes rainCardExit {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(18px);
-    filter: blur(3px);
-  }
+/* Pause on hover */
+.tombstone-rain--paused .tombstone-lane-track {
+  animation-play-state: paused;
 }
 
-/* ---------- tombstone card ---------- */
+.tombstone-rain--paused .matrix-rain-col {
+  animation-play-state: paused;
+}
+
+/* Reduced motion */
+.tombstone-rain--static .tombstone-lane-track {
+  animation: none;
+  transform: none;
+}
+
+.tombstone-rain--static .matrix-rain-col {
+  animation: none;
+}
+
+/* ---------- tombstone card (compact) ---------- */
 .tombstone-card {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  padding: 0.875rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 0.5rem 0.625rem;
   font-family: var(--font-body);
   color: #fff;
-  transition: transform 0.3s ease, box-shadow 0.3s ease,
-    border-color 0.3s ease;
-  backdrop-filter: blur(8px);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  backdrop-filter: blur(6px);
   flex-shrink: 0;
 }
 
 .tombstone-card:hover {
-  box-shadow: 0 8px 32px rgba(0, 84, 60, 0.25);
-  border-color: rgba(46, 168, 122, 0.4);
+  box-shadow: 0 4px 20px rgba(0, 84, 60, 0.3);
+  border-color: rgba(46, 168, 122, 0.5);
   z-index: 2;
-}
-
-/* Section label on card */
-.tombstone-card-section-label {
-  font-family: var(--font-heading);
-  font-size: 0.5625rem;
-  font-weight: 700;
-  color: rgba(46, 168, 122, 0.6);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 0.5rem;
 }
 
 /* Card top: avatar + name */
 .tombstone-card-top {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
+  gap: 0.375rem;
+  margin-bottom: 0.25rem;
 }
 
 .tombstone-card-avatar {
-  width: 32px;
-  height: 32px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   overflow: hidden;
   background: rgba(0, 84, 60, 0.3);
@@ -2404,32 +2430,38 @@ section.partners-page {
 }
 
 .tombstone-card-initials {
-  font-size: 0.6875rem;
+  font-size: 0.5rem;
   font-weight: 600;
   color: #2ea87a;
 }
 
 .tombstone-card-name {
-  font-size: 0.8125rem;
+  font-size: 0.625rem;
   font-weight: 600;
   line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Card middle: company */
 .tombstone-card-middle {
-  margin-bottom: 0.375rem;
+  margin-bottom: 0.125rem;
 }
 
 .tombstone-card-company {
   display: block;
-  font-size: 0.8125rem;
+  font-size: 0.625rem;
   font-weight: 600;
   color: #2ea87a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Card highlight: key quantitative info */
 .tombstone-card-highlight {
-  font-size: 0.75rem;
+  font-size: 0.5625rem;
   color: rgba(255, 255, 255, 0.6);
 }
 
@@ -2442,30 +2474,56 @@ section.partners-page {
   color: rgba(255, 255, 255, 0.45);
 }
 
+/* Paused indicator */
+.tombstone-paused-indicator {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  background: rgba(0, 0, 0, 0.7);
+  color: rgba(255, 255, 255, 0.6);
+  padding: 0.375rem 0.75rem;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-family: var(--font-body);
+  backdrop-filter: blur(8px);
+  z-index: 5;
+}
+
 /* ============================================
    TOMBSTONE RESPONSIVE — TABLET
    ============================================ */
 @media (max-width: 1024px) {
   .tombstone-rain {
-    height: 450px;
-    padding: 1.25rem;
-    gap: 0.75rem;
+    height: 500px;
   }
 
-  .tombstone-rain-card {
-    max-width: 220px;
+  .tombstone-headers {
+    padding: 0.75rem 1rem 0;
+  }
+
+  .tombstone-header {
+    font-size: 0.6rem;
+    letter-spacing: 0.04em;
+  }
+
+  .tombstone-lanes {
+    padding: 0 1rem;
+    gap: 0.375rem;
   }
 
   .tombstone-card {
-    padding: 0.625rem;
+    padding: 0.375rem 0.5rem;
   }
 
   .tombstone-card-name {
-    font-size: 0.75rem;
+    font-size: 0.5625rem;
   }
 
   .tombstone-card-company {
-    font-size: 0.75rem;
+    font-size: 0.5625rem;
   }
 }
 
@@ -2474,25 +2532,37 @@ section.partners-page {
    ============================================ */
 @media (max-width: 768px) {
   .tombstone-rain {
-    grid-template-columns: repeat(2, 1fr);
     height: 400px;
-    gap: 0.5rem;
-    padding: 1rem;
   }
 
-  .tombstone-rain-card {
-    max-width: 100%;
+  .tombstone-headers {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0.5rem 0.75rem 0;
   }
 
-  .tombstone-card {
-    padding: 0.5rem;
+  .tombstone-header:nth-child(n+3) {
+    display: none;
+  }
+
+  .tombstone-lanes {
+    grid-template-columns: repeat(4, 1fr);
+    padding: 0 0.75rem;
+    gap: 0.25rem;
+  }
+
+  .tombstone-lane:nth-child(n+5) {
+    display: none;
   }
 
   .tombstone-card-name {
-    font-size: 0.75rem;
+    font-size: 0.5rem;
   }
 
   .tombstone-card-company {
-    font-size: 0.75rem;
+    font-size: 0.5rem;
+  }
+
+  .tombstone-card-highlight {
+    font-size: 0.5rem;
   }
 }
