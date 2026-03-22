@@ -58,12 +58,26 @@ const tombstoneData = {
     entries: allEntries,
   },
   'USF Venture Partners': {
-    subtitle: 'Coming Soon',
-    entries: [],
+    subtitle: 'Industry mentors guiding the next generation',
+    entries: [
+      { founder: 'Sarah Mitchell', company: 'VP, Growth Equity', photo: null, funding: null, location: 'San Francisco, CA', year: null, industry: 'Venture Capital', linkedIn: '#', website: '#' },
+      { founder: 'David Chen', company: 'Managing Director, Tech Fund', photo: null, funding: null, location: 'New York, NY', year: null, industry: 'Venture Capital', linkedIn: '#', website: '#' },
+      { founder: 'Rachel Torres', company: 'Partner, Innovation Capital', photo: null, funding: null, location: 'Tampa, FL', year: null, industry: 'Venture Capital', linkedIn: '#', website: '#' },
+      { founder: 'James Okafor', company: 'Senior Partner, Horizon VC', photo: null, funding: null, location: 'Miami, FL', year: null, industry: 'Venture Capital', linkedIn: '#', website: '#' },
+      { founder: 'Amanda Liu', company: 'GP, Catalyst Ventures', photo: null, funding: null, location: 'Austin, TX', year: null, industry: 'Venture Capital', linkedIn: '#', website: '#' },
+      { founder: 'Brian Kessler', company: 'Principal, SeedStage Fund', photo: null, funding: null, location: 'Boston, MA', year: null, industry: 'Venture Capital', linkedIn: '#', website: '#' },
+    ],
   },
   'USF Venture Professionals': {
-    subtitle: 'Coming Soon',
-    entries: [],
+    subtitle: 'Operators and advisors driving venture success',
+    entries: [
+      { founder: 'Monica Alvarez', company: 'Venture Analyst', photo: null, funding: null, location: 'Tampa, FL', year: null, industry: 'Venture Capital', linkedIn: '#', website: '#' },
+      { founder: 'Kevin Tran', company: 'Portfolio Operations', photo: null, funding: null, location: 'Tampa, FL', year: null, industry: 'Operations', linkedIn: '#', website: '#' },
+      { founder: 'Emily Watson', company: 'Due Diligence Lead', photo: null, funding: null, location: 'Tampa, FL', year: null, industry: 'Finance', linkedIn: '#', website: '#' },
+      { founder: 'Marcus Johnson', company: 'Investment Associate', photo: null, funding: null, location: 'Tampa, FL', year: null, industry: 'Venture Capital', linkedIn: '#', website: '#' },
+      { founder: 'Priya Sharma', company: 'Startup Relations', photo: null, funding: null, location: 'Tampa, FL', year: null, industry: 'Business Development', linkedIn: '#', website: '#' },
+      { founder: 'Alex Rivera', company: 'Fund Operations Manager', photo: null, funding: null, location: 'Tampa, FL', year: null, industry: 'Operations', linkedIn: '#', website: '#' },
+    ],
   },
 }
 
