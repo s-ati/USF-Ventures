@@ -77,18 +77,21 @@ export default function TombstoneDisplay() {
   const timersRef = useRef([])
   const occupiedRef = useRef(new Set())
 
-  /* Build a shuffled pool of all entries tagged with their section index */
-  const allEntries = useMemo(() => {
-    const entries = []
-    sectionOrder.forEach((section, sIdx) => {
-      const sectionEntries = tombstoneData[section].entries
-      sectionEntries.forEach((e) => {
-        /* Each section owns lanes sIdx*2 and sIdx*2+1 */
-        entries.push({ ...e, laneBase: sIdx * 2 })
-      })
-    })
-    return shuffle(entries)
+  /* Build per-section entry pools, each tagged with their section lanes */
+  const sectionPools = useMemo(() => {
+    return sectionOrder.map((section, sIdx) => ({
+      entries: tombstoneData[section].entries.map((e) => ({
+        ...e,
+        laneBase: sIdx * 2,
+      })),
+      laneBase: sIdx * 2,
+    }))
   }, [])
+
+  /* Per-section shuffled queues — cycle through every entry before repeating */
+  const queuesRef = useRef(sectionPools.map((sp) => shuffle([...sp.entries])))
+  /* Round-robin section pointer */
+  const sectionPointerRef = useRef(0)
 
   /* Pick a random lane + row slot that isn't occupied */
   const pickSlot = useCallback(
@@ -110,16 +113,28 @@ export default function TombstoneDisplay() {
   )
 
   const spawnCard = useCallback(() => {
-    if (allEntries.length === 0) return
+    const numSections = sectionPools.length
+    if (numSections === 0) return
 
-    /* Pick a truly random entry with a free slot (try up to 12 times) */
+    /* Round-robin across sections so every section gets equal turns */
     let entry, slot
-    for (let attempts = 0; attempts < 12; attempts++) {
-      entry = allEntries[Math.floor(Math.random() * allEntries.length)]
-      slot = pickSlot(entry.laneBase)
-      if (slot) break
+    for (let attempts = 0; attempts < numSections; attempts++) {
+      const sIdx = sectionPointerRef.current % numSections
+      sectionPointerRef.current++
+
+      /* Check if this section has a free display slot */
+      slot = pickSlot(sectionPools[sIdx].laneBase)
+      if (!slot) continue
+
+      /* Pop next entry from this section's queue; reshuffle when exhausted */
+      const queue = queuesRef.current[sIdx]
+      if (queue.length === 0) {
+        queuesRef.current[sIdx] = shuffle([...sectionPools[sIdx].entries])
+      }
+      entry = queuesRef.current[sIdx].pop()
+      break
     }
-    if (!slot) return
+    if (!slot || !entry) return
 
     const id = idCounter.current++
     occupiedRef.current.add(slot.key)
@@ -149,7 +164,7 @@ export default function TombstoneDisplay() {
     }, 5400)
 
     timersRef.current.push(t1, t2, t3)
-  }, [allEntries, pickSlot])
+  }, [sectionPools, pickSlot])
 
   useEffect(() => {
     /* Stagger initial cards */
