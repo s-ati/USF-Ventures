@@ -298,7 +298,8 @@ export default function WorldMap() {
           </div>
           <p className="world-map-closing">
             Through their work around the world, our founders bring our
-            motto,{' '}
+            motto,
+            <br />
             <span className="world-map-closing-highlight">
               CHANGE THE WORLD FROM HERE
             </span>
