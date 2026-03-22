@@ -297,9 +297,7 @@ export default function WorldMap() {
             </div>
           </div>
           <p className="world-map-closing">
-            This broad geographic distribution and strong financial backing
-            highlight the international success and global impact of our
-            founders truly following the motto to{' '}
+            Our founders' global reach and impact embody the motto to{' '}
             <span className="world-map-closing-highlight">
               CHANGE THE WORLD FROM HERE
             </span>
