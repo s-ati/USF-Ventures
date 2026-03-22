@@ -263,7 +263,7 @@ export default function WorldMap() {
             </div>
             <div className="world-map-stat-item">
               <span className="world-map-stat-value">50</span>
-              <span className="world-map-stat-label">Acquisitions</span>
+              <span className="world-map-stat-label">Acquired</span>
             </div>
           </div>
         </div>
@@ -301,7 +301,7 @@ export default function WorldMap() {
             highlight the international success and global impact of our
             founders truly following the motto to{' '}
             <span className="world-map-closing-highlight">
-              change the world from here
+              CHANGE THE WORLD FROM HERE
             </span>
             .
           </p>
