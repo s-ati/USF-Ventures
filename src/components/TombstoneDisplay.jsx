@@ -54,39 +54,19 @@ function TombstoneCard({ entry, phase, style }) {
   )
 }
 
-/* ---------- Matrix rain column (canvas-like with DOM) ---------- */
-function RainStream({ left, speed, delay, brightness }) {
-  const chars = useMemo(() => {
-    const pool =
-      'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン01234567890=+*:<>'
-    return Array.from({ length: 30 }, () =>
-      pool[Math.floor(Math.random() * pool.length)]
-    )
-  }, [])
-
+/* ---------- Rain line (slim fading green line) ---------- */
+function RainLine({ left, speed, delay, brightness, height }) {
   return (
     <div
-      className="matrix-stream"
+      className="matrix-line"
       style={{
         left: `${left}%`,
         animationDuration: `${speed}s`,
         animationDelay: `${delay}s`,
-        '--stream-brightness': brightness,
+        height: `${height}%`,
+        '--line-brightness': brightness,
       }}
-    >
-      {chars.map((ch, i) => (
-        <span
-          key={i}
-          className="matrix-char"
-          style={{
-            animationDelay: `${i * 0.12 + delay}s`,
-            opacity: i === 0 ? 1 : Math.max(0.1, 1 - i * 0.06),
-          }}
-        >
-          {ch}
-        </span>
-      ))}
-    </div>
+    />
   )
 }
 
@@ -195,13 +175,14 @@ export default function TombstoneDisplay() {
     }
   }, [spawnCard])
 
-  /* Matrix rain streams — many columns for dense effect */
-  const streams = useMemo(() => {
-    return Array.from({ length: 30 }, (_, i) => ({
-      left: (i / 30) * 100 + (Math.random() - 0.5) * 2,
-      speed: 5 + Math.random() * 8,
-      delay: Math.random() * 10,
-      brightness: 0.15 + Math.random() * 0.35,
+  /* Rain lines — slim fading green lines */
+  const lines = useMemo(() => {
+    return Array.from({ length: 35 }, (_, i) => ({
+      left: (i / 35) * 100 + (Math.random() - 0.5) * 2,
+      speed: 4 + Math.random() * 7,
+      delay: Math.random() * 12,
+      brightness: 0.12 + Math.random() * 0.3,
+      height: 15 + Math.random() * 30,
     }))
   }, [])
 
@@ -217,10 +198,10 @@ export default function TombstoneDisplay() {
       </div>
 
       <div className="tombstone-rain">
-        {/* Matrix rain background */}
+        {/* Rain lines background */}
         <div className="matrix-rain-bg">
-          {streams.map((s, i) => (
-            <RainStream key={i} {...s} />
+          {lines.map((l, i) => (
+            <RainLine key={i} {...l} />
           ))}
         </div>
 
