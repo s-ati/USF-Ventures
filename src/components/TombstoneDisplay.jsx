@@ -90,45 +90,58 @@ export default function TombstoneDisplay() {
 
   /* Per-section shuffled queues — cycle through every entry before repeating */
   const queuesRef = useRef(sectionPools.map((sp) => shuffle([...sp.entries])))
-  /* Round-robin section pointer */
+  /* Shuffled section order — reshuffle each cycle for unpredictable placement */
+  const sectionOrderRef = useRef(shuffle([...sectionPools.keys()]))
   const sectionPointerRef = useRef(0)
 
-  /* Pick a random lane + row slot that isn't occupied */
+  /* Check if any adjacent lane (left or right neighbor) is occupied */
+  const hasAdjacentOccupied = useCallback((lane) => {
+    for (let r = 0; r < 2; r++) {
+      if (occupiedRef.current.has(`${lane - 1}-${r}`)) return true
+      if (occupiedRef.current.has(`${lane + 1}-${r}`)) return true
+    }
+    return false
+  }, [])
+
+  /* Pick a random lane + row slot that isn't occupied and not adjacent to another card */
   const pickSlot = useCallback(
     (laneBase) => {
-      /* Try both sub-lanes and both rows */
       const options = []
       for (let l = 0; l < 2; l++) {
         for (let r = 0; r < 2; r++) {
-          const key = `${laneBase + l}-${r}`
-          if (!occupiedRef.current.has(key)) {
-            options.push({ lane: laneBase + l, row: r, key })
+          const lane = laneBase + l
+          const key = `${lane}-${r}`
+          if (!occupiedRef.current.has(key) && !hasAdjacentOccupied(lane)) {
+            options.push({ lane, row: r, key })
           }
         }
       }
       if (options.length === 0) return null
       return options[Math.floor(Math.random() * options.length)]
     },
-    []
+    [hasAdjacentOccupied]
   )
 
   const spawnCard = useCallback(() => {
     const numSections = sectionPools.length
     if (numSections === 0) return
 
-    /* Round-robin across sections so every section gets equal turns */
+    /* Pick from a shuffled section order — reshuffle each full cycle */
     let entry, slot
     for (let attempts = 0; attempts < numSections; attempts++) {
-      const sIdx = sectionPointerRef.current % numSections
+      if (sectionPointerRef.current >= numSections) {
+        sectionOrderRef.current = shuffle([...sectionPools.keys()])
+        sectionPointerRef.current = 0
+      }
+      const sIdx = sectionOrderRef.current[sectionPointerRef.current]
       sectionPointerRef.current++
 
-      /* Check if this section has a free display slot */
+      /* Check if this section has a free, non-adjacent slot */
       slot = pickSlot(sectionPools[sIdx].laneBase)
       if (!slot) continue
 
       /* Pop next entry from this section's queue; reshuffle when exhausted */
-      const queue = queuesRef.current[sIdx]
-      if (queue.length === 0) {
+      if (queuesRef.current[sIdx].length === 0) {
         queuesRef.current[sIdx] = shuffle([...sectionPools[sIdx].entries])
       }
       entry = queuesRef.current[sIdx].pop()
