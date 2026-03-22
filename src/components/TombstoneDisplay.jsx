@@ -126,6 +126,9 @@ export default function TombstoneDisplay() {
     const numSections = sectionPools.length
     if (numSections === 0) return
 
+    /* Cap at 4 visible cards on screen at once */
+    if (occupiedRef.current.size >= 4) return
+
     /* Pick from a shuffled section order — reshuffle each full cycle */
     let entry, slot
     for (let attempts = 0; attempts < numSections; attempts++) {
@@ -180,17 +183,18 @@ export default function TombstoneDisplay() {
   }, [sectionPools, pickSlot])
 
   useEffect(() => {
-    /* Stagger initial cards */
+    /* Stagger initial cards to fill screen quickly */
     const inits = [
       setTimeout(() => spawnCard(), 300),
-      setTimeout(() => spawnCard(), 1200),
-      setTimeout(() => spawnCard(), 2400),
+      setTimeout(() => spawnCard(), 900),
+      setTimeout(() => spawnCard(), 1500),
+      setTimeout(() => spawnCard(), 2100),
     ]
 
-    /* Keep spawning every ~2.6s */
+    /* Spawn frequently; the 4-card cap keeps the screen from overcrowding */
     const interval = setInterval(() => {
       spawnCard()
-    }, 2600)
+    }, 1400)
 
     return () => {
       inits.forEach(clearTimeout)
