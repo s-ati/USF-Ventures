@@ -94,24 +94,36 @@ export default function TombstoneDisplay() {
   const sectionOrderRef = useRef(shuffle([...sectionPools.keys()]))
   const sectionPointerRef = useRef(0)
 
+  /* Check if a row is already used by any card on screen */
+  const isRowOccupied = useCallback((row) => {
+    for (const key of occupiedRef.current) {
+      if (key.endsWith(`-${row}`)) return true
+    }
+    return false
+  }, [])
+
   /* Check if any adjacent lane (left or right neighbor) is occupied */
   const hasAdjacentOccupied = useCallback((lane) => {
-    for (let r = 0; r < 2; r++) {
+    for (let r = 0; r < 4; r++) {
       if (occupiedRef.current.has(`${lane - 1}-${r}`)) return true
       if (occupiedRef.current.has(`${lane + 1}-${r}`)) return true
     }
     return false
   }, [])
 
-  /* Pick a random lane + row slot that isn't occupied and not adjacent to another card */
+  /* Pick a slot: not occupied, not adjacent, and never the same row as another visible card */
   const pickSlot = useCallback(
     (laneBase) => {
       const options = []
       for (let l = 0; l < 2; l++) {
-        for (let r = 0; r < 2; r++) {
+        for (let r = 0; r < 4; r++) {
           const lane = laneBase + l
           const key = `${lane}-${r}`
-          if (!occupiedRef.current.has(key) && !hasAdjacentOccupied(lane)) {
+          if (
+            !occupiedRef.current.has(key) &&
+            !hasAdjacentOccupied(lane) &&
+            !isRowOccupied(r)
+          ) {
             options.push({ lane, row: r, key })
           }
         }
@@ -119,7 +131,7 @@ export default function TombstoneDisplay() {
       if (options.length === 0) return null
       return options[Math.floor(Math.random() * options.length)]
     },
-    [hasAdjacentOccupied]
+    [hasAdjacentOccupied, isRowOccupied]
   )
 
   const spawnCard = useCallback(() => {
@@ -248,26 +260,22 @@ export default function TombstoneDisplay() {
           ))}
         </div>
 
-        {/* 8-lane grid where cards fade in/out */}
+        {/* 8-lane × 4-row grid where cards fade in/out */}
         <div className="tombstone-lanes">
           {Array.from({ length: 8 }).map((_, laneIdx) => (
             <div key={laneIdx} className="tombstone-lane">
-              {/* Row 0 (top half) */}
-              <div className="tombstone-slot tombstone-slot--top">
-                {activeCards
-                  .filter((c) => c.lane === laneIdx && c.row === 0)
-                  .map((c) => (
-                    <TombstoneCard key={c.id} entry={c.entry} phase={c.phase} />
-                  ))}
-              </div>
-              {/* Row 1 (bottom half) */}
-              <div className="tombstone-slot tombstone-slot--bottom">
-                {activeCards
-                  .filter((c) => c.lane === laneIdx && c.row === 1)
-                  .map((c) => (
-                    <TombstoneCard key={c.id} entry={c.entry} phase={c.phase} />
-                  ))}
-              </div>
+              {[0, 1, 2, 3].map((rowIdx) => (
+                <div
+                  key={rowIdx}
+                  className={`tombstone-slot tombstone-slot--row${rowIdx}`}
+                >
+                  {activeCards
+                    .filter((c) => c.lane === laneIdx && c.row === rowIdx)
+                    .map((c) => (
+                      <TombstoneCard key={c.id} entry={c.entry} phase={c.phase} />
+                    ))}
+                </div>
+              ))}
             </div>
           ))}
         </div>
