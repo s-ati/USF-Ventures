@@ -6,9 +6,10 @@ import globalReachData from '../data/globalReach'
 
 const BG_COLOR = '#f0f0ee'
 
-// White globe material
+// Globe material — matches the non-highlighted polygon colour so any
+// z-fighting between the sphere surface and polygon edges is invisible.
 const GLOBE_MATERIAL = new THREE.MeshPhongMaterial({
-  color: new THREE.Color('#ffffff'),
+  color: new THREE.Color('#ebebE8'),
   transparent: true,
   opacity: 0.95,
 })
@@ -131,11 +132,11 @@ export default function WorldMap() {
     return getCountryColor(companies)
   }, [])
 
-  const polygonStroke = useCallback(() => '#e0e0de', [])
+  const polygonStroke = useCallback(() => 'rgba(0,0,0,0)', [])
 
   const polygonSideColor = useCallback(() => 'rgba(0, 0, 0, 0.04)', [])
 
-  const polygonAltitude = useCallback(() => 0.003, [])
+  const polygonAltitude = useCallback(() => 0.006, [])
 
   const handlePolygonHover = useCallback((feat) => {
     setHoverD(feat)
