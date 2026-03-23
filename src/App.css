@@ -2102,7 +2102,7 @@ section.partners-page {
 .world-map-stats {
   background: var(--color-bg-alt);
   padding: 3rem 0;
-  margin-top: 0;
+  margin-top: 3rem;
   border-top: 1px solid var(--color-border-light);
 }
 
