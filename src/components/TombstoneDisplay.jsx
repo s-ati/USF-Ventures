@@ -40,13 +40,19 @@ function TombstoneCard({ entry, phase }) {
         <span className="tombstone-card-company">{entry.company}</span>
       </div>
 
-      {entry.funding && (
+      {(entry.funding || entry.title) && (
         <div className="tombstone-card-highlight">
-          <span className="tombstone-card-funding">
-            Raised {entry.funding}
-          </span>
-          {entry.year && (
-            <span className="tombstone-card-year"> in {entry.year}</span>
+          {entry.title ? (
+            <span className="tombstone-card-funding">{entry.title}</span>
+          ) : (
+            <>
+              <span className="tombstone-card-funding">
+                Raised {entry.funding}
+              </span>
+              {entry.year && (
+                <span className="tombstone-card-year"> in {entry.year}</span>
+              )}
+            </>
           )}
         </div>
       )}
