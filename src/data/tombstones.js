@@ -1,11 +1,11 @@
 /**
  * Tombstone display data for USF Ventures looping display.
- * Sections: USF Founders Now, USF Founders, USF Venture Partners, USF Venture Professionals
+ * Sections cycle sequentially: USF Founders Now → USF Founders (Historic) → USF Venture Professionals
  *
  * Reads from public/data/companies.json (177 companies).
- * "USF Founders Now" = foundedDate >= 2023-01-01 (14 companies)
- * "USF Founders" = all 177 companies
- * "USF Venture Partners" / "USF Venture Professionals" = Coming Soon
+ * "USF Founders Now" = foundedDate >= 2023-01-01
+ * "USF Founders - (Historic)" = all companies
+ * "USF Venture Professionals" = venture operators
  */
 
 import companiesRaw from '../../public/data/companies.json'
@@ -53,20 +53,9 @@ const tombstoneData = {
     subtitle: 'Companies funded 2023 and beyond',
     entries: foundersNowEntries,
   },
-  'USF Founders': {
+  'USF Founders - (Historic)': {
     subtitle: 'All USF alumni founders',
     entries: allEntries,
-  },
-  'USF Venture Partners': {
-    subtitle: 'Industry mentors guiding the next generation',
-    entries: [
-      { founder: 'Sarah Mitchell', company: 'VP, Growth Equity', photo: null, funding: null, location: 'San Francisco, CA', year: null, industry: 'Venture Capital', linkedIn: '#', website: '#' },
-      { founder: 'David Chen', company: 'Managing Director, Tech Fund', photo: null, funding: null, location: 'New York, NY', year: null, industry: 'Venture Capital', linkedIn: '#', website: '#' },
-      { founder: 'Rachel Torres', company: 'Partner, Innovation Capital', photo: null, funding: null, location: 'Tampa, FL', year: null, industry: 'Venture Capital', linkedIn: '#', website: '#' },
-      { founder: 'James Okafor', company: 'Senior Partner, Horizon VC', photo: null, funding: null, location: 'Miami, FL', year: null, industry: 'Venture Capital', linkedIn: '#', website: '#' },
-      { founder: 'Amanda Liu', company: 'GP, Catalyst Ventures', photo: null, funding: null, location: 'Austin, TX', year: null, industry: 'Venture Capital', linkedIn: '#', website: '#' },
-      { founder: 'Brian Kessler', company: 'Principal, SeedStage Fund', photo: null, funding: null, location: 'Boston, MA', year: null, industry: 'Venture Capital', linkedIn: '#', website: '#' },
-    ],
   },
   'USF Venture Professionals': {
     subtitle: 'Operators and advisors driving venture success',
@@ -83,8 +72,7 @@ const tombstoneData = {
 
 export const sectionOrder = [
   'USF Founders Now',
-  'USF Founders',
-  'USF Venture Partners',
+  'USF Founders - (Historic)',
   'USF Venture Professionals',
 ]
 
