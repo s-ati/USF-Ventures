@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react'
 import tombstoneData, { sectionOrder } from '../data/tombstones'
 
-/* Shuffle helper */
+/* Shuffle helper (Fisher-Yates) */
 function shuffle(arr) {
   const a = [...arr]
   for (let i = a.length - 1; i > 0; i--) {
@@ -12,7 +12,7 @@ function shuffle(arr) {
 }
 
 /* ---------- single card ---------- */
-function TombstoneCard({ entry, phase, style }) {
+function TombstoneCard({ entry, phase }) {
   const initials = entry.founder
     .split(' ')
     .map((n) => n[0])
@@ -20,7 +20,7 @@ function TombstoneCard({ entry, phase, style }) {
     .join('')
 
   return (
-    <div className={`tombstone-card tombstone-card--${phase}`} style={style}>
+    <div className={`tombstone-card tombstone-card--${phase}`}>
       <div className="tombstone-card-top">
         <div className="tombstone-card-avatar">
           {entry.photo ? (
@@ -71,160 +71,171 @@ function RainLine({ left, speed, delay, brightness, height }) {
 }
 
 /* ---------- main component ---------- */
+const CARDS_PER_SECTION = 5
+const COLS = 5
+const ROWS = 3
+const TOTAL_SLOTS = COLS * ROWS
+
+/* Timing constants (ms) */
+const SPAWN_STAGGER = 500       // delay between each card spawn
+const VISIBLE_HOLD = 3500       // how long all 5 stay visible after last spawns
+const EXIT_STAGGER = 300        // delay between each card exit start
+const EXIT_DURATION = 1400      // CSS exit animation duration
+const SECTION_GAP = 800         // pause between sections
+
 export default function TombstoneDisplay() {
   const [activeCards, setActiveCards] = useState([])
+  const [currentSection, setCurrentSection] = useState(0)
+  const [headerPhase, setHeaderPhase] = useState('visible') // 'visible' | 'exiting' | 'entering'
   const idCounter = useRef(0)
   const timersRef = useRef([])
-  const occupiedRef = useRef(new Set())
-
-  /* Build per-section entry pools, each tagged with their section lanes */
-  const sectionPools = useMemo(() => {
-    return sectionOrder.map((section, sIdx) => ({
-      entries: tombstoneData[section].entries.map((e) => ({
-        ...e,
-        laneBase: sIdx * 2,
-      })),
-      laneBase: sIdx * 2,
-    }))
-  }, [])
+  const sectionIdxRef = useRef(0)
 
   /* Per-section shuffled queues — cycle through every entry before repeating */
-  const queuesRef = useRef(sectionPools.map((sp) => shuffle([...sp.entries])))
-  /* Shuffled section order — reshuffle each cycle for unpredictable placement */
-  const sectionOrderRef = useRef(shuffle([...sectionPools.keys()]))
-  const sectionPointerRef = useRef(0)
-
-  /* Check if a row is already used by any card on screen */
-  const isRowOccupied = useCallback((row) => {
-    for (const key of occupiedRef.current) {
-      if (key.endsWith(`-${row}`)) return true
-    }
-    return false
-  }, [])
-
-  /* Check if a lane (column) is already used by any card on screen */
-  const isLaneOccupied = useCallback((lane) => {
-    for (const key of occupiedRef.current) {
-      if (key.startsWith(`${lane}-`)) return true
-    }
-    return false
-  }, [])
-
-  /* Check if any adjacent lane (left or right neighbor) is occupied */
-  const hasAdjacentOccupied = useCallback((lane) => {
-    for (let r = 0; r < 4; r++) {
-      if (occupiedRef.current.has(`${lane - 1}-${r}`)) return true
-      if (occupiedRef.current.has(`${lane + 1}-${r}`)) return true
-    }
-    return false
-  }, [])
-
-  /* Pick a slot: unique row, unique column, not adjacent to another card */
-  const pickSlot = useCallback(
-    (laneBase) => {
-      const options = []
-      for (let l = 0; l < 2; l++) {
-        for (let r = 0; r < 4; r++) {
-          const lane = laneBase + l
-          const key = `${lane}-${r}`
-          if (
-            !occupiedRef.current.has(key) &&
-            !isLaneOccupied(lane) &&
-            !hasAdjacentOccupied(lane) &&
-            !isRowOccupied(r)
-          ) {
-            options.push({ lane, row: r, key })
-          }
-        }
-      }
-      if (options.length === 0) return null
-      return options[Math.floor(Math.random() * options.length)]
-    },
-    [hasAdjacentOccupied, isLaneOccupied, isRowOccupied]
+  const queuesRef = useRef(
+    sectionOrder.map((s) => shuffle([...tombstoneData[s].entries]))
   )
 
-  const spawnCard = useCallback(() => {
-    const numSections = sectionPools.length
-    if (numSections === 0) return
-
-    /* Cap at 4 visible cards on screen at once */
-    if (occupiedRef.current.size >= 4) return
-
-    /* Pick from a shuffled section order — reshuffle each full cycle */
-    let entry, slot
-    for (let attempts = 0; attempts < numSections; attempts++) {
-      if (sectionPointerRef.current >= numSections) {
-        sectionOrderRef.current = shuffle([...sectionPools.keys()])
-        sectionPointerRef.current = 0
-      }
-      const sIdx = sectionOrderRef.current[sectionPointerRef.current]
-      sectionPointerRef.current++
-
-      /* Check if this section has a free, non-adjacent slot */
-      slot = pickSlot(sectionPools[sIdx].laneBase)
-      if (!slot) continue
-
-      /* Pop next entry from this section's queue; reshuffle when exhausted */
+  /* Get next N entries from a section queue (reshuffles when exhausted) */
+  const getEntries = useCallback((sIdx, count) => {
+    const result = []
+    for (let i = 0; i < count; i++) {
       if (queuesRef.current[sIdx].length === 0) {
-        queuesRef.current[sIdx] = shuffle([...sectionPools[sIdx].entries])
+        queuesRef.current[sIdx] = shuffle([...tombstoneData[sectionOrder[sIdx]].entries])
       }
-      entry = queuesRef.current[sIdx].pop()
-      break
+      result.push(queuesRef.current[sIdx].pop())
     }
-    if (!slot || !entry) return
+    return result
+  }, [])
 
-    const id = idCounter.current++
-    occupiedRef.current.add(slot.key)
+  /* Pick N random non-adjacent slots from the grid */
+  const pickSlots = useCallback((count) => {
+    const available = []
+    for (let c = 0; c < COLS; c++) {
+      for (let r = 0; r < ROWS; r++) {
+        available.push({ col: c, row: r })
+      }
+    }
+    const shuffled = shuffle(available)
+    const chosen = []
 
-    const card = { id, entry, lane: slot.lane, row: slot.row, slotKey: slot.key, phase: 'entering' }
-
-    setActiveCards((prev) => [...prev, card])
-
-    /* Visible after entrance animation */
-    const t1 = setTimeout(() => {
-      setActiveCards((prev) =>
-        prev.map((c) => (c.id === id ? { ...c, phase: 'visible' } : c))
+    for (const slot of shuffled) {
+      if (chosen.length >= count) break
+      // Check no adjacent (horizontally) slots already chosen
+      const hasAdj = chosen.some(
+        (s) => Math.abs(s.col - slot.col) <= 1 && s.row === slot.row
       )
-    }, 900)
+      if (!hasAdj) chosen.push(slot)
+    }
 
-    /* Start exit */
-    const t2 = setTimeout(() => {
-      setActiveCards((prev) =>
-        prev.map((c) => (c.id === id ? { ...c, phase: 'exiting' } : c))
-      )
-    }, 4000)
+    // If adjacency constraint was too strict, fill remaining with any unused slot
+    if (chosen.length < count) {
+      const usedKeys = new Set(chosen.map((s) => `${s.col}-${s.row}`))
+      for (const slot of shuffled) {
+        if (chosen.length >= count) break
+        const key = `${slot.col}-${slot.row}`
+        if (!usedKeys.has(key)) {
+          chosen.push(slot)
+          usedKeys.add(key)
+        }
+      }
+    }
 
-    /* Remove and free slot */
-    const t3 = setTimeout(() => {
-      occupiedRef.current.delete(slot.key)
-      setActiveCards((prev) => prev.filter((c) => c.id !== id))
-    }, 5400)
+    return chosen
+  }, [])
 
-    timersRef.current.push(t1, t2, t3)
-  }, [sectionPools, pickSlot])
+  /* Run one full section cycle: spawn 5, hold, exit, then trigger next */
+  const runSection = useCallback((sIdx) => {
+    const entries = getEntries(sIdx, CARDS_PER_SECTION)
+    const slots = pickSlots(CARDS_PER_SECTION)
+    const cardIds = []
+
+    // Update header
+    setCurrentSection(sIdx)
+    setHeaderPhase('entering')
+    const hTimer = setTimeout(() => setHeaderPhase('visible'), 600)
+    timersRef.current.push(hTimer)
+
+    // Stagger spawn each card
+    entries.forEach((entry, i) => {
+      const spawnDelay = i * SPAWN_STAGGER
+      const t = setTimeout(() => {
+        const id = idCounter.current++
+        cardIds.push(id)
+        const card = {
+          id,
+          entry,
+          col: slots[i].col,
+          row: slots[i].row,
+          phase: 'entering',
+        }
+        setActiveCards((prev) => [...prev, card])
+
+        // Transition to visible
+        const t1 = setTimeout(() => {
+          setActiveCards((prev) =>
+            prev.map((c) => (c.id === id ? { ...c, phase: 'visible' } : c))
+          )
+        }, 900)
+        timersRef.current.push(t1)
+      }, spawnDelay)
+      timersRef.current.push(t)
+    })
+
+    // After all spawned + hold time, start exiting
+    const allSpawnedAt = (CARDS_PER_SECTION - 1) * SPAWN_STAGGER + 900
+    const exitStart = allSpawnedAt + VISIBLE_HOLD
+
+    // Exit header
+    const hExitTimer = setTimeout(() => setHeaderPhase('exiting'), exitStart)
+    timersRef.current.push(hExitTimer)
+
+    // Stagger exit each card
+    for (let i = 0; i < CARDS_PER_SECTION; i++) {
+      const exitDelay = exitStart + i * EXIT_STAGGER
+      const t = setTimeout(() => {
+        setActiveCards((prev) => {
+          // Find the i-th card that's still visible/entering
+          const visibleCards = prev.filter(
+            (c) => c.phase === 'visible' || c.phase === 'entering'
+          )
+          if (visibleCards.length === 0) return prev
+          const cardToExit = visibleCards[0]
+          return prev.map((c) =>
+            c.id === cardToExit.id ? { ...c, phase: 'exiting' } : c
+          )
+        })
+      }, exitDelay)
+      timersRef.current.push(t)
+    }
+
+    // Clean up all cards and start next section
+    const cleanupAt = exitStart + (CARDS_PER_SECTION - 1) * EXIT_STAGGER + EXIT_DURATION
+    const cleanupTimer = setTimeout(() => {
+      setActiveCards([])
+    }, cleanupAt)
+    timersRef.current.push(cleanupTimer)
+
+    // Start next section
+    const nextTimer = setTimeout(() => {
+      const nextIdx = (sIdx + 1) % sectionOrder.length
+      sectionIdxRef.current = nextIdx
+      runSection(nextIdx)
+    }, cleanupAt + SECTION_GAP)
+    timersRef.current.push(nextTimer)
+  }, [getEntries, pickSlots])
 
   useEffect(() => {
-    /* Stagger initial cards to fill screen quickly */
-    const inits = [
-      setTimeout(() => spawnCard(), 300),
-      setTimeout(() => spawnCard(), 900),
-      setTimeout(() => spawnCard(), 1500),
-      setTimeout(() => spawnCard(), 2100),
-    ]
-
-    /* Spawn frequently; the 4-card cap keeps the screen from overcrowding */
-    const interval = setInterval(() => {
-      spawnCard()
-    }, 2200)
+    // Start the first section after a brief delay
+    const initTimer = setTimeout(() => runSection(0), 400)
+    timersRef.current.push(initTimer)
 
     return () => {
-      inits.forEach(clearTimeout)
-      clearInterval(interval)
       timersRef.current.forEach(clearTimeout)
     }
-  }, [spawnCard])
+  }, [runSection])
 
-  /* Rain lines — slim fading green lines */
+  /* Rain lines */
   const lines = useMemo(() => {
     return Array.from({ length: 35 }, (_, i) => ({
       left: (i / 35) * 100 + (Math.random() - 0.5) * 2,
@@ -260,26 +271,24 @@ export default function TombstoneDisplay() {
         {/* Vignette */}
         <div className="matrix-vignette" />
 
-        {/* Section headers */}
+        {/* Single animated section header */}
         <div className="tombstone-headers">
-          {sectionOrder.map((section) => (
-            <div key={section} className="tombstone-header">
-              {section}
-            </div>
-          ))}
+          <div className={`tombstone-header tombstone-header--${headerPhase}`}>
+            {sectionOrder[currentSection]}
+          </div>
         </div>
 
-        {/* 8-lane × 4-row grid where cards fade in/out */}
+        {/* 5-col × 3-row grid where cards fade in/out */}
         <div className="tombstone-lanes">
-          {Array.from({ length: 8 }).map((_, laneIdx) => (
-            <div key={laneIdx} className="tombstone-lane">
-              {[0, 1, 2, 3].map((rowIdx) => (
+          {Array.from({ length: COLS }).map((_, colIdx) => (
+            <div key={colIdx} className="tombstone-lane">
+              {Array.from({ length: ROWS }).map((_, rowIdx) => (
                 <div
                   key={rowIdx}
                   className={`tombstone-slot tombstone-slot--row${rowIdx}`}
                 >
                   {activeCards
-                    .filter((c) => c.lane === laneIdx && c.row === rowIdx)
+                    .filter((c) => c.col === colIdx && c.row === rowIdx)
                     .map((c) => (
                       <TombstoneCard key={c.id} entry={c.entry} phase={c.phase} />
                     ))}
