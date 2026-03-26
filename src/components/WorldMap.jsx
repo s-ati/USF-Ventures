@@ -187,7 +187,7 @@ export default function WorldMap() {
         <h2 className="section-heading">USF Founders Across the World</h2>
         <p className="section-subheading">
           USF has a truly global footprint, with alumni companies spanning{' '}
-          {totalCountries} countries worldwide. With more than 137 companies in
+          {totalCountries} countries worldwide. With more than 138 companies in
           the United States and around {internationalCompanies} companies
           internationally, USF founders represent a diverse range of industries
           across North America, Europe, Asia, and beyond.

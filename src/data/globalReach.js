@@ -4,7 +4,7 @@
  * Coordinates: [lat, lng]
  */
 const globalReachData = [
-  { country: 'United States', lat: 39.8283, lng: -98.5795, companies: 137 },
+  { country: 'United States', lat: 39.8283, lng: -98.5795, companies: 138 },
   { country: 'Turkey', lat: 38.9637, lng: 35.2433, companies: 5 },
   { country: 'United Kingdom', lat: 55.3781, lng: -3.436, companies: 4 },
   { country: 'Indonesia', lat: -0.7893, lng: 113.9213, companies: 3 },
