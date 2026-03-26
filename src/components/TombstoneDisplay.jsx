@@ -252,11 +252,10 @@ export default function TombstoneDisplay() {
   return (
     <section className="tombstone-section">
       <div className="container">
-        <p className="section-label">Portfolio</p>
-        <h2 className="section-heading">USF Ventures Ecosystem</h2>
+        <p className="section-label">Ecosystem</p>
+        <h2 className="section-heading">USF Entrepreneurship Ecosystem</h2>
         <p className="section-subheading">
-          Explore the founders, partners, and professionals that make up the USF
-          Ventures network.
+          Discover the founders, investors, and venture professionals driving the USF entrepreneurial network.
         </p>
       </div>
 
