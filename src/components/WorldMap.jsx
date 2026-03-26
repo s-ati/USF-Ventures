@@ -182,7 +182,11 @@ export default function WorldMap() {
   const totalCountries = globalReachData.length
 
   const totalCapital = useMemo(() => {
-    const total = companiesRaw.reduce((sum, c) => sum + (c.totalFunding || 0), 0)
+    const BASELINE = 3_979_000_000 // verified total as of original 178 companies
+    const ORIGINAL_COUNT = 178
+    const newCompanies = companiesRaw.slice(0, companiesRaw.length - ORIGINAL_COUNT)
+    const newFunding = newCompanies.reduce((sum, c) => sum + (c.totalFunding || 0), 0)
+    const total = BASELINE + newFunding
     if (total >= 1_000_000_000) return `$${(total / 1_000_000_000).toFixed(2)}B`
     if (total >= 1_000_000) return `$${(total / 1_000_000).toFixed(1)}M`
     return `$${total.toLocaleString()}`
