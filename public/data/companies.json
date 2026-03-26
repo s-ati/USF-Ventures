@@ -1,5 +1,18 @@
 [
   {
+    "name": "Proliferate",
+    "industries": "",
+    "location": "",
+    "founders": "Pablo Hansen",
+    "linkedin": "",
+    "website": "",
+    "totalFunding": 5200000,
+    "lastFundingAmount": 5200000,
+    "lastFundingDate": "2025-01-01",
+    "foundedDate": "",
+    "operatingStatus": "Active"
+  },
+  {
     "name": "Enly",
     "industries": "Software",
     "location": "New York, New York, United States",
@@ -2286,5 +2299,18 @@
     "lastFundingDate": "2000-04-14",
     "foundedDate": "",
     "operatingStatus": "Closed"
+  },
+  {
+    "name": "Pillar",
+    "industries": "",
+    "location": "",
+    "founders": "Caroline Early",
+    "linkedin": "",
+    "website": "",
+    "totalFunding": 2800000,
+    "lastFundingAmount": 2800000,
+    "lastFundingDate": "2021-01-01",
+    "foundedDate": "",
+    "operatingStatus": "Active"
   }
 ]

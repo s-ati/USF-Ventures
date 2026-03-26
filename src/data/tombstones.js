@@ -49,15 +49,15 @@ const foundersNowEntries = companiesRaw
   .map(toEntry)
 
 const tombstoneData = {
-  'USF Founders Now': {
+  'Current Founders': {
     subtitle: 'Companies funded 2023 and beyond',
     entries: foundersNowEntries,
   },
-  'USF Founders - (Historic)': {
+  'Distinguished Founders': {
     subtitle: 'All USF alumni founders',
     entries: allEntries,
   },
-  'USF Venture Professionals': {
+  'Venture Leaders': {
     subtitle: 'Operators and advisors driving venture success',
     entries: [
       { founder: 'Charles de C. du Mée', company: 'Accelerated Venture Partners', title: 'Partner', photo: null, funding: null, location: '', linkedIn: '#', website: '#' },
@@ -123,9 +123,9 @@ const tombstoneData = {
 }
 
 export const sectionOrder = [
-  'USF Founders Now',
-  'USF Founders - (Historic)',
-  'USF Venture Professionals',
+  'Current Founders',
+  'Distinguished Founders',
+  'Venture Leaders',
 ]
 
 export default tombstoneData
