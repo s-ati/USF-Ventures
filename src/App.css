@@ -107,12 +107,13 @@
 /* Scroll wrapper: tall container that the hero sticks inside.
    Height = 250vh gives ~1.5-2 scroll lengths of reveal. */
 .hero-scroll-wrapper {
-  height: 250vh;
+  height: 200vh;
   position: relative;
 }
 
 .hero {
   height: 100vh;
+  height: 100dvh;
   min-height: 600px;
   position: sticky;
   top: 0;
