@@ -2342,14 +2342,14 @@ section.partners-page {
 }
 
 .tombstone-header {
-  font-family: var(--font-heading);
-  font-size: 1rem;
-  font-weight: 700;
+  font-family: var(--font-body);
+  font-size: 1.35rem;
+  font-weight: 600;
   color: #2ea87a;
   text-align: center;
-  padding: 0.625rem 0.5rem;
+  padding: 0.75rem 2.5rem;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.18em;
   border-bottom: 1px solid rgba(46, 168, 122, 0.2);
   text-shadow: 0 0 16px rgba(46, 168, 122, 0.4);
   display: inline-block;
@@ -2586,8 +2586,9 @@ section.partners-page {
   }
 
   .tombstone-header {
-    font-size: 0.85rem;
-    letter-spacing: 0.06em;
+    font-size: 1.1rem;
+    letter-spacing: 0.12em;
+    padding: 0.625rem 1.5rem;
   }
 
   .tombstone-lanes {
@@ -2621,7 +2622,8 @@ section.partners-page {
   }
 
   .tombstone-header {
-    font-size: 0.7rem;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
     letter-spacing: 0.04em;
   }
 
