@@ -99,14 +99,23 @@ export default function TombstoneDisplay() {
     sectionOrder.map((s) => shuffle([...tombstoneData[s].entries]))
   )
 
-  /* Get next N entries from a section queue (reshuffles when exhausted) */
+  /* Get next N entries from a section queue (reshuffles when exhausted).
+     Ensures no duplicate founders in the same batch. */
   const getEntries = useCallback((sIdx, count) => {
     const result = []
-    for (let i = 0; i < count; i++) {
+    const usedFounders = new Set()
+    let attempts = 0
+    const maxAttempts = count * 3
+
+    while (result.length < count && attempts < maxAttempts) {
       if (queuesRef.current[sIdx].length === 0) {
         queuesRef.current[sIdx] = shuffle([...tombstoneData[sectionOrder[sIdx]].entries])
       }
-      result.push(queuesRef.current[sIdx].pop())
+      const entry = queuesRef.current[sIdx].pop()
+      attempts++
+      if (usedFounders.has(entry.founder)) continue
+      usedFounders.add(entry.founder)
+      result.push(entry)
     }
     return result
   }, [])
