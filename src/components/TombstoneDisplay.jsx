@@ -13,11 +13,8 @@ function shuffle(arr) {
 
 /* ---------- single card ---------- */
 function TombstoneCard({ entry, phase }) {
-  const initials = entry.founder
-    .split(' ')
-    .map((n) => n[0])
-    .filter(Boolean)
-    .join('')
+  const parts = entry.founder.split(' ').filter(Boolean)
+  const initials = parts.length <= 2 ? parts.map((n) => n[0]).join('') : (parts[0][0] + parts[parts.length - 1][0])
 
   return (
     <div className={`tombstone-card tombstone-card--${phase}`}>

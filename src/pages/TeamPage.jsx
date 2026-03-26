@@ -4,7 +4,8 @@ import teamData, { teamCategories } from '../data/team'
 import Footer from '../components/Footer'
 
 function TeamCard({ member }) {
-  const initials = member.name.split(' ').map((n) => n[0]).join('')
+  const parts = member.name.split(' ')
+  const initials = parts.length <= 2 ? parts.map((n) => n[0]).join('') : (parts[0][0] + parts[parts.length - 1][0])
   return (
     <Link to={`/team/${member.slug}`} className="tp-card">
       <div className="tp-card-image">
