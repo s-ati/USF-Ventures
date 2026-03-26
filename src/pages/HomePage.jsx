@@ -28,13 +28,13 @@ export default function HomePage() {
       <Hero />
       <DualMandate />
       <About />
-      <InvestmentThesis />
       <Suspense fallback={<SectionLoader />}>
         <WorldMap />
       </Suspense>
       <Suspense fallback={<SectionLoader />}>
         <TombstoneDisplay />
       </Suspense>
+      <InvestmentThesis />
       <Team />
       <Partners />
       <Founders />

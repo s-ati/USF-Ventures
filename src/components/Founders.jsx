@@ -80,7 +80,8 @@ const founders = [
 ]
 
 function FounderBlock({ name, company, photo, description }) {
-  const initials = name.split(' ').map((n) => n[0]).join('')
+  const parts = name.split(' ')
+  const initials = parts.length <= 2 ? parts.map((n) => n[0]).join('') : (parts[0][0] + parts[parts.length - 1][0])
   return (
     <div className="ss-founder-block">
       <div className="ss-founder-avatar">

@@ -30,30 +30,33 @@ export default function Navbar() {
 
   return (
     <nav className={`navbar ${forceScrolled ? 'scrolled' : ''}`}>
-      <Link to="/" className="navbar-logo" onClick={() => setMenuOpen(false)}>
+      <Link to="/" className="navbar-logo" onClick={(e) => {
+        setMenuOpen(false)
+        if (isHome) {
+          e.preventDefault()
+          window.scrollTo({ top: 0, behavior: 'smooth' })
+        }
+      }}>
         USF Ventures
       </Link>
       <div className={`navbar-links ${menuOpen ? 'open' : ''}`}>
         {isHome ? (
           <>
             <a href="#about" onClick={(e) => handleAnchorClick(e, '#about')}>About</a>
+            <a href="#ecosystem" onClick={(e) => handleAnchorClick(e, '#ecosystem')}>Ecosystem</a>
             <a href="#thesis" onClick={(e) => handleAnchorClick(e, '#thesis')}>Thesis</a>
-          </>
-        ) : (
-          <>
-            <Link to="/#about" onClick={() => setMenuOpen(false)}>About</Link>
-            <Link to="/#thesis" onClick={() => setMenuOpen(false)}>Thesis</Link>
-          </>
-        )}
-        <Link to="/team" onClick={() => setMenuOpen(false)}>Team</Link>
-        <Link to="/partners" onClick={() => setMenuOpen(false)}>Partners</Link>
-        {isHome ? (
-          <>
+            <a href="#team" onClick={(e) => handleAnchorClick(e, '#team')}>Team</a>
+            <a href="#partners" onClick={(e) => handleAnchorClick(e, '#partners')}>Partners</a>
             <a href="#founders" onClick={(e) => handleAnchorClick(e, '#founders')}>Founders</a>
             <a href="#contact" onClick={(e) => handleAnchorClick(e, '#contact')}>Contact</a>
           </>
         ) : (
           <>
+            <Link to="/#about" onClick={() => setMenuOpen(false)}>About</Link>
+            <Link to="/#ecosystem" onClick={() => setMenuOpen(false)}>Ecosystem</Link>
+            <Link to="/#thesis" onClick={() => setMenuOpen(false)}>Thesis</Link>
+            <Link to="/#team" onClick={() => setMenuOpen(false)}>Team</Link>
+            <Link to="/#partners" onClick={() => setMenuOpen(false)}>Partners</Link>
             <Link to="/#founders" onClick={() => setMenuOpen(false)}>Founders</Link>
             <Link to="/#contact" onClick={() => setMenuOpen(false)}>Contact</Link>
           </>

@@ -13,11 +13,8 @@ function shuffle(arr) {
 
 /* ---------- single card ---------- */
 function TombstoneCard({ entry, phase }) {
-  const initials = entry.founder
-    .split(' ')
-    .map((n) => n[0])
-    .filter(Boolean)
-    .join('')
+  const parts = entry.founder.split(' ').filter(Boolean)
+  const initials = parts.length <= 2 ? parts.map((n) => n[0]).join('') : (parts[0][0] + parts[parts.length - 1][0])
 
   return (
     <div className={`tombstone-card tombstone-card--${phase}`}>
@@ -102,14 +99,23 @@ export default function TombstoneDisplay() {
     sectionOrder.map((s) => shuffle([...tombstoneData[s].entries]))
   )
 
-  /* Get next N entries from a section queue (reshuffles when exhausted) */
+  /* Get next N entries from a section queue (reshuffles when exhausted).
+     Ensures no duplicate founders in the same batch. */
   const getEntries = useCallback((sIdx, count) => {
     const result = []
-    for (let i = 0; i < count; i++) {
+    const usedFounders = new Set()
+    let attempts = 0
+    const maxAttempts = count * 3
+
+    while (result.length < count && attempts < maxAttempts) {
       if (queuesRef.current[sIdx].length === 0) {
         queuesRef.current[sIdx] = shuffle([...tombstoneData[sectionOrder[sIdx]].entries])
       }
-      result.push(queuesRef.current[sIdx].pop())
+      const entry = queuesRef.current[sIdx].pop()
+      attempts++
+      if (usedFounders.has(entry.founder)) continue
+      usedFounders.add(entry.founder)
+      result.push(entry)
     }
     return result
   }, [])
@@ -255,11 +261,10 @@ export default function TombstoneDisplay() {
   return (
     <section className="tombstone-section">
       <div className="container">
-        <p className="section-label">Portfolio</p>
-        <h2 className="section-heading">USF Ventures Ecosystem</h2>
+        <p className="section-label">Ecosystem</p>
+        <h2 className="section-heading">USF Entrepreneurship Ecosystem</h2>
         <p className="section-subheading">
-          Explore the founders, partners, and professionals that make up the USF
-          Ventures network.
+          Discover the founders, investors, and venture professionals driving the USF entrepreneurial network.
         </p>
       </div>
 
