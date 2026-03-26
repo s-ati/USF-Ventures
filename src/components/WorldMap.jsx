@@ -181,7 +181,7 @@ export default function WorldMap() {
   const totalCountries = globalReachData.length
 
   return (
-    <section className="world-map-section">
+    <section id="ecosystem" className="world-map-section">
       <div className="container">
         <p className="section-label">Global Reach</p>
         <h2 className="section-heading">USF Founders Across the World</h2>
