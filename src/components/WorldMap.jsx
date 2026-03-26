@@ -3,6 +3,7 @@ import Globe from 'react-globe.gl'
 import { feature } from 'topojson-client'
 import * as THREE from 'three'
 import globalReachData from '../data/globalReach'
+import companiesRaw from '../../public/data/companies.json'
 
 const BG_COLOR = '#f0f0ee'
 
@@ -180,6 +181,13 @@ export default function WorldMap() {
 
   const totalCountries = globalReachData.length
 
+  const totalCapital = useMemo(() => {
+    const total = companiesRaw.reduce((sum, c) => sum + (c.totalFunding || 0), 0)
+    if (total >= 1_000_000_000) return `$${(total / 1_000_000_000).toFixed(2)}B`
+    if (total >= 1_000_000) return `$${(total / 1_000_000).toFixed(1)}M`
+    return `$${total.toLocaleString()}`
+  }, [])
+
   return (
     <section id="ecosystem" className="world-map-section">
       <div className="container">
@@ -252,7 +260,7 @@ export default function WorldMap() {
               <span className="world-map-stat-label">Continents</span>
             </div>
             <div className="world-map-stat-item">
-              <span className="world-map-stat-value">$3.97B</span>
+              <span className="world-map-stat-value">{totalCapital}</span>
               <span className="world-map-stat-label">
                 Total Capital Invested
               </span>
