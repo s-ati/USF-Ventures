@@ -245,7 +245,7 @@ export default function WorldMap() {
             </div>
             <div className="world-map-stat-item">
               <span className="world-map-stat-value">{totalCompanies}+</span>
-              <span className="world-map-stat-label">Portfolio Companies</span>
+              <span className="world-map-stat-label">Alumni Ventures</span>
             </div>
             <div className="world-map-stat-item">
               <span className="world-map-stat-value">6</span>
