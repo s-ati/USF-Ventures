@@ -2,7 +2,7 @@
  * Tombstone display data for USF Ventures looping display.
  * Sections cycle sequentially: USF Founders Now → USF Founders (Historic) → USF Venture Professionals
  *
- * Reads from public/data/companies.json (177 companies).
+ * Reads from public/data/companies.json (178 companies).
  * "USF Founders Now" = foundedDate >= 2023-01-01
  * "USF Founders - (Historic)" = all companies
  * "USF Venture Professionals" = venture operators

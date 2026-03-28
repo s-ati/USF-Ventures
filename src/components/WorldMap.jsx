@@ -3,6 +3,7 @@ import Globe from 'react-globe.gl'
 import { feature } from 'topojson-client'
 import * as THREE from 'three'
 import globalReachData from '../data/globalReach'
+import companiesRaw from '../../public/data/companies.json'
 
 const BG_COLOR = '#f0f0ee'
 
@@ -180,6 +181,17 @@ export default function WorldMap() {
 
   const totalCountries = globalReachData.length
 
+  const totalCapital = useMemo(() => {
+    const BASELINE = 3_979_000_000 // verified total as of original 178 companies
+    const ORIGINAL_COUNT = 178
+    const newCompanies = companiesRaw.slice(0, companiesRaw.length - ORIGINAL_COUNT)
+    const newFunding = newCompanies.reduce((sum, c) => sum + (c.totalFunding || 0), 0)
+    const total = BASELINE + newFunding
+    if (total >= 1_000_000_000) return `$${(total / 1_000_000_000).toFixed(2)}B`
+    if (total >= 1_000_000) return `$${(total / 1_000_000).toFixed(1)}M`
+    return `$${total.toLocaleString()}`
+  }, [])
+
   return (
     <section id="ecosystem" className="world-map-section">
       <div className="container">
@@ -187,7 +199,7 @@ export default function WorldMap() {
         <h2 className="section-heading">USF Founders Across the World</h2>
         <p className="section-subheading">
           USF has a truly global footprint, with alumni companies spanning{' '}
-          {totalCountries} countries worldwide. With more than 137 companies in
+          {totalCountries} countries worldwide. With more than 138 companies in
           the United States and around {internationalCompanies} companies
           internationally, USF founders represent a diverse range of industries
           across North America, Europe, Asia, and beyond.
@@ -252,7 +264,7 @@ export default function WorldMap() {
               <span className="world-map-stat-label">Continents</span>
             </div>
             <div className="world-map-stat-item">
-              <span className="world-map-stat-value">$3.97B</span>
+              <span className="world-map-stat-value">{totalCapital}</span>
               <span className="world-map-stat-label">
                 Total Capital Invested
               </span>
