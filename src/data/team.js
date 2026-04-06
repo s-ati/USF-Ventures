@@ -13,7 +13,7 @@ const teamData = {
       slug: 'dave',
       role: 'General Partner',
       image: '/team/dave.jpeg',
-      linkedin: '#',
+      linkedin: 'https://www.linkedin.com/in/thedavee/',
       bio: `David Epstein is Executive Director of Ethics at the Susilo Institute for Ethics at Boston University and has served as Adjunct Professor at both USF School of Management and Hult International Business School. He was a General Partner at Crosslink Capital and has held multiple roles as founder, CEO, and board member across venture-backed companies. His career spans venture investing, executive leadership, and governance across technology.`,
     },
     {
