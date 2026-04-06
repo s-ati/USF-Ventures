@@ -8,15 +8,16 @@ import Partners from '../components/Partners'
 import Founders from '../components/Founders'
 import Contact from '../components/Contact'
 import Footer from '../components/Footer'
+import SectionErrorBoundary from '../components/SectionErrorBoundary'
 
 const WorldMap = lazy(() => import('../components/WorldMap'))
 const TombstoneDisplay = lazy(() => import('../components/TombstoneDisplay'))
 
-function SectionLoader() {
+function SectionLoader({ message = 'Loading...' }) {
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '400px' }}>
       <div style={{ color: 'var(--color-muted)', fontFamily: 'var(--font-body)', fontSize: '0.875rem' }}>
-        Loading...
+        {message}
       </div>
     </div>
   )
@@ -29,7 +30,9 @@ export default function HomePage() {
       <DualMandate />
       <About />
       <Suspense fallback={<SectionLoader />}>
-        <WorldMap />
+        <SectionErrorBoundary fallback={<SectionLoader message="Global reach section unavailable right now." />}>
+          <WorldMap />
+        </SectionErrorBoundary>
       </Suspense>
       <Suspense fallback={<SectionLoader />}>
         <TombstoneDisplay />

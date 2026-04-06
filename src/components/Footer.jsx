@@ -4,7 +4,12 @@ export default function Footer() {
       <div className="container">
         <div className="footer-inner">
           <div className="footer-left">
-            &copy; {new Date().getFullYear()} USF Ventures. University of San Francisco.
+            <span className="footer-signoff">
+              &copy; {new Date().getFullYear()} USF Ventures.
+            </span>
+            <span className="footer-institution">
+              University of San Francisco.
+            </span>
           </div>
           <div className="footer-right">
             <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">

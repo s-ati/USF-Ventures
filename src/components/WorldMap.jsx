@@ -1,11 +1,13 @@
 import { useRef, useState, useEffect, useCallback, useMemo } from 'react'
 import Globe from 'react-globe.gl'
+import { geoNaturalEarth1, geoPath } from 'd3-geo'
 import { feature } from 'topojson-client'
 import * as THREE from 'three'
 import globalReachData from '../data/globalReach'
 import companiesRaw from '../../public/data/companies.json'
 
 const BG_COLOR = '#f0f0ee'
+const COUNTRY_DATA_URL = 'https://unpkg.com/world-atlas@2.0.2/countries-50m.json'
 
 // Globe material — matches the non-highlighted polygon colour so any
 // z-fighting between the sphere surface and polygon edges is invisible.
@@ -54,6 +56,31 @@ function buildCountryLookup() {
 const countryLookup = buildCountryLookup()
 const maxCompanies = Math.max(...globalReachData.map((d) => d.companies))
 
+function prefersReducedMotionEnabled() {
+  if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
+    return false
+  }
+
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+}
+
+function detectWebGLSupport() {
+  if (
+    typeof window === 'undefined' ||
+    typeof document === 'undefined' ||
+    typeof window.WebGLRenderingContext === 'undefined'
+  ) {
+    return false
+  }
+
+  try {
+    const canvas = document.createElement('canvas')
+    return Boolean(canvas.getContext('webgl') || canvas.getContext('experimental-webgl'))
+  } catch {
+    return false
+  }
+}
+
 // Green heatmap: lighter for fewer, darker for more
 function getCountryColor(companies) {
   if (!companies) return 'rgba(235, 235, 232, 0.7)' // very light grey for non-highlighted
@@ -70,17 +97,25 @@ export default function WorldMap() {
   const containerRef = useRef()
   const [dimensions, setDimensions] = useState({ width: 800, height: 600 })
   const [countries, setCountries] = useState([])
-  const [hoverD, setHoverD] = useState(null)
   const [tooltip, setTooltip] = useState(null)
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(() => prefersReducedMotionEnabled())
+  const [hasWebGL] = useState(() => detectWebGLSupport())
+  const [countryDataStatus, setCountryDataStatus] = useState('loading')
 
   // Check reduced motion preference
   useEffect(() => {
+    if (typeof window.matchMedia !== 'function') return undefined
+
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
-    setPrefersReducedMotion(mq.matches)
     const handler = (e) => setPrefersReducedMotion(e.matches)
-    mq.addEventListener('change', handler)
-    return () => mq.removeEventListener('change', handler)
+
+    if (typeof mq.addEventListener === 'function') {
+      mq.addEventListener('change', handler)
+      return () => mq.removeEventListener('change', handler)
+    }
+
+    mq.addListener(handler)
+    return () => mq.removeListener(handler)
   }, [])
 
   // Responsive sizing
@@ -100,13 +135,26 @@ export default function WorldMap() {
 
   // Load GeoJSON for country polygons
   useEffect(() => {
-    fetch('https://unpkg.com/world-atlas@2.0.2/countries-50m.json')
+    let cancelled = false
+
+    fetch(COUNTRY_DATA_URL)
       .then((r) => r.json())
       .then((data) => {
+        if (cancelled) return
         const features = feature(data, data.objects.countries).features
         setCountries(features)
+        setCountryDataStatus('ready')
       })
-  }, [])
+      .catch(() => {
+        if (cancelled) return
+        setCountries([])
+        setCountryDataStatus('error')
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [hasWebGL])
 
   // Auto-rotate
   useEffect(() => {
@@ -138,7 +186,6 @@ export default function WorldMap() {
   const polygonAltitude = useCallback(() => 0.006, [])
 
   const handlePolygonHover = useCallback((feat) => {
-    setHoverD(feat)
     if (feat) {
       const id = feat.id || feat.properties?.id
       const companies = countryLookup[id] || 0
@@ -192,6 +239,62 @@ export default function WorldMap() {
     return `$${total.toLocaleString()}`
   }, [])
 
+  const leadingMarkets = useMemo(
+    () => [...globalReachData].sort((a, b) => b.companies - a.companies).slice(0, 6),
+    []
+  )
+
+  const mapWidth = 1200
+  const mapHeight = 620
+
+  const fallbackProjection = useMemo(
+    () => geoNaturalEarth1().fitExtent([[32, 32], [mapWidth - 32, mapHeight - 32]], { type: 'Sphere' }),
+    [mapHeight, mapWidth]
+  )
+
+  const fallbackPath = useMemo(() => geoPath(fallbackProjection), [fallbackProjection])
+
+  const fallbackSpherePath = useMemo(
+    () => fallbackPath({ type: 'Sphere' }),
+    [fallbackPath]
+  )
+
+  const fallbackCountryPaths = useMemo(
+    () =>
+      countries.map((feat) => {
+        const id = feat.id || feat.properties?.id
+        return {
+          id,
+          d: fallbackPath(feat),
+          fill: getCountryColor(countryLookup[id] || 0),
+        }
+      }),
+    [countries, fallbackPath]
+  )
+
+  const fallbackPoints = useMemo(
+    () =>
+      globalReachData
+        .map((entry) => {
+          const coords = fallbackProjection([entry.lng, entry.lat])
+          if (!coords) return null
+
+          return {
+            country: entry.country,
+            companies: entry.companies,
+            x: coords[0],
+            y: coords[1],
+            radius: Math.min(18, 4 + Math.sqrt(entry.companies) * 1.15),
+          }
+        })
+        .filter(Boolean),
+    [fallbackProjection]
+  )
+
+  const showGlobe = hasWebGL && countryDataStatus !== 'error'
+  const showFallback = !showGlobe
+  const showCountryFetchNote = countryDataStatus === 'error'
+
   return (
     <section id="ecosystem" className="world-map-section">
       <div className="container">
@@ -206,45 +309,111 @@ export default function WorldMap() {
         </p>
       </div>
 
-      <div className="world-map-container" ref={containerRef}>
-        <Globe
-          ref={globeRef}
-          width={dimensions.width}
-          height={dimensions.height}
-          backgroundColor={BG_COLOR}
-          showGlobe={true}
-          globeMaterial={GLOBE_MATERIAL}
-          showAtmosphere={true}
-          atmosphereColor="rgba(46, 168, 122, 0.15)"
-          atmosphereAltitude={0.15}
-          polygonsData={countries}
-          polygonCapColor={polygonColor}
-          polygonSideColor={polygonSideColor}
-          polygonStrokeColor={polygonStroke}
-          polygonAltitude={polygonAltitude}
-          polygonLabel={null}
-          onPolygonHover={handlePolygonHover}
-          showGraticules={false}
-          animateIn={!prefersReducedMotion}
-        />
+      <div
+        className={`world-map-container${showFallback ? ' world-map-container--fallback' : ''}`}
+        ref={containerRef}
+      >
+        {showGlobe ? (
+          <>
+            <Globe
+              ref={globeRef}
+              width={dimensions.width}
+              height={dimensions.height}
+              backgroundColor={BG_COLOR}
+              showGlobe={true}
+              globeMaterial={GLOBE_MATERIAL}
+              showAtmosphere={true}
+              atmosphereColor="#2ea87a"
+              atmosphereAltitude={0.15}
+              polygonsData={countries}
+              polygonCapColor={polygonColor}
+              polygonSideColor={polygonSideColor}
+              polygonStrokeColor={polygonStroke}
+              polygonAltitude={polygonAltitude}
+              polygonLabel={null}
+              onPolygonHover={handlePolygonHover}
+              showGraticules={false}
+              animateIn={!prefersReducedMotion}
+            />
 
-        {/* Hover tooltip */}
-        {tooltip && (
-          <div className="world-map-tooltip">
-            <strong>{tooltip.name}</strong>
-            <span>
-              {tooltip.companies}{' '}
-              {tooltip.companies === 1 ? 'company' : 'companies'}
-            </span>
+            {tooltip && (
+              <div className="world-map-tooltip">
+                <strong>{tooltip.name}</strong>
+                <span>
+                  {tooltip.companies}{' '}
+                  {tooltip.companies === 1 ? 'company' : 'companies'}
+                </span>
+              </div>
+            )}
+
+            <div className="world-map-legend">
+              <span className="world-map-legend-label">Fewer</span>
+              <div className="world-map-legend-bar" />
+              <span className="world-map-legend-label">More</span>
+            </div>
+          </>
+        ) : (
+          <div className="world-map-fallback" role="img" aria-label="World map showing countries and USF founder company locations">
+            <div className="world-map-fallback-canvas">
+              <svg
+                className="world-map-fallback-svg"
+                viewBox={`0 0 ${mapWidth} ${mapHeight}`}
+                preserveAspectRatio="xMidYMid meet"
+              >
+                <path className="world-map-fallback-sphere" d={fallbackSpherePath} />
+                {fallbackCountryPaths.map((country) => (
+                  <path
+                    key={country.id}
+                    className="world-map-fallback-country"
+                    d={country.d}
+                    fill={country.fill}
+                  />
+                ))}
+                {fallbackPoints.map((point) => (
+                  <circle
+                    key={point.country}
+                    className="world-map-fallback-point"
+                    cx={point.x}
+                    cy={point.y}
+                    r={point.radius}
+                  />
+                ))}
+              </svg>
+
+              <div className="world-map-legend world-map-legend--fallback">
+                <span className="world-map-legend-label">Fewer</span>
+                <div className="world-map-legend-bar" />
+                <span className="world-map-legend-label">More</span>
+              </div>
+            </div>
+
+            <div className="world-map-fallback-sidebar">
+              <div className="world-map-fallback-copy">
+                <p className="world-map-fallback-kicker">SVG map mode</p>
+                <h3 className="world-map-fallback-title">Global footprint across {totalCountries} countries</h3>
+                <p className="world-map-fallback-text">
+                  This browser blocks WebGL, so the section switches to a 2D SVG world map instead of the 3D globe.
+                </p>
+                {showCountryFetchNote && (
+                  <p className="world-map-fallback-note">
+                    Country outlines could not be loaded, so the highlighted company markers are shown on a simplified world surface.
+                  </p>
+                )}
+              </div>
+
+              <div className="world-map-fallback-markets">
+                {leadingMarkets.map((entry) => (
+                  <article className="world-map-market-card" key={entry.country}>
+                    <span className="world-map-market-name">{entry.country}</span>
+                    <span className="world-map-market-count">
+                      {entry.companies} {entry.companies === 1 ? 'company' : 'companies'}
+                    </span>
+                  </article>
+                ))}
+              </div>
+            </div>
           </div>
         )}
-
-        {/* Heatmap legend */}
-        <div className="world-map-legend">
-          <span className="world-map-legend-label">Fewer</span>
-          <div className="world-map-legend-bar" />
-          <span className="world-map-legend-label">More</span>
-        </div>
       </div>
 
       {/* Key Stats */}
