@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useLayoutEffect, useRef } from 'react'
 
 export default function Hero() {
   const wrapperRef = useRef(null)
@@ -10,7 +10,7 @@ export default function Hero() {
   const contentRef = useRef(null)
   const scrollIndicatorRef = useRef(null)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     let ticking = false
     let wrapperTop = 0
     let scrollableDistance = 1

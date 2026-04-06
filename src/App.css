@@ -177,7 +177,7 @@
 .hero-bg-image {
   position: absolute;
   inset: -20px;
-  background-image: url('/usf-church.jpeg');
+  background-image: url('/usf-church-hero.jpg');
   background-size: cover;
   background-position: center 35%;
   background-repeat: no-repeat;
@@ -189,7 +189,7 @@
 .hero-bg-image-soft {
   position: absolute;
   inset: -20px;
-  background-image: url('/usf-church.jpeg');
+  background-image: url('/usf-church-hero.jpg');
   background-size: cover;
   background-position: center 35%;
   background-repeat: no-repeat;
@@ -342,7 +342,7 @@
   padding: 5.5rem 4.5rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .mandate-panel--left {
@@ -380,11 +380,24 @@
   max-width: 460px;
 }
 
+.mandate-inline-link {
+  color: var(--color-accent);
+  transition: border-color 0.2s ease, color 0.2s ease;
+  border-bottom: 1px solid rgba(var(--color-accent-rgb), 0.28);
+  padding-bottom: 1px;
+}
+
+.mandate-inline-link:hover {
+  color: var(--color-accent-strong);
+  border-bottom-color: rgba(var(--color-accent-rgb), 0.7);
+}
+
 .mandate-divider {
   width: 56px;
   height: 3px;
   background-color: var(--color-highlight);
   margin-bottom: 2.2rem;
+  flex-shrink: 0;
 }
 
 /* ============================================
@@ -1070,6 +1083,10 @@
   line-height: 1.6;
 }
 
+.contact-detail-note {
+  color: var(--color-text-secondary);
+}
+
 .contact-detail-value a {
   color: var(--color-text);
   border-bottom: 1px solid var(--color-border);
@@ -1418,12 +1435,7 @@
 .tp-banner-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(0, 84, 60, 0.9) 0%,
-    rgba(0, 84, 60, 0.78) 45%,
-    rgba(0, 84, 60, 0.68) 100%
-  );
+  background: var(--color-accent);
 }
 
 .tp-banner-content {
@@ -1587,7 +1599,11 @@
 .tp-card-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0, 84, 60, 0.6), rgba(0, 84, 60, 0.04));
+  background: linear-gradient(
+    to top,
+    rgba(var(--color-accent-strong-rgb), 0.68),
+    rgba(var(--color-accent-rgb), 0.08)
+  );
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;

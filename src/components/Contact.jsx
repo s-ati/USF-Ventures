@@ -14,7 +14,9 @@ export default function Contact() {
             <div>
               <p className="contact-detail-label">Email</p>
               <p className="contact-detail-value">
-                <a href="mailto:ventures@usfca.edu">ventures@usfca.edu</a>
+                <span className="contact-detail-note">
+                  A dedicated contact address will be available soon.
+                </span>
               </p>
             </div>
             <div>

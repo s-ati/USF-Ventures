@@ -9,7 +9,9 @@
   --color-text-secondary: #44524c;
   --color-muted: #919194;
   --color-accent: #00543c;
+  --color-accent-rgb: 0, 84, 60;
   --color-accent-strong: #003f2d;
+  --color-accent-strong-rgb: 0, 63, 45;
   --color-accent-light: #e1ece7;
   --color-highlight: #fdbb30;
   --color-border: rgba(0, 84, 60, 0.16);
