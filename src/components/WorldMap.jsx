@@ -346,10 +346,15 @@ export default function WorldMap() {
               </div>
             )}
 
-            <div className="world-map-legend">
-              <span className="world-map-legend-label">Fewer</span>
-              <div className="world-map-legend-bar" />
-              <span className="world-map-legend-label">More</span>
+            <div className="world-map-legend-stack">
+              <div className="world-map-legend-hint">
+                Drag to rotate • Hover for details
+              </div>
+              <div className="world-map-legend">
+                <span className="world-map-legend-label">Fewer</span>
+                <div className="world-map-legend-bar" />
+                <span className="world-map-legend-label">More</span>
+              </div>
             </div>
           </>
         ) : (
@@ -380,10 +385,15 @@ export default function WorldMap() {
                 ))}
               </svg>
 
-              <div className="world-map-legend world-map-legend--fallback">
-                <span className="world-map-legend-label">Fewer</span>
-                <div className="world-map-legend-bar" />
-                <span className="world-map-legend-label">More</span>
+              <div className="world-map-legend-stack world-map-legend-stack--fallback">
+                <div className="world-map-legend-hint">
+                  Drag to rotate • Hover for details
+                </div>
+                <div className="world-map-legend">
+                  <span className="world-map-legend-label">Fewer</span>
+                  <div className="world-map-legend-bar" />
+                  <span className="world-map-legend-label">More</span>
+                </div>
               </div>
             </div>
 
