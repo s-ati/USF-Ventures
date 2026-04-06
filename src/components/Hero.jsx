@@ -1,67 +1,68 @@
-import { useEffect, useRef } from 'react'
+import { useLayoutEffect, useRef } from 'react'
 
 export default function Hero() {
   const wrapperRef = useRef(null)
-  const heroRef = useRef(null)
   const imageRef = useRef(null)
+  const imageSoftRef = useRef(null)
   const overlayRef = useRef(null)
   const vignetteRef = useRef(null)
   const grainRef = useRef(null)
   const contentRef = useRef(null)
   const scrollIndicatorRef = useRef(null)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     let ticking = false
+    let wrapperTop = 0
+    let scrollableDistance = 1
+    let lastScrollY = 0
+    let lastProgress = -1
+
+    const measure = () => {
+      const wrapper = wrapperRef.current
+      if (!wrapper) return
+
+      wrapperTop = wrapper.offsetTop
+      scrollableDistance = Math.max(wrapper.offsetHeight - window.innerHeight, 1)
+    }
 
     const update = () => {
-      const wrapper = wrapperRef.current
       const image = imageRef.current
+      const imageSoft = imageSoftRef.current
       const overlay = overlayRef.current
       const vignette = vignetteRef.current
       const grain = grainRef.current
       const content = contentRef.current
       const scrollIndicator = scrollIndicatorRef.current
 
-      if (!wrapper || !image) return
+      if (!image || !imageSoft || !overlay || !vignette || !grain || !content || !scrollIndicator) {
+        ticking = false
+        return
+      }
 
-      const wrapperTop = wrapper.offsetTop
-      const scrollableDistance = wrapper.offsetHeight - window.innerHeight
-      const scrollY = window.scrollY
-
-      // progress: 0 at top of wrapper, 1 when hero unpins
-      const raw = (scrollY - wrapperTop) / scrollableDistance
+      const raw = (lastScrollY - wrapperTop) / scrollableDistance
       const progress = Math.max(0, Math.min(raw, 1))
 
-      // --- Image reveal ---
-      // Blur: 1.5px → 0
-      const blur = 1.5 * (1 - progress)
-      // Brightness: 0.55 → 1.0
-      const brightness = 0.55 + progress * 0.45
-      // Saturation: 0.7 → 1.0
-      const saturation = 0.7 + progress * 0.3
-      // Contrast stays at 1.15, fades to 1.0
-      const contrast = 1.15 - progress * 0.15
+      if (Math.abs(progress - lastProgress) < 0.002) {
+        ticking = false
+        return
+      }
 
-      image.style.filter = `brightness(${brightness}) saturate(${saturation}) contrast(${contrast}) blur(${blur}px)`
-      // Gentle scale increase during reveal
-      image.style.transform = `scale(${1.08 + progress * 0.06})`
+      lastProgress = progress
+      const veilProgress = Math.min(progress / 0.72, 1)
+      const imageScale = 1.01 + progress * 0.03
 
-      // --- Overlay: fade to 0 ---
-      overlay.style.opacity = 1 - progress
+      image.style.transform = `translate3d(0, 0, 0) scale(${imageScale})`
+      imageSoft.style.transform = `translate3d(0, 0, 0) scale(${imageScale})`
+      imageSoft.style.opacity = `${0.98 * (1 - veilProgress)}`
+      overlay.style.opacity = `${1 - veilProgress}`
+      vignette.style.opacity = `${0.95 * (1 - Math.min(progress / 0.82, 1))}`
+      grain.style.opacity = `${0.02 * (1 - Math.min(progress / 0.65, 1))}`
 
-      // --- Vignette: fade to 0 ---
-      vignette.style.opacity = 1 - progress
-
-      // --- Grain: fade to 0 ---
-      grain.style.opacity = 0.045 * (1 - progress)
-
-      // --- Text: fade out in first 35% of scroll ---
       const textProgress = Math.min(progress / 0.35, 1)
       const textOpacity = 1 - textProgress
       content.style.opacity = textOpacity
-      content.style.transform = `translateY(${-textProgress * 30}px)`
+      content.style.transform = `translate3d(0, ${-textProgress * 24}px, 0)`
 
-      // --- Scroll indicator: fade out in first 20% ---
       const indicatorProgress = Math.min(progress / 0.2, 1)
       scrollIndicator.style.opacity = 0.5 * (1 - indicatorProgress)
 
@@ -69,32 +70,36 @@ export default function Hero() {
     }
 
     const handleScroll = () => {
+      lastScrollY = window.scrollY
       if (!ticking) {
         requestAnimationFrame(update)
         ticking = true
       }
     }
 
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    // Run once on mount to set initial state
-    update()
+    const handleResize = () => {
+      measure()
+      handleScroll()
+    }
 
-    return () => window.removeEventListener('scroll', handleScroll)
+    measure()
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('resize', handleResize)
+    handleScroll()
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', handleResize)
+    }
   }, [])
 
   return (
     <div className="hero-scroll-wrapper" ref={wrapperRef}>
-      <section className="hero" ref={heroRef}>
-        {/* Background image */}
+      <section className="hero">
         <div className="hero-bg-image" ref={imageRef}></div>
-
-        {/* Dark gradient overlay */}
+        <div className="hero-bg-image-soft" ref={imageSoftRef}></div>
         <div className="hero-overlay" ref={overlayRef}></div>
-
-        {/* Vignette overlay */}
         <div className="hero-vignette" ref={vignetteRef}></div>
-
-        {/* Subtle grain/noise texture */}
         <div className="hero-grain" ref={grainRef}></div>
 
         <div className="hero-content" ref={contentRef}>

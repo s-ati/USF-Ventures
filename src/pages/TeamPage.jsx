@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import teamData, { teamCategories } from '../data/team'
 import Footer from '../components/Footer'
@@ -32,22 +32,31 @@ export default function TeamPage() {
   const tabBarRef = useRef(null)
   const [indicatorStyle, setIndicatorStyle] = useState({})
 
+  const updateIndicator = useCallback(() => {
+    if (!tabBarRef.current) return
+
+    const activeEl = tabBarRef.current.querySelector('.tp-tab.active')
+    if (!activeEl) return
+
+    const nextStyle = {
+      left: activeEl.offsetLeft,
+      width: activeEl.offsetWidth,
+    }
+
+    setIndicatorStyle((current) => {
+      if (current.left === nextStyle.left && current.width === nextStyle.width) {
+        return current
+      }
+
+      return nextStyle
+    })
+  }, [])
+
   useEffect(() => {
     updateIndicator()
     window.addEventListener('resize', updateIndicator)
     return () => window.removeEventListener('resize', updateIndicator)
-  }, [activeCategory])
-
-  function updateIndicator() {
-    if (!tabBarRef.current) return
-    const activeEl = tabBarRef.current.querySelector('.tp-tab.active')
-    if (activeEl) {
-      setIndicatorStyle({
-        left: activeEl.offsetLeft,
-        width: activeEl.offsetWidth,
-      })
-    }
-  }
+  }, [activeCategory, updateIndicator])
 
   function handleTabClick(key) {
     setActiveCategory(key)

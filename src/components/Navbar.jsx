@@ -9,7 +9,8 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
+      const nextScrolled = window.scrollY > 50
+      setScrolled((current) => (current === nextScrolled ? current : nextScrolled))
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
     handleScroll()
@@ -37,7 +38,14 @@ export default function Navbar() {
           window.scrollTo({ top: 0, behavior: 'smooth' })
         }
       }}>
-        USF Ventures
+        <span className="navbar-logo-lockup">
+          <span className="navbar-logo-usf">
+            <span className="navbar-logo-u">U</span>
+            <span className="navbar-logo-sf">SF</span>
+          </span>
+          <img src="/usf-mark.png" alt="USF logo" className="navbar-logo-image" />
+          <span className="navbar-logo-text">Ventures</span>
+        </span>
       </Link>
       <div className={`navbar-links ${menuOpen ? 'open' : ''}`}>
         {isHome ? (
@@ -62,11 +70,17 @@ export default function Navbar() {
           </>
         )}
       </div>
-      <div className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)}>
+      <button
+        type="button"
+        className="menu-toggle"
+        aria-expanded={menuOpen}
+        aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+        onClick={() => setMenuOpen(!menuOpen)}
+      >
         <span></span>
         <span></span>
         <span></span>
-      </div>
+      </button>
     </nav>
   )
 }

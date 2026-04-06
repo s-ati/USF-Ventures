@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback, useRef } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import tombstoneData, { sectionOrder } from '../data/tombstones'
 
 /* Shuffle helper (Fisher-Yates) */
@@ -73,11 +73,22 @@ function RainLine({ left, speed, delay, brightness, height }) {
   )
 }
 
+function createRainLines(count) {
+  return Array.from({ length: count }, (_, i) => ({
+    left: (i / count) * 100 + (Math.random() - 0.5) * 2,
+    speed: 4 + Math.random() * 7,
+    delay: Math.random() * 12,
+    brightness: 0.12 + Math.random() * 0.3,
+    height: 15 + Math.random() * 30,
+  }))
+}
+
 /* ---------- main component ---------- */
 const CARDS_PER_SECTION = 5
 const COLS = 5
 const ROWS = 3
 const TOTAL_SLOTS = COLS * ROWS
+const RAIN_LINES = createRainLines(35)
 
 /* Timing constants (ms) */
 const SPAWN_STAGGER = 500       // delay between each card spawn
@@ -92,7 +103,7 @@ export default function TombstoneDisplay() {
   const [headerPhase, setHeaderPhase] = useState('visible') // 'visible' | 'exiting' | 'entering'
   const idCounter = useRef(0)
   const timersRef = useRef([])
-  const sectionIdxRef = useRef(0)
+  const runSectionRef = useRef(null)
 
   /* Per-section shuffled queues — cycle through every entry before repeating */
   const queuesRef = useRef(
@@ -231,31 +242,26 @@ export default function TombstoneDisplay() {
     // Start next section
     const nextTimer = setTimeout(() => {
       const nextIdx = (sIdx + 1) % sectionOrder.length
-      sectionIdxRef.current = nextIdx
-      runSection(nextIdx)
+      runSectionRef.current?.(nextIdx)
     }, cleanupAt + SECTION_GAP)
     timersRef.current.push(nextTimer)
   }, [getEntries, pickSlots])
 
   useEffect(() => {
-    // Start the first section after a brief delay
-    const initTimer = setTimeout(() => runSection(0), 400)
-    timersRef.current.push(initTimer)
-
-    return () => {
-      timersRef.current.forEach(clearTimeout)
-    }
+    runSectionRef.current = runSection
   }, [runSection])
 
-  /* Rain lines */
-  const lines = useMemo(() => {
-    return Array.from({ length: 35 }, (_, i) => ({
-      left: (i / 35) * 100 + (Math.random() - 0.5) * 2,
-      speed: 4 + Math.random() * 7,
-      delay: Math.random() * 12,
-      brightness: 0.12 + Math.random() * 0.3,
-      height: 15 + Math.random() * 30,
-    }))
+  useEffect(() => {
+    const timers = timersRef.current
+
+    // Start the first section after a brief delay
+    const initTimer = setTimeout(() => runSectionRef.current?.(0), 400)
+    timers.push(initTimer)
+
+    return () => {
+      timers.forEach(clearTimeout)
+      timersRef.current = []
+    }
   }, [])
 
   return (
@@ -271,7 +277,7 @@ export default function TombstoneDisplay() {
       <div className="tombstone-rain">
         {/* Rain lines background */}
         <div className="matrix-rain-bg">
-          {lines.map((l, i) => (
+          {RAIN_LINES.map((l, i) => (
             <RainLine key={i} {...l} />
           ))}
         </div>

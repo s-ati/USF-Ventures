@@ -13,7 +13,7 @@ const teamData = {
       slug: 'dave',
       role: 'General Partner',
       image: '/team/dave.jpeg',
-      linkedin: '#',
+      linkedin: 'https://www.linkedin.com/in/thedavee/',
       bio: `David Epstein is Executive Director of Ethics at the Susilo Institute for Ethics at Boston University and has served as Adjunct Professor at both USF School of Management and Hult International Business School. He was a General Partner at Crosslink Capital and has held multiple roles as founder, CEO, and board member across venture-backed companies. His career spans venture investing, executive leadership, and governance across technology.`,
     },
     {
@@ -35,8 +35,8 @@ const teamData = {
     {
       name: 'Samuel Atiye',
       slug: 'samuel',
-      role: 'Senior Venture Associate',
-      image: '/team/samuel.jpeg',
+      role: 'Founding Venture Associate',
+      image: '/team/samuel.png',
       linkedin: 'https://www.linkedin.com/in/samuel-atiye/',
       bio: `Samuel is a venture and startup ecosystem professional focused on international market entry, venture capital, and early-stage company development. Originally from Germany, he competed in NCAA Division I soccer while earning degrees and certificates in Sociology and International Finance at the University of California, Irvine.\n\nHe later continued competing in Division I athletics at the University of San Francisco, where he is completing a Master of Science in Entrepreneurship and Innovation. Samuel has worked with a startup accelerator in Germany and currently supports German companies expanding into the U.S. market through the German American Chamber of Commerce, San Francisco, helping companies navigate U.S. market entry and connect with the Silicon Valley venture ecosystem.`,
     },
